@@ -8,7 +8,7 @@ import styles from './Layout.module.scss';
 
 const { Content } = Layout;
 
-export const LayoutPage: React.FC = () => {
+const LayoutPage: React.FC = () => {
   return (
     <Layout>
       {/* <Header /> */}
@@ -21,3 +21,5 @@ export const LayoutPage: React.FC = () => {
     </Layout>
   );
 };
+
+export default LayoutPage;

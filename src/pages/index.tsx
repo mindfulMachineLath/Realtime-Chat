@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from 'shared/hoc';
 import { ROUTES } from './config';
+// TODO: изменить импорты страниц
 import { Home } from './Home/Home';
 import { LayoutPage } from './Layout';
 import { Login } from './Login/Login';
