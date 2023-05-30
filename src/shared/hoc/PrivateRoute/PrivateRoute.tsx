@@ -7,7 +7,7 @@ interface IRequireAuth {
 
 const PrivateRoute = ({ children }: IRequireAuth) => {
   const location = useLocation();
-  const isAuth = true;
+  const isAuth = false;
 
   return !isAuth ? (
     <Navigate to={ROUTES.LOGIN} state={{ from: location }} />

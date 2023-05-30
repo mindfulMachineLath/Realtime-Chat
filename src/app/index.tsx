@@ -1,15 +1,22 @@
 import React from 'react';
 import { ConfigProvider } from 'antd';
 import { customTheme } from './antd.config';
-import App from '../App';
-import './index.scss';
+import Routing from 'pages';
 
-const Apps: React.FC = () => {
+import './index.scss';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+
+const appTitle = 'GraphiQL';
+
+const App: React.FC = () => {
   return (
-    <ConfigProvider theme={customTheme}>
-      <App />
-    </ConfigProvider>
+    <HelmetProvider>
+      <ConfigProvider theme={customTheme}>
+        <Helmet defaultTitle={appTitle} titleTemplate={`%s | ${appTitle}`} />
+        <Routing />
+      </ConfigProvider>
+    </HelmetProvider>
   );
 };
 
-export default Apps;
+export default App;

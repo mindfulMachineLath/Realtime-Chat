@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import reactLogo from '../../assets/react.svg';
 import viteLogo from '/icon.svg';
 import styles from './Home.module.scss';
 import { Button } from 'antd';
