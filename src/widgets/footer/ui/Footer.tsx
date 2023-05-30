@@ -11,7 +11,7 @@ const FooterComponent: React.FC = () => {
   } = theme.useToken();
 
   return (
-    <Footer style={{ background: colorPrimary }}>
+    <Footer style={{ background: colorPrimary, padding: '0' }}>
       <div className={styles['footer-container']}>
         <Space direction="vertical" align="center" size={0}>
           <Space size={5}>
