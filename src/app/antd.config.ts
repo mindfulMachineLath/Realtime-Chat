@@ -1,6 +1,5 @@
 import { ThemeConfig } from 'antd';
 
-// Test color config, here we can setup theme config for Ant Design
 export const customTheme: ThemeConfig = {
   token: {
     colorPrimaryBg: '#d3ebe5',
