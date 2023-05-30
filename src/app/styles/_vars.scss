@@ -1,13 +1,15 @@
 :root {
   // General colors
   --color-neutral: 219, 28%, 32%; // text color to configure other colors
-  --bg-primary: #ffffff; // background and request field
+  --bg-primary: #ffffffc0; // background and request field
   --bg-secondary: #f1f2f4; // response field
   --bg-ternary: 188, 100%, 36%;
   --bg-primary-dark: #281e5b; // dark-bg header/footer etc.
   --text-primary: hsla(var(--color-neutral), 1); // contrast text / active
   --text-secondary: #6f7a8f; // light text / regular
-  --text-ternary: rgba(255, 255, 255, 0.4); // light text for dark bg
+  --text-ternary: rgba(255, 255, 255, 0.648); // light text for dark bg
+  --text-default: #ffffffc0;
+  --text-theme-hover: #a0ded1;
   --border-primary: 1px solid hsla(var(--color-neutral), 0.1);
   --border-active: hsla(var(--color-neutral), 0.15);
 

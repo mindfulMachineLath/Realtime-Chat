@@ -11,35 +11,26 @@ const FooterComponent: React.FC = () => {
   } = theme.useToken();
 
   return (
-    <Footer style={{ background: colorPrimary, padding: '0' }}>
+    <Footer style={{ background: colorPrimary }}>
       <div className={styles['footer-container']}>
         <Space direction="vertical" align="center" size={0}>
           <Space size={5}>
-            <Text>graphiql Engineered by</Text>
-            <ul className={styles['footer-list']}>
-              <li key={'/'}>
-                <a href={'/'} target="_blank" rel="noreferrer">
-                  Alesia
-                </a>
-              </li>
-            </ul>
+            <Text>
+              <span>Made with</span> ❤ <span>by</span>
+            </Text>
+            <p>
+              <a
+                href="https://github.com/Alesia-Abaeva"
+                target="_blank"
+                rel="noreferrer"
+                className={styles['footer-logo__link']}
+              >
+                Alesia-Abaeva
+              </a>
+            </p>
           </Space>
           <Text>
-            <Space>
-              <div className={styles['footer-logo']}>
-                <a
-                  href="https://rs.school/react/"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={styles['footer-logo__link']}
-                >
-                  <span className={styles['sr-only']}>
-                    Explore the info about the RS School
-                  </span>
-                </a>
-              </div>
-              © 2023 graphiql. All rights reserved
-            </Space>
+            <Space>Chatty © 2023 All rights reserved</Space>
           </Text>
         </Space>
       </div>
