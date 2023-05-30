@@ -1,0 +1,23 @@
+import React, { Suspense } from 'react';
+import { Outlet } from 'react-router-dom';
+import { Layout } from 'antd';
+// import { Header } from 'widgets/header';
+import { Footer } from 'widgets/footer';
+
+import styles from './Layout.module.scss';
+
+const { Content } = Layout;
+
+export const LayoutPage: React.FC = () => {
+  return (
+    <Layout>
+      {/* <Header /> */}
+      <Content className={styles.main}>
+        <Suspense>
+          <Outlet />
+        </Suspense>
+      </Content>
+      <Footer />
+    </Layout>
+  );
+};

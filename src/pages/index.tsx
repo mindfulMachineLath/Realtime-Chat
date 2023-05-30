@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from 'shared/hoc';
 import { ROUTES } from './config';
 import { Home } from './Home/Home';
-import { LayoutPage } from './layout';
+import { LayoutPage } from './Layout';
 import { Login } from './Login/Login';
 import { Main } from './Main/Main';
 import { NotFound } from './NotFound/NotFound';
