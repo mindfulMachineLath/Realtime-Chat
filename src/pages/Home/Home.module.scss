@@ -1,7 +1,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  // padding: 2rem;
   text-align: center;
 }
 
@@ -29,6 +29,10 @@
   h1 {
     margin-bottom: 0.5rem;
     color: var(--white);
+
+    @media (max-width: 800px) {
+      font-size: 2rem;
+    }
   }
 }
 
@@ -41,6 +45,12 @@
   margin-bottom: 1rem;
   background: url('../../assets/icon.png') center no-repeat;
   background-size: 100%;
+
+  @media (max-width: 800px) {
+    width: 6.5rem;
+    height: 6.5rem;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .note {
@@ -49,6 +59,10 @@
   line-height: 1.35;
   margin-bottom: 2rem;
   color: var(--text-ternary);
+
+  @media (max-width: 800px) {
+    margin-bottom: 1rem;
+  }
 }
 
 .login_form {
