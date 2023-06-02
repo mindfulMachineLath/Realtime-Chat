@@ -5,10 +5,7 @@
   text-align: center;
 }
 
-// background: -webkit-linear-gradient(90deg, #a0ded1,#24cca7,#094e3f,#084437,#b9efe3);/* Chrome 10-25, Safari 5.1-6 */                          background: linear-gradient(90deg, #a0ded1,#24cca7,#094e3f,#084437,#b9efe3);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-// background: -webkit-linear-gradient(90deg, #10b9bc,#0daba1,#0b8e85,#0b748e,#600b8e);/* Chrome 10-25, Safari 5.1-6 */                          background: linear-gradient(90deg, #10b9bc,#0daba1,#0b8e85,#0b748e,#600b8e);/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-.main_box {
+.main_container {
   background: linear-gradient(
     -45deg,
     #10b9bc,
@@ -18,8 +15,44 @@
     #600b8e
   );
   background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+  animation: gradient 10s ease infinite;
   height: calc(100vh - var(--header) - var(--footer));
+}
+
+.main_wrapper {
+  width: 100%;
+  max-width: 25.5rem;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 0.5rem;
+    color: var(--white);
+  }
+}
+
+.home_logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 9.5rem;
+  height: 9.5rem;
+  margin-bottom: 1rem;
+  background: url('../../assets/icon.png') center no-repeat;
+  background-size: 100%;
+}
+
+.note {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.35;
+  margin-bottom: 2rem;
+  color: var(--text-ternary);
+}
+
+.login_form {
+  min-height: 26.25rem;
 }
 
 @keyframes gradient {
