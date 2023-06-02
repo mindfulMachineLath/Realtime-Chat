@@ -2,37 +2,54 @@ import { useState } from 'react';
 import reactLogo from '../../assets/react.svg';
 import viteLogo from '/icon.svg';
 import styles from './Home.module.scss';
-import { Button } from 'antd';
+import { Button, Input, Select, Form } from 'antd';
 
 export const Home: React.FC = () => {
   const [count, setCount] = useState(0);
 
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+      <Select style={{ width: 70 }}>
+        <Select.Option value="86">+86</Select.Option>
+        <Select.Option value="87">+87</Select.Option>
+      </Select>
+    </Form.Item>
+  );
+
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className={styles.logo} alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img
-            src={reactLogo}
-            className={`${styles.logo} ${styles.react}`}
-            alt="React logo"
+      <div className={styles.main_box}>
+        <Select
+          defaultValue="lucy"
+          style={{ width: 120 }}
+          onChange={handleChange}
+          options={[
+            { value: 'jack', label: 'Jack' },
+            { value: 'lucy', label: 'Lucy' },
+            { value: 'Yiminghe', label: 'yiminghe' },
+            { value: 'disabled', label: 'Disabled', disabled: true },
+          ]}
+        />
+
+        <Form.Item
+          name="phone"
+          label="Phone Number"
+          rules={[
+            { required: true, message: 'Please input your phone number!' },
+          ]}
+        >
+          <Input
+            type="tel"
+            addonBefore={prefixSelector}
+            style={{ width: 200 }}
+            placeholder="‒‒‒ ‒‒‒ ‒‒‒‒"
           />
-        </a>
+        </Form.Item>
       </div>
-      <h1>Vite + React</h1>
-      <div className={styles.card}>
-        <Button type="primary" onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className={styles['read-the-docs']}>
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 };
