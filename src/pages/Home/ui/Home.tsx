@@ -11,9 +11,11 @@ import {
   Stack,
   styled,
   ButtonProps,
+  SelectChangeEvent,
 } from '@mui/material';
 import { purple } from '@mui/material/colors';
 import { useForm } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
 
 const currencies = [
   {
@@ -64,8 +66,9 @@ const Home: React.FC = () => {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
+  const handleChange = (event: SelectChangeEvent) => {
+    console.log(`selected ${event.target.value as string}`);
+    setCode(event.target.value);
   };
 
   const onSubmit = (data: FormValue) => {
@@ -95,6 +98,7 @@ const Home: React.FC = () => {
                 defaultValue="Russia Federation"
                 className={styles.input}
                 fullWidth
+                onChange={handleChange}
               >
                 {currencies.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -107,6 +111,7 @@ const Home: React.FC = () => {
                 {...(register('tel'), { required: 'Phone Number Invalid' })}
                 error={!!errors.tel}
                 color="secondary"
+                required
                 className={styles.input}
                 label={errors.tel?.message || 'Phone Number'}
                 type="tel"
@@ -131,6 +136,7 @@ const Home: React.FC = () => {
               </Button>
             </Stack>
           </form>
+          {/* <DevTool control={control}></DevTool> */}
         </div>
       </div>
     </>
