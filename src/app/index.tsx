@@ -1,20 +1,20 @@
 import React from 'react';
-import { ConfigProvider } from 'antd';
-import { customTheme } from './antd.config';
+import { ThemeProvider } from '@mui/material/styles';
 import Routing from 'pages';
 
 import './index.scss';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { theme } from './materialUi.config';
 
 const appTitle = 'GraphiQL';
 
 const App: React.FC = () => {
   return (
     <HelmetProvider>
-      <ConfigProvider theme={customTheme}>
+      <ThemeProvider theme={theme}>
         <Helmet defaultTitle={appTitle} titleTemplate={`%s | ${appTitle}`} />
         <Routing />
-      </ConfigProvider>
+      </ThemeProvider>
     </HelmetProvider>
   );
 };

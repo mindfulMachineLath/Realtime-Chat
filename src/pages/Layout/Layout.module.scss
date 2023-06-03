@@ -1,3 +1,6 @@
+.container {
+  width: 100%;
+}
 .main {
   margin-top: var(--header);
   min-height: calc(100vh - var(--header) - var(--footer));

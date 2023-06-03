@@ -5,11 +5,12 @@ interface FloatLabelProps {
   children: JSX.Element;
   label: string;
   value: string;
+  name: string;
 }
 
 const FloatLabel: React.FC<FloatLabelProps> = (props) => {
   const [focus, setFocus] = React.useState(false);
-  const { children, label, value } = props;
+  const { children, label, value, name } = props;
 
   const labelClass =
     focus || (value && value.length !== 0)

@@ -1,24 +1,29 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Outlet } from 'react-router-dom';
-import { Layout } from 'antd';
+// import { Layout } from 'antd';
 // import { Header } from 'widgets/header';
 import { Footer } from 'widgets/footer';
+import { Box, Container } from '@mui/material';
 
 import styles from './Layout.module.scss';
 
-const { Content } = Layout;
+// const { Content } = Layout;
 
 const LayoutPage: React.FC = () => {
   return (
-    <Layout>
+    <Container
+      disableGutters={true}
+      className={styles.container}
+      maxWidth={false}
+    >
       {/* <Header /> */}
-      <Content className={styles.main}>
-        <Suspense>
+      <Box className={styles.main}>
+        <React.Suspense>
           <Outlet />
-        </Suspense>
-      </Content>
+        </React.Suspense>
+      </Box>
       <Footer />
-    </Layout>
+    </Container>
   );
 };
 

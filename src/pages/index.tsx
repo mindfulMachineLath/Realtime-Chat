@@ -2,8 +2,10 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from 'shared/hoc';
 import { ROUTES } from './config';
+import { Home } from './Home';
+
 // TODO: изменить импорты страниц
-import { Home } from './Home/Home';
+
 import { LayoutPage } from './Layout';
 import { Login } from './Login/Login';
 import { Main } from './Main/Main';
@@ -15,7 +17,7 @@ const Routing: React.FC = () => {
     <Routes>
       <Route path={ROUTES.HOME} element={<LayoutPage />}>
         <Route index element={<Home />} />
-        <Route path={ROUTES.LOGIN} element={<Login />} />
+        {/* <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route path={ROUTES.SIGNUP} element={<SignUp />} />
         <Route
           path={ROUTES.MAIN}
@@ -24,7 +26,7 @@ const Routing: React.FC = () => {
               <Main />
             </PrivateRoute>
           }
-        />
+        /> */}
         <Route path={ROUTES.NOTFOUND} element={<NotFound />} />
       </Route>
     </Routes>
