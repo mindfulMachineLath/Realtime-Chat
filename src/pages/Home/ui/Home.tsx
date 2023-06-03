@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import { purple } from '@mui/material/colors';
 import { useForm } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
 
 const currencies = [
   {
@@ -133,7 +132,6 @@ const Home: React.FC = () => {
               </Button>
             </Stack>
           </form>
-          {/* <DevTool control={control}></DevTool> */}
         </div>
       </div>
     </>
