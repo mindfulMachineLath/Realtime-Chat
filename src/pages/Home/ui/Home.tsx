@@ -63,6 +63,7 @@ const Home: React.FC = () => {
               select
               label="Country"
               defaultValue="Russia Federation"
+              className={styles.input}
               // helperText="Please select your currency"
               fullWidth
             >
@@ -74,6 +75,10 @@ const Home: React.FC = () => {
             </TextField>
 
             <TextField
+              sx={{ outlineColor: 'primary.secondary' }}
+              className={styles.input}
+              required
+              // color="secondary"
               label="Phone Number"
               type="tel"
               placeholder="‒‒‒ ‒‒‒ ‒‒‒‒"

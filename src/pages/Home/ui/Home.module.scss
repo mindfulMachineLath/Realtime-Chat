@@ -77,7 +77,12 @@
 
 .input {
   width: 100%;
-  border: 30px solid #0b748e;
+  // border: 30px solid #0b748e;
+  // border-color: #600b8e !important;
+}
+
+.MuiTextField-root {
+  border-color: #600b8e;
 }
 
 @keyframes gradient {
