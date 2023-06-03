@@ -1,7 +1,5 @@
 import React from 'react';
 import styles from './Home.module.scss';
-
-// import { Button, Input, Select, Form, Typography } from 'antd';
 import {
   Button,
   Typography,
@@ -108,10 +106,9 @@ const Home: React.FC = () => {
               </TextField>
 
               <TextField
-                {...(register('tel'), { required: 'Phone Number Invalid' })}
+                {...register('tel', { required: 'Phone Number Invalid' })}
                 error={!!errors.tel}
                 color="secondary"
-                required
                 className={styles.input}
                 label={errors.tel?.message || 'Phone Number'}
                 type="tel"
