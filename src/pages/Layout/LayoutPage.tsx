@@ -1,13 +1,8 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-// import { Layout } from 'antd';
-// import { Header } from 'widgets/header';
 import { Footer } from 'widgets/footer';
 import { Box, Container } from '@mui/material';
-
 import styles from './Layout.module.scss';
-
-// const { Content } = Layout;
 
 const LayoutPage: React.FC = () => {
   return (

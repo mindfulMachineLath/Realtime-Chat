@@ -1,13 +1,11 @@
-import { useState } from 'react';
-import reactLogo from '../../assets/react.svg';
-import viteLogo from '/icon.svg';
+import React from 'react';
 import styles from './Home.module.scss';
 // import { Button, Input, Select, Form, Typography } from 'antd';
 import { Input, Select, Button, Typography } from '@mui/material';
 import FloatLabel from './FloatLabel/FloatLabel';
 
 const Home: React.FC = () => {
-  const [codeCountry, setCode] = useState('+7');
+  const [codeCountry, setCode] = React.useState('+7');
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
