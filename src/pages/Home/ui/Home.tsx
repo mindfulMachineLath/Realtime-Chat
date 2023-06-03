@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Home.module.scss';
+
 // import { Button, Input, Select, Form, Typography } from 'antd';
 import {
   Button,
@@ -8,8 +9,11 @@ import {
   MenuItem,
   InputAdornment,
   Stack,
+  styled,
+  ButtonProps,
 } from '@mui/material';
-import { OutlinedInput } from '@mui/material';
+import { purple } from '@mui/material/colors';
+import { useForm } from 'react-hook-form';
 
 const currencies = [
   {
@@ -34,15 +38,38 @@ const currencies = [
   },
 ];
 
+const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: theme.palette.getContrastText(purple[500]),
+  backgroundColor: purple[500],
+  '&:hover': {
+    backgroundColor: purple[700],
+  },
+})); // TODO: кастомизированная кнопка
+
+type FormValue = {
+  country: string;
+  tel: string;
+};
+
 const Home: React.FC = () => {
   const [codeCountry, setCode] = React.useState('+7');
+
+  const form = useForm<FormValue>({
+    defaultValues: {
+      country: 'Russia Federation',
+      tel: '',
+    },
+  });
+
+  const { register, handleSubmit, formState } = form;
+  const { errors } = formState;
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
 
-  const handleSubmit = (event: Event) => {
-    console.log('on sumbit');
+  const onSubmit = (data: FormValue) => {
+    console.log('on sumbit', data);
   };
 
   return (
@@ -57,50 +84,53 @@ const Home: React.FC = () => {
             Please confirm your country code and enter your phone number.
           </Typography>
 
-          <Stack spacing={4}>
-            <TextField
-              id="outlined-select-currency"
-              select
-              label="Country"
-              defaultValue="Russia Federation"
-              className={styles.input}
-              // helperText="Please select your currency"
-              fullWidth
-            >
-              {currencies.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </TextField>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Stack spacing={4}>
+              <TextField
+                {...register('country')}
+                color="secondary"
+                id="outlined-select-currency"
+                select
+                label="Country"
+                defaultValue="Russia Federation"
+                className={styles.input}
+                fullWidth
+              >
+                {currencies.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </TextField>
 
-            <TextField
-              sx={{ outlineColor: 'primary.secondary' }}
-              className={styles.input}
-              required
-              // color="secondary"
-              label="Phone Number"
-              type="tel"
-              placeholder="‒‒‒ ‒‒‒ ‒‒‒‒"
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    {codeCountry}
-                  </InputAdornment>
-                ),
-              }}
-            ></TextField>
+              <TextField
+                {...(register('tel'), { required: 'Phone Number Invalid' })}
+                error={!!errors.tel}
+                color="secondary"
+                className={styles.input}
+                label={errors.tel?.message || 'Phone Number'}
+                type="tel"
+                placeholder="‒‒‒ ‒‒‒ ‒‒‒‒"
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      {codeCountry}
+                    </InputAdornment>
+                  ),
+                }}
+              ></TextField>
 
-            <Button
-              type="submit"
-              variant="contained"
-              color="secondary"
-              size="large"
-            >
-              Next
-            </Button>
-          </Stack>
+              <Button
+                type="submit"
+                variant="contained"
+                color="secondary"
+                size="large"
+              >
+                Next
+              </Button>
+            </Stack>
+          </form>
         </div>
       </div>
     </>
