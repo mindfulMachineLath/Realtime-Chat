@@ -22,7 +22,7 @@
 
 .main_wrapper {
   width: 100%;
-  max-width: 40rem;
+  max-width: 30rem;
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
@@ -63,7 +63,7 @@
   display: block;
   font-size: 1rem;
   line-height: 1.35;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem !important;
   color: var(--text-ternary);
 
   @media (max-width: 800px) {

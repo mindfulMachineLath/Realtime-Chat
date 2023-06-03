@@ -1,8 +1,38 @@
 import React from 'react';
 import styles from './Home.module.scss';
 // import { Button, Input, Select, Form, Typography } from 'antd';
-import { Input, Select, Button, Typography } from '@mui/material';
-import FloatLabel from './FloatLabel/FloatLabel';
+import {
+  Button,
+  Typography,
+  TextField,
+  MenuItem,
+  InputAdornment,
+  Stack,
+} from '@mui/material';
+import { OutlinedInput } from '@mui/material';
+
+const currencies = [
+  {
+    value: 'USD',
+    label: '$',
+  },
+  {
+    value: 'EUR',
+    label: '€',
+  },
+  {
+    value: 'BTC',
+    label: '฿',
+  },
+  {
+    value: 'JPY',
+    label: '¥',
+  },
+  {
+    value: 'Russia Federation',
+    label: 'Russia Federation',
+  },
+];
 
 const Home: React.FC = () => {
   const [codeCountry, setCode] = React.useState('+7');
@@ -15,15 +45,6 @@ const Home: React.FC = () => {
     console.log('on sumbit');
   };
 
-  // const prefixSelector = (
-  //   <Form.Item name="prefix" noStyle>
-  //     <Select style={{ width: 70 }}>
-  //       <Select.Option value="86">+86</Select.Option>
-  //       <Select.Option value="87">+87</Select.Option>
-  //     </Select>
-  //   </Form.Item>
-  // );
-
   return (
     <>
       <div className={styles.main_container}>
@@ -35,64 +56,46 @@ const Home: React.FC = () => {
           <Typography component="p" className={styles.note}>
             Please confirm your country code and enter your phone number.
           </Typography>
-          {/* ;<Typography.Title>Chatty</Typography.Title> */}
-          {/* <Typography.Text className={styles.note}>
-            Please confirm your country code and enter your phone number.
-          </Typography.Text>
-          <Form
-            name="login"
-            layout="vertical"
-            onFinish={handleSubmit}
-            className={styles.login_form}
-            initialValues={{ remember: true }}
-            labelWrap
-            labelCol={{ span: 10, offset: 0 }}
-            requiredMark={false}
-            size="large"
-          >
-            <Form.Item name="country">
-              <FloatLabel label="Country" name="firstName" value={'Country'}>
-                <Select
-                  className={styles.input}
-                  defaultValue="lucy"
-                  // style={{ width: '100%' }}
-                  onChange={handleChange}
-                  options={[
-                    { value: 'jack', label: 'Jack' },
-                    { value: 'lucy', label: 'Lucy' },
-                    { value: 'Yiminghe', label: 'yiminghe' },
-                    { value: 'disabled', label: 'Disabled', disabled: true },
-                  ]}
-                />
-              </FloatLabel>
-            </Form.Item>
 
-            <Form.Item
-              name="phone"
-              // label="You phone number"
-              rules={[
-                { required: true, message: 'Please input your phone number!' },
-              ]}
+          <Stack spacing={4}>
+            <TextField
+              id="outlined-select-currency"
+              select
+              label="Country"
+              defaultValue="Russia Federation"
+              // helperText="Please select your currency"
+              fullWidth
             >
-              <FloatLabel
-                label="You phone number"
-                name="firstName"
-                value={'You phone number'}
-              >
-                <Input
-                  type="tel"
-                  className={styles.input}
-                  // style={{ width: '100%' }}
-                  placeholder="‒‒‒ ‒‒‒ ‒‒‒‒"
-                  prefix={codeCountry}
-                />
-              </FloatLabel>
-            </Form.Item>
+              {currencies.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </TextField>
 
-            <Form.Item>
-              <Button style={{ width: '100%' }}>next</Button>
-            </Form.Item>
-          </Form> */}
+            <TextField
+              label="Phone Number"
+              type="tel"
+              placeholder="‒‒‒ ‒‒‒ ‒‒‒‒"
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    {codeCountry}
+                  </InputAdornment>
+                ),
+              }}
+            ></TextField>
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              size="large"
+            >
+              Next
+            </Button>
+          </Stack>
         </div>
       </div>
     </>
