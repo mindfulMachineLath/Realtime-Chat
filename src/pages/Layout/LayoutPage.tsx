@@ -11,7 +11,6 @@ const LayoutPage: React.FC = () => {
       className={styles.container}
       maxWidth={false}
     >
-      {/* <Header /> */}
       <Box className={styles.main}>
         <React.Suspense>
           <Outlet />

@@ -2,7 +2,7 @@
   width: 100%;
 }
 .main {
-  margin-top: var(--header);
-  min-height: calc(100vh - var(--header) - var(--footer));
+  // margin-top: var(--header);
+  min-height: calc(100vh - var(--footer));
   overflow: hidden;
 }

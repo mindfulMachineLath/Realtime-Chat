@@ -16,7 +16,7 @@
   );
   background-size: 400% 400%;
   animation: gradient 10s ease infinite;
-  height: calc(100vh - var(--header) - var(--footer));
+  height: calc(100vh - var(--footer));
   margin: auto 0;
 
   display: flex;
