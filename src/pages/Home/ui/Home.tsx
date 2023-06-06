@@ -13,33 +13,9 @@ import {
 } from '@mui/material';
 import { purple } from '@mui/material/colors';
 import { useForm } from 'react-hook-form';
-import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GET_COUNTRY } from 'shared/const';
 import Select from './Select/Select';
-
-// TODO: получать данные с graphQl
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-  {
-    value: 'Russia Federation',
-    label: 'Russia Federation',
-  },
-];
 
 // const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
 //   color: theme.palette.getContrastText(purple[500]),
@@ -84,6 +60,7 @@ const Home: React.FC = () => {
     console.log('on sumbit', data);
   };
 
+  // TODO: add loading
   return (
     <>
       <div className={styles.main_container}>
@@ -104,25 +81,6 @@ const Home: React.FC = () => {
                 })}
                 data={data}
               />
-              {/* <TextField
-                {...register('country', {
-                  onChange: (e) =>
-                    handleChange(e as React.ChangeEvent<HTMLInputElement>),
-                })}
-                color="secondary"
-                id="outlined-select-currency"
-                select
-                label="Country"
-                defaultValue="Russia Federation"
-                className={styles.input}
-                fullWidth
-              >
-                {currencies.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </TextField> */}
 
               <TextField
                 {...register('tel', { required: 'Phone Number Invalid' })}
