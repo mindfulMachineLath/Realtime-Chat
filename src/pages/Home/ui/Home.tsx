@@ -13,7 +13,10 @@ import {
 } from '@mui/material';
 import { purple } from '@mui/material/colors';
 import { useForm } from 'react-hook-form';
+import { useQuery, useLazyQuery, useMutation } from '@apollo/client';
+import { GET_COUNTRY } from 'shared/const';
 
+// TODO: получать данные с graphQl
 const currencies = [
   {
     value: 'USD',
@@ -53,6 +56,10 @@ type FormValue = {
 const Home: React.FC = () => {
   const [codeCountry, setCode] = React.useState('+7');
 
+  const { data, loading, refetch } = useQuery(GET_COUNTRY);
+
+  console.log(data);
+
   const form = useForm<FormValue>({
     defaultValues: {
       country: 'Russia Federation',
@@ -63,7 +70,9 @@ const Home: React.FC = () => {
   const { register, handleSubmit, formState } = form;
   const { errors } = formState;
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = (
+    event: SelectChangeEvent | React.ChangeEvent<HTMLInputElement>
+  ) => {
     console.log(`selected ${event.target.value as string}`);
     setCode(event.target.value);
   };
