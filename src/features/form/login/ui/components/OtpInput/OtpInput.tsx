@@ -2,13 +2,11 @@ import React from 'react';
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import { Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-import SaveIcon from '@mui/icons-material/Save';
+import HttpsIcon from '@mui/icons-material/Https';
 
 const OtpInput = () => {
   const [otp, setOtp] = React.useState('');
-  const [loading, setLoading] = React.useState(true);
-
-  console.log(otp);
+  const [loading, setLoading] = React.useState(false);
 
   const handleChange = (newValue: string) => {
     setOtp(newValue);
@@ -24,7 +22,7 @@ const OtpInput = () => {
         color="secondary"
         size="large"
         loadingPosition="start"
-        startIcon={<SaveIcon />}
+        startIcon={<HttpsIcon />}
         loading={loading}
       >
         <span> Verify OTP</span>
