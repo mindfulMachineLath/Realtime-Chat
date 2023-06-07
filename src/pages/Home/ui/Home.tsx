@@ -16,6 +16,7 @@ import { useForm } from 'react-hook-form';
 import { useQuery } from '@apollo/client';
 import { GET_COUNTRY } from 'shared/const';
 import Select from './Select/Select';
+import { Loader } from 'shared/ui';
 
 // const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
 //   color: theme.palette.getContrastText(purple[500]),
@@ -60,7 +61,10 @@ const Home: React.FC = () => {
     console.log('on sumbit', data);
   };
 
-  // TODO: add loading
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <div className={styles.main_container}>
