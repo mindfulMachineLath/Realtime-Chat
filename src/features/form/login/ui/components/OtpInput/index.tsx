@@ -4,7 +4,7 @@ import { Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import HttpsIcon from '@mui/icons-material/Https';
 
-const OtpInput = () => {
+const OtpInput: React.FC = () => {
   const [otp, setOtp] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 

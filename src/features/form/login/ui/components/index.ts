@@ -1,1 +1,2 @@
-export { default as Otp } from './OtpInput/OtpInput';
+export { default as Otp } from './OtpInput';
+export { default as Form } from './Form';
