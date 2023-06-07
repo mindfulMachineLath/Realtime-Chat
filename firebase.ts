@@ -26,11 +26,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
-window.recaptchaVerifier = new RecaptchaVerifier(
-  'recaptcha-container',
-  {},
-  auth
-);
 
 const googleProvider = new GoogleAuthProvider();
 const gitProvider = new GithubAuthProvider();

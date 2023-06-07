@@ -4,7 +4,11 @@ import { useForm, Controller } from 'react-hook-form';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
 import { MenuProps } from './style';
 
-const Form: React.FC = () => {
+interface FormProps {
+  onClick: () => void;
+}
+
+const Form: React.FC<FormProps> = ({ onClick }) => {
   const { handleSubmit, control } = useForm<FormValue>({
     defaultValues: {
       tel: '',
@@ -13,6 +17,7 @@ const Form: React.FC = () => {
 
   const onSubmit = (data: FormValue) => {
     console.log('on sumbit', data);
+    onClick();
   };
 
   return (

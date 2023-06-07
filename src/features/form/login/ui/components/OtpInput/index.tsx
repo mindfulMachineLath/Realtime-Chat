@@ -4,9 +4,13 @@ import { Stack } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import HttpsIcon from '@mui/icons-material/Https';
 
-const OtpInput: React.FC = () => {
+interface OtpInputProps {
+  loading: boolean;
+}
+
+const OtpInput: React.FC<OtpInputProps> = ({ loading }) => {
   const [otp, setOtp] = React.useState('');
-  const [loading, setLoading] = React.useState(false);
+  // const [loading, setLoading] = React.useState(false);
 
   const handleChange = (newValue: string) => {
     setOtp(newValue);
