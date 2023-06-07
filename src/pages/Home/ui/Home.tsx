@@ -83,7 +83,14 @@ const Home: React.FC = () => {
               />
 
               <TextField
-                {...register('tel', { required: 'Phone Number Invalid' })}
+                {...register('tel', {
+                  required: 'Phone Number Invalid',
+                  pattern: {
+                    value:
+                      /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g,
+                    message: 'Phone Number Invalid',
+                  },
+                })}
                 error={!!errors.tel}
                 color="secondary"
                 className={styles.input}

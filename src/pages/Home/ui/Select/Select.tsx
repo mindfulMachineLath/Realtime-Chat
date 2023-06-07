@@ -18,6 +18,10 @@ const Select: React.FC<SelectProps> = ({ register, data }) => {
       label="Country"
       defaultValue="Russia Federation"
       fullWidth
+      //   maxRows="5"
+      // SelectProps={{
+      //   native: true,
+      // }}
     >
       {data?.countries.map((country) => (
         <MenuItem key={country.name} value={`+${country.phone}`}>
