@@ -1,7 +1,6 @@
 import React from 'react';
 import { TextField, MenuItem } from '@mui/material';
 import { UseFormRegisterReturn } from 'react-hook-form';
-import { DataCountry } from '../Home';
 import { MenuProps } from './style';
 
 interface SelectProps {
@@ -17,13 +16,13 @@ const Select: React.FC<SelectProps> = ({ register, data }) => {
       id="outlined-select-currency"
       select
       label="Country"
-      defaultValue="Russia Federation"
+      defaultValue="7"
       fullWidth
       SelectProps={{ MenuProps: MenuProps }}
     >
       {data?.countries.map((country) => (
-        <MenuItem key={country.name} value={`+${country.phone}`}>
-          {country.name}
+        <MenuItem key={country.name} value={country.phone}>
+          {country.name} +
         </MenuItem>
       ))}
     </TextField>
