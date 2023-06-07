@@ -14,6 +14,7 @@ import { useQuery } from '@apollo/client';
 import { GET_COUNTRY } from 'shared/const';
 import { Loader } from 'shared/ui';
 import { Select } from './components';
+import Otp from './components/OtpInput/OtpInput';
 
 const Login = () => {
   const [codeCountry, setCode] = React.useState('+7');
@@ -42,48 +43,51 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={4}>
-        <Select
-          register={register('country', {
-            onChange: (e) => handleChange(e),
-          })}
-          data={data}
-        />
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={4}>
+          <Select
+            register={register('country', {
+              onChange: (e) => handleChange(e),
+            })}
+            data={data}
+          />
 
-        <TextField
-          {...register('tel', {
-            required: 'Phone Number Invalid',
-            pattern: {
-              value:
-                /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g,
-              message: 'Phone Number Invalid',
-            },
-          })}
-          error={!!errors.tel}
-          color="secondary"
-          // className={styles.input}
-          label={errors.tel?.message || 'Phone Number'}
-          type="tel"
-          placeholder="‒‒‒ ‒‒‒ ‒‒‒‒"
-          fullWidth
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">{codeCountry}</InputAdornment>
-            ),
-          }}
-        ></TextField>
+          <TextField
+            {...register('tel', {
+              required: 'Phone Number Invalid',
+              pattern: {
+                value:
+                  /^[+]?(1\-|1\s|1|\d{3}\-|\d{3}\s|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/g,
+                message: 'Phone Number Invalid',
+              },
+            })}
+            error={!!errors.tel}
+            color="secondary"
+            // className={styles.input}
+            label={errors.tel?.message || 'Phone Number'}
+            type="tel"
+            placeholder="‒‒‒ ‒‒‒ ‒‒‒‒"
+            fullWidth
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">{codeCountry}</InputAdornment>
+              ),
+            }}
+          ></TextField>
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="secondary"
-          size="large"
-        >
-          Next
-        </Button>
-      </Stack>
-    </form>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            size="large"
+          >
+            Next
+          </Button>
+        </Stack>
+      </form>
+      <Otp />
+    </>
   );
 };
 

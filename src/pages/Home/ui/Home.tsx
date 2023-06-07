@@ -1,22 +1,7 @@
 import React from 'react';
 import styles from './Home.module.scss';
-import {
-  Button,
-  Typography,
-  TextField,
-  MenuItem,
-  InputAdornment,
-  Stack,
-  // styled,
-  // ButtonProps,
-  SelectChangeEvent,
-} from '@mui/material';
-import { purple } from '@mui/material/colors';
-import { useForm } from 'react-hook-form';
-import { useQuery } from '@apollo/client';
-import { GET_COUNTRY } from 'shared/const';
+import { Typography } from '@mui/material';
 
-import { Loader } from 'shared/ui';
 import { Form } from 'features/form';
 
 // const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
