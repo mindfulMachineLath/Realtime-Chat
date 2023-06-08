@@ -1,5 +1,5 @@
 type FormValue = {
-  country: string;
+  country?: string;
   tel: string;
 };
 
@@ -11,4 +11,9 @@ interface Country {
   name: string;
   emoji: string;
   phone: string;
+}
+
+interface CustomWindow extends Window {
+  confirmationResult?: import('firebase/auth').ConfirmationResult;
+  recaptchaVerifier?: import('firebase/auth').ApplicationVerifier;
 }

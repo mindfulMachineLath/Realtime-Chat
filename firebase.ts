@@ -1,11 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import {
-  getAuth,
-  GithubAuthProvider,
-  GoogleAuthProvider,
-  RecaptchaVerifier,
-  signOut,
-} from 'firebase/auth';
+import { getAuth, RecaptchaVerifier, signOut } from 'firebase/auth';
 
 const API_KEY = import.meta.env.VITE_FB_API_KEY;
 const DOMAIN = import.meta.env.VITE_FB_AUTH_DOMAIN;
@@ -27,7 +21,4 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
-const googleProvider = new GoogleAuthProvider();
-const gitProvider = new GithubAuthProvider();
-
-export { auth, googleProvider, gitProvider, signOut };
+export { auth, signOut };

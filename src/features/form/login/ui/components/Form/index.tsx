@@ -2,13 +2,16 @@ import React from 'react';
 import { Button, Stack } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
+import { LoadingButton } from '@mui/lab';
+import HttpsIcon from '@mui/icons-material/Https';
 import { MenuProps } from './style';
 
 interface FormProps {
-  onClick: () => void;
+  onClick: (data: FormValue) => void;
+  loading: boolean;
 }
 
-const Form: React.FC<FormProps> = ({ onClick }) => {
+const Form: React.FC<FormProps> = ({ onClick, loading }) => {
   const { handleSubmit, control } = useForm<FormValue>({
     defaultValues: {
       tel: '',
@@ -17,7 +20,7 @@ const Form: React.FC<FormProps> = ({ onClick }) => {
 
   const onSubmit = (data: FormValue) => {
     console.log('on sumbit', data);
-    onClick();
+    onClick(data);
   };
 
   return (
@@ -40,14 +43,17 @@ const Form: React.FC<FormProps> = ({ onClick }) => {
           )}
         />
 
-        <Button
+        <LoadingButton
           type="submit"
           variant="contained"
           color="secondary"
           size="large"
+          loadingPosition="start"
+          startIcon={<HttpsIcon />}
+          loading={loading}
         >
-          Next
-        </Button>
+          <span> Next</span>
+        </LoadingButton>
       </Stack>
     </form>
   );
