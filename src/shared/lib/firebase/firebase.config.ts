@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, RecaptchaVerifier, signOut } from 'firebase/auth';
+import { getAuth, signOut } from 'firebase/auth';
+import handleUserDataInStorage from './utils/userDataInStorage';
 
 const API_KEY = import.meta.env.VITE_FB_API_KEY;
 const DOMAIN = import.meta.env.VITE_FB_AUTH_DOMAIN;
@@ -20,5 +21,10 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
+
+auth.onAuthStateChanged((user) => {
+  handleUserDataInStorage(user);
+  console.log('SUCCES', user);
+});
 
 export { auth, signOut };

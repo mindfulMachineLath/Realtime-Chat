@@ -1,6 +1,6 @@
 import React from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { auth } from '../../../../../firebase';
+import { auth } from 'shared/lib/firebase';
 import { Alert, Snackbar } from '@mui/material';
 import { Otp, Form } from './components';
 
