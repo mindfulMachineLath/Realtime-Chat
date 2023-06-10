@@ -1,9 +1,9 @@
 import React from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { auth } from 'shared/lib/firebase';
 import { Alert, Snackbar } from '@mui/material';
+import { auth } from 'shared/lib/firebase';
+import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
-import { useLoginUser } from 'shared/hook/user/useLoginUser';
 
 const Login = () => {
   const [showOTP, setShowOTP] = React.useState(false);
@@ -35,8 +35,6 @@ const Login = () => {
     const appVerifier = (window as unknown as CustomWindow).recaptchaVerifier;
     const phoneNumber = data.tel;
 
-    console.log('appVerifier', appVerifier);
-
     appVerifier &&
       signInWithPhoneNumber(auth, phoneNumber, appVerifier)
         .then((confirmationResult) => {
@@ -55,9 +53,14 @@ const Login = () => {
     setLoading(true);
     (window as CustomWindow).confirmationResult
       ?.confirm(otp)
-      .then(async (res) => {
-        console.log(res.user);
-        // setUser(res.user);
+      .then(async ({ user }) => {
+        const {
+          phoneNumber,
+          uid: id,
+          accessToken: token,
+        } = user as unknown as UserFirebase;
+
+        setUser({ phoneNumber, id, token });
 
         setLoading(false);
       })
