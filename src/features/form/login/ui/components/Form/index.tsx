@@ -1,9 +1,8 @@
 import React from 'react';
-import { Button, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { useForm, Controller } from 'react-hook-form';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
-import { LoadingButton } from '@mui/lab';
-import HttpsIcon from '@mui/icons-material/Https';
+import { LoadingButton } from 'shared/ui';
 import { MenuProps } from './style';
 
 interface FormProps {
@@ -43,17 +42,7 @@ const Form: React.FC<FormProps> = ({ onClick, loading }) => {
           )}
         />
 
-        <LoadingButton
-          type="submit"
-          variant="contained"
-          color="secondary"
-          size="large"
-          loadingPosition="start"
-          startIcon={<HttpsIcon />}
-          loading={loading}
-        >
-          <span> Next</span>
-        </LoadingButton>
+        <LoadingButton text="Next" loading={loading} />
       </Stack>
     </form>
   );

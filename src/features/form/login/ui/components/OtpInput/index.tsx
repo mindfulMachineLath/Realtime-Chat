@@ -1,12 +1,14 @@
 import React from 'react';
 import { MuiOtpInput } from 'mui-one-time-password-input';
-import { Stack, Button } from '@mui/material';
+import { Stack } from '@mui/material';
+import { LoadingButton } from 'shared/ui';
 
 interface OtpInputProps {
   onClick: (otp: string) => void;
+  loading: boolean;
 }
 
-const OtpInput: React.FC<OtpInputProps> = ({ onClick }) => {
+const OtpInput: React.FC<OtpInputProps> = ({ onClick, loading }) => {
   const [otp, setOtp] = React.useState('');
 
   const handleChange = (newValue: string) => {
@@ -21,15 +23,11 @@ const OtpInput: React.FC<OtpInputProps> = ({ onClick }) => {
     <Stack spacing={4} sx={{ marginTop: '2rem' }}>
       <MuiOtpInput value={otp} onChange={handleChange} length={6} autoFocus />
 
-      <Button
-        type="submit"
-        variant="contained"
-        color="secondary"
-        size="large"
+      <LoadingButton
+        text="Verify OTP"
+        loading={loading}
         onClick={handleClick}
-      >
-        Verify OTP
-      </Button>
+      />
     </Stack>
   );
 };
