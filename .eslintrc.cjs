@@ -8,8 +8,17 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
+
+  settings: {
+    'import/resolver': {
+      foo: { someConfig: value },
+    },
+  },
+
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -56,5 +65,13 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
 
     'no-param-reassign': 0,
+
+    // 'sort-imports': [
+    //   'error',
+    //   {
+    //     ignoreCase: true,
+    //     ignoreDeclarationSort: true,
+    //   },
+    // ],
   },
 };

@@ -24,7 +24,6 @@ const auth = getAuth(app);
 
 auth.onAuthStateChanged((user) => {
   handleUserDataInStorage(user);
-  console.log('SUCCES', user);
 });
 
 export { auth, signOut };

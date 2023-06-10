@@ -90,7 +90,7 @@ const Login = () => {
       ) : (
         <Form onClick={onSignInSubmit} loading={loading} />
       )}
-      <div id="sign-in-button"></div>
+      <div id="sign-in-button" />
     </>
   );
 };
