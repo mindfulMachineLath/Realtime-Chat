@@ -3,12 +3,13 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from 'shared/lib/firebase';
 import { Alert, Snackbar } from '@mui/material';
 import { Otp, Form } from './components';
+import { useLoginUser } from 'shared/hook/user/useLoginUser';
 
 const Login = () => {
   const [showOTP, setShowOTP] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [user, setUser] = React.useState(null);
+  const setUser = useLoginUser();
 
   const onCaptchaVerify = (data: FormValue) => {
     if (!(window as CustomWindow).recaptchaVerifier) {
@@ -55,8 +56,9 @@ const Login = () => {
     (window as CustomWindow).confirmationResult
       ?.confirm(otp)
       .then(async (res) => {
-        console.log(res);
+        console.log(res.user);
         // setUser(res.user);
+
         setLoading(false);
       })
       .catch((err) => {
