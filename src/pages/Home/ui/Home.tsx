@@ -18,9 +18,9 @@ const Home: React.FC = () => {
   const { isAuth } = useAuthState();
   const location = useLocation();
 
-  if (isAuth) {
-    return <Navigate to={ROUTES.MAIN} state={{ from: location }} />;
-  }
+  // if (isAuth) {
+  //   return <Navigate to={ROUTES.MAIN} state={{ from: location }} />;
+  // }
 
   return (
     <div className={styles.main_container}>

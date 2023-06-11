@@ -2,7 +2,7 @@
   // Vars
   --header: 75px;
   --footer: 65px;
-  --screen-height: calc(100vh - var(--header) - var(--footer));
+  --screen-height: calc(100vh - var(--footer));
   --ide-height: calc(
     100vh - var(--header) - var(--footer) - var(--tabs-height) - 0.5rem -
       var(--tabs-padding)

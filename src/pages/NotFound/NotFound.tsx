@@ -3,13 +3,6 @@ import s from './NotFound.module.scss';
 export const NotFound: React.FC = () => {
   return (
     <>
-      <div>
-        <div className={s.starsec} />
-        <div className={s.starthird} />
-        <div className={s.starfourth} />
-        <div className={s.starfifth} />
-      </div>
-
       <div className={s.lamp__wrap}>
         <div className={s.lamp}>
           <div className={s.cable} />
