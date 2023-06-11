@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from 'shared/hoc';
 import { ROUTES } from './config';
 import { Home } from './Home';
+import { NotFound } from './NotFound';
 
 // TODO: изменить импорты страниц
 
@@ -11,7 +12,6 @@ import { Home } from './Home';
 import { LayoutPage } from './Layout';
 import { Login } from './Login/Login';
 import { Main } from './Main/Main';
-import { NotFound } from './NotFound/NotFound';
 
 const Routing: React.FC = () => {
   return (
