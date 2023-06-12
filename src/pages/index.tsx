@@ -4,14 +4,14 @@ import { PrivateRoute } from 'shared/hoc';
 import { ROUTES } from './config';
 import { Home } from './Home';
 import { NotFound } from './NotFound';
+import { Main } from './Main';
+import { LayoutPage } from './Layout';
 
 // TODO: изменить импорты страниц
 
 // TODO: изменить названия страниц
 
-import { LayoutPage } from './Layout';
 import { Login } from './Login/Login';
-import { Main } from './Main/Main';
 
 const Routing: React.FC = () => {
   return (

@@ -18,7 +18,6 @@ const Form: React.FC<FormProps> = ({ onClick, loading }) => {
   });
 
   const onSubmit = (data: FormValue) => {
-    console.log('on sumbit', data);
     onClick(data);
   };
 

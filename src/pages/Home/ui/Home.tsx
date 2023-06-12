@@ -6,21 +6,13 @@ import { Form } from 'features/form';
 import { useAuthState } from 'shared/hook';
 import styles from './Home.module.scss';
 
-// const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
-//   color: theme.palette.getContrastText(purple[500]),
-//   backgroundColor: purple[500],
-//   '&:hover': {
-//     backgroundColor: purple[700],
-//   },
-// })); // TODO: кастомизированная кнопка
-
 const Home: React.FC = () => {
   const { isAuth } = useAuthState();
   const location = useLocation();
 
-  // if (isAuth) {
-  //   return <Navigate to={ROUTES.MAIN} state={{ from: location }} />;
-  // }
+  if (isAuth) {
+    return <Navigate to={ROUTES.MAIN} state={{ from: location }} />;
+  }
 
   return (
     <div className={styles.main_container}>
