@@ -11,6 +11,7 @@ import {
   Avatar,
 } from '@mui/material';
 import { drawerWidth } from 'pages/Main/ui/Main';
+import Chats from './Chats/Chats';
 import SearchChat from './Search/Search';
 
 const SideBar: React.FC = () => {
@@ -32,18 +33,7 @@ const SideBar: React.FC = () => {
       </Toolbar>
       <Divider />
 
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <Avatar src="/broken-image.jpg" />
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      <Chats />
     </Drawer>
   );
 };
