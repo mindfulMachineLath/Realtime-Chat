@@ -13,6 +13,11 @@ const ChatPanel: React.FC = () => {
         </Typography>
       </Toolbar>
       <Divider />
+      <Toolbar>
+        <Typography variant="h6" noWrap component="div">
+          Panel for data chat
+        </Typography>
+      </Toolbar>
     </AppBar>
   );
 };

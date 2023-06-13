@@ -1,7 +1,4 @@
 import {
-  Box,
-  AppBar,
-  CssBaseline,
   Toolbar,
   Typography,
   Drawer,
@@ -13,7 +10,8 @@ import {
   ListItemText,
   Avatar,
 } from '@mui/material';
-import { drawerWidth } from '../../Main';
+import { drawerWidth } from 'pages/Main/ui/Main';
+import SearchChat from './Search/Search';
 
 const SideBar: React.FC = () => {
   return (
@@ -30,14 +28,12 @@ const SideBar: React.FC = () => {
       anchor="left"
     >
       <Toolbar>
-        <Typography variant="h6" noWrap component="div">
-          Pannel for input
-        </Typography>
+        <SearchChat />
       </Toolbar>
       <Divider />
 
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
               <ListItemIcon>
