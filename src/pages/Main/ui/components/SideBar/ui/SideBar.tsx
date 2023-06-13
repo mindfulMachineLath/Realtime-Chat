@@ -1,18 +1,6 @@
-import {
-  Toolbar,
-  Typography,
-  Drawer,
-  Divider,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  Avatar,
-} from '@mui/material';
+import { Toolbar, Drawer, Divider } from '@mui/material';
 import { drawerWidth } from 'pages/Main/ui/Main';
-import Chats from './Chats/Chats';
-import SearchChat from './Search/Search';
+import { Chats, SearchChat } from './component';
 
 const SideBar: React.FC = () => {
   return (
@@ -31,6 +19,7 @@ const SideBar: React.FC = () => {
       <Toolbar>
         <SearchChat />
       </Toolbar>
+
       <Divider />
 
       <Chats />
