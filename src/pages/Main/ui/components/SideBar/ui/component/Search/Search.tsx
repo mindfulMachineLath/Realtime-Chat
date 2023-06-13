@@ -4,6 +4,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
+  zIndex: '1209',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.black, 0.15),
   '&:hover': {
@@ -42,7 +43,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchChat: React.FC = () => {
+interface SearchChatProps {
+  value?: string;
+  onSearchChange: (value: string) => void;
+}
+
+const SearchChat: React.FC<SearchChatProps> = ({ onSearchChange }) => {
   return (
     <Search>
       <SearchIconWrapper>
@@ -51,7 +57,7 @@ const SearchChat: React.FC = () => {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ 'aria-label': 'search' }}
-        onChange={(e) => console.log(e.target.value)}
+        onChange={(e) => onSearchChange(e.target.value)}
       />
     </Search>
   );

@@ -1,8 +1,15 @@
-import { Toolbar, Drawer, Divider } from '@mui/material';
+import { Toolbar, Drawer, Divider, AppBar } from '@mui/material';
 import { drawerWidth } from 'pages/Main/ui/Main';
+import React from 'react';
 import { Chats, SearchChat } from './component';
 
 const SideBar: React.FC = () => {
+  const [search, setSearch] = React.useState('');
+  const handleSearchChange = (value: string) => {
+    console.log('value', value);
+    setSearch(value);
+  };
+
   return (
     <Drawer
       sx={{
@@ -12,17 +19,18 @@ const SideBar: React.FC = () => {
           width: drawerWidth,
           boxSizing: 'border-box',
         },
+        overflowY: 'inherit',
       }}
       variant="permanent"
       anchor="left"
     >
-      <Toolbar>
-        <SearchChat />
+      <Toolbar sx={{ position: 'fixed' }}>
+        <SearchChat onSearchChange={handleSearchChange} />
       </Toolbar>
 
-      <Divider />
+      <Divider sx={{ mb: 2 }} />
 
-      <Chats />
+      <Chats search={search} />
     </Drawer>
   );
 };

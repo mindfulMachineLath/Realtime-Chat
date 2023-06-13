@@ -62,24 +62,40 @@ function refreshMessages(): MessageExample[] {
   const getRandomInt = (max: number) =>
     Math.floor(Math.random() * Math.floor(max));
 
-  return Array.from(new Array(50)).map(
+  return Array.from(new Array(10)).map(
     () => messageExamples[getRandomInt(messageExamples.length)]
   );
 }
 
-const Chats: React.FC = () => {
+interface Filter {
+  data: MessageExample[];
+  search: string;
+}
+const filterCountries = ({ data, search }: Filter) => {
+  return data.filter((item) => {
+    return item.primary.toLowerCase().includes(search.toLowerCase());
+  });
+};
+
+interface ChatsProps {
+  search: string;
+}
+
+const Chats: React.FC<ChatsProps> = ({ search }) => {
   const [messages, setMessages] = React.useState(() => refreshMessages());
 
   return (
-    <List>
-      {messages.map(({ primary, secondary, person }, index) => (
-        <ListItem button key={index + person}>
-          <ListItemAvatar>
-            <Avatar alt="Profile Picture" src={person} />
-          </ListItemAvatar>
-          <ListItemText primary={primary} secondary={secondary} />
-        </ListItem>
-      ))}
+    <List sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}>
+      {filterCountries({ data: messages, search }).map(
+        ({ primary, secondary, person }, index) => (
+          <ListItem button key={index + person}>
+            <ListItemAvatar>
+              <Avatar alt="Profile Picture" src={person} />
+            </ListItemAvatar>
+            <ListItemText primary={primary} secondary={secondary} />
+          </ListItem>
+        )
+      )}
     </List>
   );
 };
