@@ -6,8 +6,9 @@ import {
   ListItemText,
 } from '@mui/material';
 import React from 'react';
+import { filterCountries } from './utils/filterData';
 
-interface MessageExample {
+export interface MessageExample {
   primary: string;
   secondary: string;
   person: string;
@@ -66,16 +67,6 @@ function refreshMessages(): MessageExample[] {
     () => messageExamples[getRandomInt(messageExamples.length)]
   );
 }
-
-interface Filter {
-  data: MessageExample[];
-  search: string;
-}
-const filterCountries = ({ data, search }: Filter) => {
-  return data.filter((item) => {
-    return item.primary.toLowerCase().includes(search.toLowerCase());
-  });
-};
 
 interface ChatsProps {
   search: string;
