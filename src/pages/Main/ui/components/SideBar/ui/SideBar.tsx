@@ -1,15 +1,16 @@
-import { Toolbar, Drawer, Divider, IconButton, Box } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Toolbar, Drawer, Divider, Box } from '@mui/material';
 import { drawerWidth } from 'pages/Main/ui/Main';
 import React from 'react';
 import { Chats, SearchChat } from './component';
 import Profile from './component/Menu/Menu';
+import { refreshMessages } from './component/Chats/fakeData';
+import { filterCountries } from './component/Chats/utils/filterData';
 
 const SideBar: React.FC = () => {
   const [search, setSearch] = React.useState('');
+  const [messages, setMessages] = React.useState(() => refreshMessages());
 
   const handleSearchChange = (value: string) => {
-    console.log('value', value);
     setSearch(value);
   };
 
@@ -37,7 +38,7 @@ const SideBar: React.FC = () => {
 
       <Divider sx={{ mb: 2 }} />
 
-      <Chats search={search} />
+      <Chats data={filterCountries({ data: messages, search })} />
     </Drawer>
   );
 };
