@@ -1,13 +1,16 @@
-import { AppBar } from '@mui/material';
-import { drawerWidth } from '../../Main';
+import { Box } from '@mui/material';
 import ChatInfo from './ChatInfo/ChatInfo';
+import Input from './Input/Input';
 import Messages from './Messages/Messages';
 
 const ChatPanel: React.FC = () => {
   return (
     <>
-      <ChatInfo />
-      <Messages />
+      <Box sx={{ width: '100%' }}>
+        <ChatInfo />
+        <Messages />
+        <Input />
+      </Box>
     </>
   );
 };

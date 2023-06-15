@@ -1,0 +1,14 @@
+.send_box {
+  width: 100%;
+  height: var(--footer);
+  background-color: #a0ded1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 4rem;
+}
+
+.send_input {
+  width: 50%;
+  margin-right: 1rem;
+}

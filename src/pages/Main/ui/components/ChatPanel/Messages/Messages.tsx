@@ -1,10 +1,11 @@
 import { Box, Typography } from '@mui/material';
 import Message from './Message/Message';
+import s from './Messages.module.scss';
 
 const Messages: React.FC = () => {
   return (
     // TODO: change bg color
-    <Box sx={{ bgcolor: '#a0ded1', height: '100vh', width: '100vw', my: 8 }}>
+    <Box className={s.message_box}>
       {/* <Typography variant="h6" noWrap component="p">
         this is messages
       </Typography> */}
