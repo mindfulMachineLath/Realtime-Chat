@@ -7,9 +7,9 @@ const Main: React.FC = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       {/* <CssBaseline /> */}
+      <SideBar />
 
       <ChatPanel />
-      <SideBar />
     </Box>
   );
 };

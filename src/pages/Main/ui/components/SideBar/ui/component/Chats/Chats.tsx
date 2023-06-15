@@ -25,7 +25,11 @@ const Chats: React.FC<ChatsProps> = ({ data }) => {
   return (
     <List sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}>
       {data.map(({ primary, secondary, person }, index) => (
-        <ListItem button key={index + person}>
+        <ListItem
+          button
+          key={index + person}
+          onClick={() => console.log('data')}
+        >
           <ListItemAvatar>
             <Avatar alt="Profile Picture" src={person} />
           </ListItemAvatar>
