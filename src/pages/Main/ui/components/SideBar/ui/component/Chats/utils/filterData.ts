@@ -1,4 +1,4 @@
-import { MessageExample } from '../Chats';
+import { MessageExample } from '../fakeData';
 
 export const filterCountries = ({ data, search }: Filter) => {
   return data.filter((item) => {
