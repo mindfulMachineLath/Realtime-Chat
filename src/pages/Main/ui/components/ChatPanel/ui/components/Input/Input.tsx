@@ -7,6 +7,7 @@ const Input: React.FC = () => {
   return (
     <Box className={s.send_box}>
       <TextField
+        multiline={true}
         className={s.send_input}
         id="input-message"
         placeholder="message"

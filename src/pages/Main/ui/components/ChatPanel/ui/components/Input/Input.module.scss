@@ -1,14 +1,18 @@
 .send_box {
   width: 100%;
-  height: var(--footer);
-  background-color: #a0ded1;
+  height: auto;
+  // background-color: var(--bg-color-prime);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
   padding-bottom: 4rem;
 }
 
 .send_input {
   width: 50%;
   margin-right: 1rem;
+  background-color: var(--bg-color-prime);
+  color: #a0ded1;
 }

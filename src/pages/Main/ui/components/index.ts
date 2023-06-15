@@ -1,2 +1,2 @@
-export { default as ChatPanel } from './ChatPanel/ChatPanel';
+export { ChatPanel } from './ChatPanel';
 export { SideBar } from './SideBar';
