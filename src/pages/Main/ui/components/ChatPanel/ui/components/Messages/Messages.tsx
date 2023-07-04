@@ -6,11 +6,30 @@ const Messages: React.FC = () => {
   return (
     // TODO: change bg color
     <Box className={s.message_box}>
-      <Message />
-      <Message />
-      <Message />
-      <Message />
-      <Message />
+      <div className={s.scroll}>
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+        <Message />
+      </div>
     </Box>
   );
 };
