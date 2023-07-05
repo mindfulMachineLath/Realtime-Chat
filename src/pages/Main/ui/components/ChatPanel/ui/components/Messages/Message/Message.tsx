@@ -10,7 +10,7 @@ interface IMessage {
 
 const Message: React.FC<IMessage> = ({ text, own }) => {
   return (
-    <Box className={`${s.message_box}  ${own && s.own}`}>
+    <Box className={`${own ? `${s.own} ${s.message_box}` : s.message_box}`}>
       <Box className={s.message_info}>
         {/* TODO: подгружать данные по фото с firebase */}
         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
