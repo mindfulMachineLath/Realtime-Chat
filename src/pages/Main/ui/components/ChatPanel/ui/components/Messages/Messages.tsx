@@ -12,6 +12,12 @@ const Messages: React.FC = () => {
         <Message />
         <Message />
         <Message />
+        <Message own={true} />
+        <Message />
+        <Message />
+        <Message own={true} />
+        <Message />
+        <Message own={true} />
         <Message />
         <Message />
         <Message />
@@ -21,14 +27,10 @@ const Messages: React.FC = () => {
         <Message />
         <Message />
         <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
-        <Message />
+        <Message own={true} />
+        <Message own={true} />
+
+        <Message text="last message lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat laborum voluptatem, corporis obcaecati quisquam voluptatibus vero adipisci debitis ratione illum itaque pariatur facere cum distinctio, ab impedit animi nihil vel!" />
       </div>
     </Box>
   );
