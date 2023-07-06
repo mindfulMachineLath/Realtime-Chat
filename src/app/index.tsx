@@ -12,7 +12,6 @@ const App: React.FC = () => {
     <HelmetProvider>
       <ThemeProvider theme={theme}>
         <Helmet defaultTitle={appTitle} titleTemplate={`%s | ${appTitle}`} />
-
         <Routing />
       </ThemeProvider>
     </HelmetProvider>

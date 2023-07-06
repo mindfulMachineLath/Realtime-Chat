@@ -1,11 +1,11 @@
 import React from 'react';
-import { Toolbar, Drawer, Divider, Box, IconButton } from '@mui/material';
+import { Toolbar, Drawer, Divider, Box } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { drawerWidth } from 'pages/Main/ui/Main';
-import { Chats, SearchChat } from './component';
-import Profile from './component/Menu/Menu';
+import { Chats, SearchChat, Profile } from './component';
 import { refreshMessages } from './component/Chats/fakeData';
 import { filterCountries } from './component/Chats/utils/filterData';
+import { DRAWER_WIDTH } from 'shared/const/common';
+import { ButtonIcon } from 'shared/ui';
 
 const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
   const [search, setSearch] = React.useState('');
@@ -20,17 +20,10 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
       <Toolbar sx={{ position: 'fixed', pl: 0 }}>
         <Box sx={{ display: 'flex', gap: 1.1 }}>
           <Profile />
-
           <SearchChat onSearchChange={handleSearchChange} />
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={setMobile}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
+          <ButtonIcon onClick={setMobile}>
             <ArrowForwardIosIcon />
-          </IconButton>
+          </ButtonIcon>
         </Box>
       </Toolbar>
 
@@ -43,7 +36,7 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
       aria-label="mailbox folders"
     >
       <Drawer
@@ -65,7 +58,10 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
         variant="permanent"
         sx={{
           display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: DRAWER_WIDTH,
+          },
         }}
         open
       >
