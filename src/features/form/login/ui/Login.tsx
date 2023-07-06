@@ -86,7 +86,7 @@ const Login = () => {
         </Alert>
       </Snackbar>
       {showOTP ? (
-        <Otp onClick={onOTPVerifier} />
+        <Otp onClick={onOTPVerifier} loading={loading} />
       ) : (
         <Form onClick={onSignInSubmit} loading={loading} />
       )}

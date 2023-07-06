@@ -1,6 +1,6 @@
 import React from 'react';
 import { Stack } from '@mui/material';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, FieldValues } from 'react-hook-form';
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
 import { LoadingButton } from 'shared/ui';
 import { MenuProps } from './style';
@@ -11,14 +11,14 @@ interface FormProps {
 }
 
 const Form: React.FC<FormProps> = ({ onClick, loading }) => {
-  const { handleSubmit, control } = useForm<FormValue>({
+  const { handleSubmit, control } = useForm<FieldValues>({
     defaultValues: {
       tel: '',
     },
   });
 
-  const onSubmit = (data: FormValue) => {
-    onClick(data);
+  const onSubmit = (data: FieldValues) => {
+    onClick(data as FormValue);
   };
 
   return (
