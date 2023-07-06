@@ -13,7 +13,7 @@ export const ErrorNotFound: React.FC = () => {
           </p>
         </div>
         <div className={`${s.error__nav} ${s['e-nav']}`}>
-          <a href="" target="_blanck" className={s['e-nav__link']}></a>
+          <a href="/main" target="_blanck" className={s['e-nav__link']}></a>
         </div>
       </div>
     </section>
