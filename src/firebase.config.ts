@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signOut } from 'firebase/auth';
-import handleUserDataInStorage from './utils/userDataInStorage';
+import handleUserDataInStorage from './shared/lib/firebase/utils/userDataInStorage';
 
 const API_KEY = import.meta.env.VITE_FB_API_KEY;
 const DOMAIN = import.meta.env.VITE_FB_AUTH_DOMAIN;

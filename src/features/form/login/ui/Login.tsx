@@ -1,9 +1,9 @@
 import React from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { Alert, Snackbar } from '@mui/material';
-import { auth } from 'shared/lib/firebase';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
+import { auth } from 'firebase.config';
 
 const Login = () => {
   const [showOTP, setShowOTP] = React.useState(false);
