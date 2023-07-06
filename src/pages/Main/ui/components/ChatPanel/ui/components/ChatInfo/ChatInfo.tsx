@@ -6,17 +6,32 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { drawerWidth } from 'pages/Main/ui/Main';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-const ChatInfo: React.FC = () => {
+const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="fixed"
-        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: `${drawerWidth}px`,
+        }}
       >
         <Toolbar sx={{ gap: 2 }}>
+          {/* TODO: при клике возвращать меню на всю ширину Drawer */}
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={setMobile}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <ArrowBackIosNewIcon />
+          </IconButton>
+
           <Avatar
             alt="Profile Picture"
             src={'<Avatar alt="Profile Picture" src={person} />'}

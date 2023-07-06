@@ -1,11 +1,11 @@
 .message_box {
   height: calc(100vh - var(--header));
-  padding-top: 0.1rem;
+  padding-top: 3rem;
+  padding-left: 4rem;
   color: #a0ded1;
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-end;
-  padding-left: 4rem;
 }
 
 .scroll {
