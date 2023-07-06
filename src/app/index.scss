@@ -17,43 +17,6 @@ button.ant-btn-primary {
   box-shadow: none;
 }
 
-.ant-tabs-content-holder {
-  display: none;
-}
-
-.ant-tabs-nav {
-  min-height: calc(var(--tabs-height) - 8px);
-}
-
-.ant-layout-footer {
-  position: relative;
-  z-index: 2;
-}
-
-.ant-dropdown-menu-item-selected {
-  background-color: var(--bg-primary-dark) !important;
-  color: var(--white) !important;
-  &:hover {
-    background-color: #3e3369 !important;
-  }
-}
-
-.ant-tabs-tab-btn {
-  white-space: nowrap;
-  max-width: 100px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  @media all and (max-width: 767px) {
-    max-width: 50px;
-  }
-}
-
-@media (max-width: 767px) {
-  .ant-tooltip {
-    display: none;
-  }
-}
-
 /* Works on Firefox */
 #custom-scroll {
   scrollbar-width: thin;
@@ -95,3 +58,21 @@ button.ant-btn-primary {
 .MuiTextField-root {
   border-radius: 30%;
 }
+
+// .MuiOutlinedInput-notchedOutline {
+//   color: aliceblue;
+//   border-color: #0daba0 !important;
+// }
+
+// .MuiInputBase-input,
+// .MuiOutlinedInput-input {
+//   color: #0daba0 !important;
+// }
+
+// .MuiInputLabel-root {
+//   color: aliceblue !important;
+// }
+
+// .MiuFocused {
+//   color: #0daba0;
+// }
