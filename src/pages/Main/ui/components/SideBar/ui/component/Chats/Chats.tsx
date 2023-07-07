@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { MessageExample } from './fakeData';
+import s from './Chats.module.scss';
 
 interface ChatsProps {
   data: MessageExample[];
@@ -23,7 +24,10 @@ const Chats: React.FC<ChatsProps> = ({ data }) => {
   }
 
   return (
-    <List sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}>
+    <List
+      sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}
+      className={s.scroll}
+    >
       {data.map(({ primary, secondary, person }, index) => (
         <ListItem
           button

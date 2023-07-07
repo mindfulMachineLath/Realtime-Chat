@@ -11,6 +11,7 @@
 html {
   background-color: var(--bg-primary);
   overflow-x: hidden;
+  @include custom-scroll-bar;
 }
 
 button.ant-btn-primary {
@@ -58,21 +59,3 @@ button.ant-btn-primary {
 .MuiTextField-root {
   border-radius: 30%;
 }
-
-// .MuiOutlinedInput-notchedOutline {
-//   color: aliceblue;
-//   border-color: #0daba0 !important;
-// }
-
-// .MuiInputBase-input,
-// .MuiOutlinedInput-input {
-//   color: #0daba0 !important;
-// }
-
-// .MuiInputLabel-root {
-//   color: aliceblue !important;
-// }
-
-// .MiuFocused {
-//   color: #0daba0;
-// }

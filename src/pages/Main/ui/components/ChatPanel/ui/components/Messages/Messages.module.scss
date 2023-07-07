@@ -1,3 +1,6 @@
+@import 'src/app/styles/normalize', 'src/app/styles/vars',
+  'src/app/styles/mixins';
+
 .message_box {
   height: calc(100vh - var(--header));
   padding-top: 3rem;
@@ -10,4 +13,5 @@
 
 .scroll {
   overflow-y: scroll;
+  @include custom-scroll-bar;
 }

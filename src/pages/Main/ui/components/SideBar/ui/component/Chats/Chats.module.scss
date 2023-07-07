@@ -1,0 +1,6 @@
+@import 'src/app/styles/normalize', 'src/app/styles/vars',
+  'src/app/styles/mixins';
+
+.scroll {
+  @include custom-scroll-bar;
+}
