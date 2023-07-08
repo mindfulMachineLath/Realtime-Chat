@@ -2,25 +2,25 @@ import React from 'react';
 import { Typography, Link } from '@mui/material';
 import { Stack, Box } from '@mui/joy';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import styles from './Footer.module.scss';
+import s from './Footer.module.scss';
 
 const FooterComponent: React.FC = () => {
   return (
     <footer>
-      <Box className={styles['footer-container']}>
+      <Box className={s['footer-container']}>
         <Stack textAlign="center">
-          <Typography className={styles['footer-typography']}>
+          <Typography sx={{ fontSize: '0.7rem' }}>
             Made with{' '}
             <FavoriteIcon
               color="error"
-              className={styles['footer-icon']}
+              className={s['footer-icon']}
               sx={{ width: '0.9rem', height: '0.9rem' }}
             />{' '}
             by
             <Link
               href="https://github.com/Alesia-Abaeva"
               target="_blank"
-              className={styles['footer-logo__link']}
+              className={s['footer-logo__link']}
               rel="noreferrer"
             >
               {' '}
@@ -28,7 +28,7 @@ const FooterComponent: React.FC = () => {
             </Link>
           </Typography>
 
-          <Typography className={styles['footer-typography']}>
+          <Typography sx={{ fontSize: '0.7rem' }}>
             Chatty © 2023 All rights reserved
           </Typography>
         </Stack>

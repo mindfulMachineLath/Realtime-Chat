@@ -1,37 +1,11 @@
 .footer-container {
-  & * {
-    font-size: 0.75rem;
-    font-weight: 400;
-    line-height: 130%;
-
-    @media (max-width: 450px) {
-      font-size: 0.65rem;
-    }
-
-    @media (max-width: 350px) {
-      font-size: 0.55rem;
-    }
-  }
   background-color: rgba(44, 255, 255, 0.24);
-  //  #0daba1;
   display: flex;
   align-items: center;
   justify-content: center;
   text-transform: uppercase;
   min-height: var(--footer);
   color: var(--text-theme-hover);
-}
-
-.footer-typography {
-  font-size: 0.75rem !important;
-
-  @media (max-width: 450px) {
-    font-size: 0.65rem !important;
-  }
-
-  @media (max-width: 350px) {
-    font-size: 0.55rem !important;
-  }
 }
 
 .footer-logo__link {
