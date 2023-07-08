@@ -19,6 +19,7 @@
     "@mui/lab": "^5.0.0-alpha.133",
     "@mui/material": "^5.13.3",
     "@reduxjs/toolkit": "^1.9.5",
+    "emoji-picker-react": "^4.4.9",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",

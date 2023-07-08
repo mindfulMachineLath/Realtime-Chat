@@ -22,8 +22,6 @@ const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {
         }}
       >
         <Toolbar sx={{ gap: 2 }}>
-          {/* TODO: при клике возвращать меню на всю ширину Drawer */}
-
           <ButtonIcon onClick={setMobile}>
             <ArrowBackIosNewIcon />
           </ButtonIcon>

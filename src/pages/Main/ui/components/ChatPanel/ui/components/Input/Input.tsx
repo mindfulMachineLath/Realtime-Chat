@@ -4,6 +4,7 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import s from './Input.module.scss';
+import EmojiSet from 'shared/ui/EmojiSet/EmojiSet';
 
 const Input: React.FC = () => {
   const [imageUrl, setImageUrl] = React.useState<string | ArrayBuffer | null>(
@@ -46,9 +47,14 @@ const Input: React.FC = () => {
       />
 
       {/* TODO: прикрутить эмоции */}
-      <IconButton aria-label="delete" onClick={() => console.log('ICON')}>
+      <EmojiSet />
+      {/* <IconButton
+        aria-label="delete"
+        onMouseEnter={handlePopoverOpen}
+        onMouseLeave={handlePopoverClose}
+      >
         <SentimentSatisfiedAltIcon color="primary" />
-      </IconButton>
+      </IconButton> */}
 
       <IconButton aria-label="delete">
         <SendIcon color="primary" />

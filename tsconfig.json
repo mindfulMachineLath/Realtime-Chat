@@ -18,6 +18,6 @@
     "noImplicitAny": true,
     "jsx": "react-jsx"
   },
-  "include": ["vite.config.ts", ".eslintrc.cjs", "src"],
+  "include": ["vite.config.ts", ".eslintrc.cjs", "src", "firebase.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

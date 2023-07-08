@@ -2,8 +2,6 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { ChatPanel, SideBar } from './components';
 
-export const drawerWidth = 340;
-
 const Main: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
