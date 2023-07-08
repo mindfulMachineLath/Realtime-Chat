@@ -6,11 +6,35 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import s from './Input.module.scss';
 
 const Input: React.FC = () => {
+  const [imageUrl, setImageUrl] = React.useState<string | ArrayBuffer | null>(
+    null
+  );
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files) {
+      return;
+    }
+
+    const file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   return (
     <Box className={s.send_box}>
-      {/* TODO: прикрутить файлы */}
-      <IconButton aria-label="delete" onClick={() => console.log('FILE')}>
+      <IconButton aria-label="upload picture" component="label">
         <AttachFileIcon color="primary" />
+        <input
+          hidden
+          accept="image/*"
+          type="file"
+          onChange={handleFileUpload}
+        />
       </IconButton>
 
       <InputBase
