@@ -14,10 +14,6 @@ html {
   @include custom-scroll-bar;
 }
 
-button.ant-btn-primary {
-  box-shadow: none;
-}
-
 /* Works on Firefox */
 #custom-scroll {
   scrollbar-width: thin;

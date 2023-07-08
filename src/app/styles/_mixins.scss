@@ -1,3 +1,4 @@
+// responsive
 @mixin mobile {
   @media screen and (max-width: 480px) {
     @content;
@@ -16,15 +17,16 @@
   }
 }
 
+// scroll
 @mixin custom-scroll-bar() {
   &::-webkit-scrollbar {
     border-radius: 10px;
-    height: 10px;
-    width: 8px;
+    height: 8px;
+    width: 4px;
   }
 
   &::-webkit-scrollbar-thumb {
-    background: #999;
+    background: rgba(153, 153, 153, 0.788);
     border-radius: 10px;
   }
 
