@@ -26,7 +26,7 @@ const Messages: React.FC = () => {
         <Message />
         <Message />
         <Message />
-        <Message />
+        <Message file="src/assets/icon.png" />
         <Message own={true} />
         <Message own={true} />
 

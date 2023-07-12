@@ -66,12 +66,5 @@ module.exports = {
 
     'no-param-reassign': 0,
 
-    // 'sort-imports': [
-    //   'error',
-    //   {
-    //     ignoreCase: true,
-    //     ignoreDeclarationSort: true,
-    //   },
-    // ],
   },
 };
