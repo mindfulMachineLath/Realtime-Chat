@@ -8,27 +8,35 @@ import {
   ListItemIcon,
   Menu,
   MenuItem,
+  Snackbar,
   Tooltip,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { auth, signOut } from 'firebase.config';
 import { useLogOut } from 'shared/hook';
+import { FileInput } from 'shared/ui';
+import uploadFiles from 'shared/lib/firebase/store/uploadFiles';
 
 const Profile: React.FC = () => {
   // TODO: add user data
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
+  const [imageUrl, setImageUrl] = React.useState<string | ArrayBuffer | null>(
+    null
+  );
 
   const logOutUser = useLogOut();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
+    console.log(auth.currentUser?.uid, 'i am user');
   };
 
   const handleClose = () => {
     setOpen(false);
+    console.log('close');
   };
 
   const handleLogOut = () => {
@@ -39,11 +47,27 @@ const Profile: React.FC = () => {
       });
   };
 
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log('this is file', event?.target?.files);
+    if (!event.target.files) {
+      return;
+    }
+
+    const file = event.target.files[0];
+    await uploadFiles(file);
+    // TODO: update store!
+  };
+
   return (
     <>
-      {error && (
-        <Alert severity="error">There was an error while signing out</Alert>
-      )}
+      <Snackbar open={error} autoHideDuration={6000}>
+        <Alert severity="error" sx={{ width: '100%' }}>
+          There was an error while signing out
+        </Alert>
+      </Snackbar>
+
       <Tooltip title="Account settings" sx={{ pl: 0.2 }}>
         <IconButton
           color="inherit"
@@ -60,7 +84,7 @@ const Profile: React.FC = () => {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        onClick={handleClose}
+        // onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
@@ -85,10 +109,15 @@ const Profile: React.FC = () => {
 
         <Divider />
 
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          // onClick={handleFileUpload}
+          aria-label="upload picture"
+          component="label"
+        >
           <ListItemIcon>
             <AddAPhoto fontSize="small" />
           </ListItemIcon>
+          <FileInput handleFileUpload={handleFileUpload} />
           Change foto
         </MenuItem>
 

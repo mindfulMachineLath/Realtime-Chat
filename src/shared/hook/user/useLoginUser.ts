@@ -7,8 +7,14 @@ export const useLoginUser = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const dispatchUser = ({ phoneNumber, token, id }: AuthUserData) => {
-    dispatch(setUser({ phoneNumber, token, id }));
+  const dispatchUser = ({
+    phoneNumber,
+    token,
+    id,
+    name,
+    photo,
+  }: AuthUserData) => {
+    dispatch(setUser({ phoneNumber, token, id, name, photo }));
     navigate(ROUTES.MAIN, { replace: true });
   };
 

@@ -1,50 +1,46 @@
-import { auth, storage } from 'firebase.config';
+import { auth, db, storage } from 'firebase.config';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { updateProfile } from 'firebase/auth';
+import { doc, updateDoc } from 'firebase/firestore';
 
 interface Upload {
   setError: () => void;
   url: string;
 }
 
-const uploadFiles = () => {
-  const storageRef = ref(storage, 'images/rivers.jpg');
+// для того чтобы обновить данные, нужно получить предыдущие данные пользователя
+// потому что они сихраняются в current User
 
-  const uploadTask = uploadBytesResumable(storageRef, file);
+const uploadFiles = async (file: File) => {
+  let url = '';
+  //сreate a unique image name
+  const date = new Date().getTime();
+  const storageRef = ref(storage, `${date}`);
 
-  uploadTask.on(
-    'state_changed',
-    (snapshot) => {
-      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log('Upload is ' + progress + '% done');
-      switch (snapshot.state) {
-        case 'paused':
-          console.log('Upload is paused');
-          break;
-        case 'running':
-          console.log('Upload is running');
-          break;
-      }
-    },
-    (error) => {
-      // Handle unsuccessful uploads
-    },
-    () => {
-      // Handle successful uploads on complete
-      getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-        console.log('File available at', downloadURL);
+  // TODO: check async operations
 
-        // нашли юзера и обновили фоточку хе хе
+  try {
+    await uploadBytesResumable(storageRef, file).then(() => {
+      getDownloadURL(storageRef).then(async (downloadURL) => {
+        console.log('File available at', downloadURL, auth.currentUser);
+
+        // find user
         if (auth.currentUser) {
+          // update auth data user
           await updateProfile(auth.currentUser, {
             photoURL: downloadURL,
           });
-        }
-      });
-    }
-  );
-};
 
-// нужно ли выносить updateProfile в отдельный хук? передавать ли данные о пользователе в uploadFiles?
+          // update data user in firebase
+          await updateDoc(doc(db, 'users', auth.currentUser.uid), {
+            photo: downloadURL,
+          });
+        }
+
+        return url;
+      });
+    });
+  } catch (err) {}
+};
 
 export default uploadFiles;

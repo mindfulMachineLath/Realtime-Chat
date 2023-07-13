@@ -1,10 +1,9 @@
 import React from 'react';
 import { Box, IconButton, InputBase } from '@mui/material';
-import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt';
 import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import { FileInput, EmojiSet } from 'shared/ui';
 import s from './Input.module.scss';
-import EmojiSet from 'shared/ui/EmojiSet/EmojiSet';
 
 const Input: React.FC = () => {
   const [imageUrl, setImageUrl] = React.useState<string | ArrayBuffer | null>(
@@ -12,12 +11,14 @@ const Input: React.FC = () => {
   );
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('this is file', event?.target?.files);
     if (!event.target.files) {
       return;
     }
 
     const file = event.target.files[0];
     const reader = new FileReader();
+    console.log(reader);
 
     reader.onloadend = () => {
       setImageUrl(reader.result);
@@ -28,14 +29,9 @@ const Input: React.FC = () => {
 
   return (
     <Box className={s.send_box}>
-      <IconButton aria-label="upload picture" component="label">
+      <IconButton aria-label="upload avatar" component="label">
         <AttachFileIcon color="primary" />
-        <input
-          hidden
-          accept="image/*"
-          type="file"
-          onChange={handleFileUpload}
-        />
+        <FileInput handleFileUpload={handleFileUpload} />
       </IconButton>
 
       <InputBase

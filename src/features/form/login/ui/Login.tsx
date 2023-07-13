@@ -4,8 +4,7 @@ import { Alert, Snackbar } from '@mui/material';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
 import { auth, db } from 'firebase.config';
-import { doc, setDoc } from 'firebase/firestore';
-import { INIT_FIRESTORE } from 'shared/lib/firebase/firestore/const/init';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 const Login = () => {
   const [showOTP, setShowOTP] = React.useState(false);
@@ -63,9 +62,24 @@ const Login = () => {
         } = user as unknown as UserFirebase;
 
         console.log(user, 'this is user');
-        // dispatch user
-        setUser({ phoneNumber, id, token });
-        await setDoc(doc(db, 'users', id), INIT_FIRESTORE);
+
+        // check whether the user has data in the database
+        const refFirestore = doc(db, 'users', id);
+        const docSnap = await getDoc(refFirestore);
+
+        const initData = {
+          name: 'Person',
+          photo: null,
+          phoneNumber,
+          id,
+          token,
+        };
+
+        // if not - create write in firestore
+        if (!docSnap.exists()) {
+          await setDoc(refFirestore, initData);
+          setUser(initData);
+        } else setUser(docSnap.data() as AuthUserData); //  if there is - take the data from there
 
         setLoading(false);
       })

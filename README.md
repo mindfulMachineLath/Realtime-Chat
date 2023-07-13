@@ -1,6 +1,6 @@
 # CHATTY
 
-[CHATTY](chatty-52480.web.app/) - realtime Chat
+[CHATTY](chatty-52480.web.app/) - realtime chat app
 
 ## Key features
 
