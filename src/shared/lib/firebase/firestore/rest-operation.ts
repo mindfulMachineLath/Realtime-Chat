@@ -56,6 +56,7 @@ import { INIT_FIRESTORE } from './const/init';
 //   }
 // };
 
+// TODO: delete this?
 // Add a new document in collection "users"
 export const createFirestoreWrite = async (uid: string) => {
   try {
