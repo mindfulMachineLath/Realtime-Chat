@@ -1,20 +1,19 @@
 import React from 'react';
 import { Logout, Settings, AddAPhoto } from '@mui/icons-material';
 import {
-  Alert,
   Avatar,
   Divider,
   IconButton,
   ListItemIcon,
   Menu,
   MenuItem,
-  Snackbar,
   Tooltip,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { auth, signOut } from 'firebase.config';
 import { useLogOut } from 'shared/hook';
 import uploadFiles from 'shared/lib/firebase/store/uploadFiles';
+import { AlertMessages } from 'shared/ui';
 
 const Profile: React.FC = () => {
   // TODO: add user data
@@ -35,7 +34,6 @@ const Profile: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-    console.log('close');
   };
 
   const handleLogOut = () => {
@@ -61,11 +59,11 @@ const Profile: React.FC = () => {
 
   return (
     <>
-      <Snackbar open={error} autoHideDuration={6000}>
-        <Alert severity="error" sx={{ width: '100%' }}>
-          There was an error while signing out
-        </Alert>
-      </Snackbar>
+      <AlertMessages
+        status={error}
+        text="There was an error while signing out"
+        severity="error"
+      />
 
       <Tooltip title="Account settings" sx={{ pl: 0.2 }}>
         <IconButton
@@ -83,7 +81,6 @@ const Profile: React.FC = () => {
         id="account-menu"
         open={open}
         onClose={handleClose}
-        // onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {

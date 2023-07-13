@@ -1,10 +1,10 @@
 import React from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { Alert, Snackbar } from '@mui/material';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { auth, db } from 'firebase.config';
+import { AlertMessages } from 'shared/ui';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
-import { auth, db } from 'firebase.config';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 const Login = () => {
   const [showOTP, setShowOTP] = React.useState(false);
@@ -91,19 +91,13 @@ const Login = () => {
 
   return (
     <>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={() => setOpen(false)}
-      >
-        <Alert
-          onClose={() => setOpen(false)}
-          severity="success"
-          sx={{ width: '100%' }}
-        >
-          OTP sended successfully!
-        </Alert>
-      </Snackbar>
+      <AlertMessages
+        text="OTP sended successfully!"
+        severity="success"
+        close={() => setOpen(false)}
+        status={open}
+      />
+
       {showOTP ? (
         <Otp onClick={onOTPVerifier} loading={loading} />
       ) : (
