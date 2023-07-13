@@ -1,6 +1,6 @@
 # CHATTY
 
-[CHATTY](chatty-52480.web.app/) is a powerful IDE for GraphQL APIs.
+[CHATTY](chatty-52480.web.app/) - realtime Chat
 
 ## Key features
 
