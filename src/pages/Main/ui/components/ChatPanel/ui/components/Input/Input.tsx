@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, IconButton, InputBase } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import { FileInput, EmojiSet } from 'shared/ui';
+import { EmojiSet } from 'shared/ui';
 import s from './Input.module.scss';
 
 const Input: React.FC = () => {
@@ -31,7 +31,7 @@ const Input: React.FC = () => {
     <Box className={s.send_box}>
       <IconButton aria-label="upload avatar" component="label">
         <AttachFileIcon color="primary" />
-        <FileInput handleFileUpload={handleFileUpload} />
+        <input hidden type="file" onChange={handleFileUpload} />
       </IconButton>
 
       <InputBase

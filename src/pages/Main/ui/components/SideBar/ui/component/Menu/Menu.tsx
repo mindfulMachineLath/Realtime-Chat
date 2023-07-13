@@ -14,7 +14,6 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { auth, signOut } from 'firebase.config';
 import { useLogOut } from 'shared/hook';
-import { FileInput } from 'shared/ui';
 import uploadFiles from 'shared/lib/firebase/store/uploadFiles';
 
 const Profile: React.FC = () => {
@@ -109,15 +108,16 @@ const Profile: React.FC = () => {
 
         <Divider />
 
-        <MenuItem
-          // onClick={handleFileUpload}
-          aria-label="upload picture"
-          component="label"
-        >
+        <MenuItem aria-label="upload picture" component="label">
           <ListItemIcon>
             <AddAPhoto fontSize="small" />
           </ListItemIcon>
-          <FileInput handleFileUpload={handleFileUpload} />
+          <input
+            hidden
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+          />
           Change foto
         </MenuItem>
 
