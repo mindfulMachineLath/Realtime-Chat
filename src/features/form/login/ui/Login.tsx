@@ -3,7 +3,9 @@ import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { Alert, Snackbar } from '@mui/material';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
-import { auth } from 'firebase.config';
+import { auth, db } from 'firebase.config';
+import { doc, setDoc } from 'firebase/firestore';
+import { INIT_FIRESTORE } from 'shared/lib/firebase/firestore/const/init';
 
 const Login = () => {
   const [showOTP, setShowOTP] = React.useState(false);
@@ -60,7 +62,10 @@ const Login = () => {
           accessToken: token,
         } = user as unknown as UserFirebase;
 
+        console.log(user, 'this is user');
+        // dispatch user
         setUser({ phoneNumber, id, token });
+        await setDoc(doc(db, 'users', id), INIT_FIRESTORE);
 
         setLoading(false);
       })

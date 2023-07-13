@@ -1,4 +1,4 @@
-import { Logout, PersonAdd, Settings } from '@mui/icons-material';
+import { Logout, PersonAdd, Settings, AddAPhoto } from '@mui/icons-material';
 import {
   Avatar,
   Divider,
@@ -12,6 +12,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import React from 'react';
 
 const Profile: React.FC = () => {
+  // TODO: add user data
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
 
@@ -22,9 +23,6 @@ const Profile: React.FC = () => {
 
   const handleClose = () => {
     setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
   };
 
   return (
@@ -49,6 +47,7 @@ const Profile: React.FC = () => {
         PaperProps={{
           elevation: 0,
           sx: {
+            width: '300px',
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
@@ -71,9 +70,9 @@ const Profile: React.FC = () => {
 
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
-            <PersonAdd fontSize="small" />
+            <AddAPhoto fontSize="small" />
           </ListItemIcon>
-          Add another account
+          Change foto
         </MenuItem>
 
         <MenuItem onClick={handleClose}>
@@ -89,6 +88,7 @@ const Profile: React.FC = () => {
           </ListItemIcon>
           Logout
         </MenuItem>
+        {/* TODO: add logout */}
       </Menu>
     </>
   );

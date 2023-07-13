@@ -18,7 +18,8 @@ const LayoutPage: React.FC = () => {
           <Outlet />
         </React.Suspense>
       </Box>
-      <Footer />
+      {/* <Footer /> */}
+      {/* TODO: footer? */}
     </Container>
   );
 };
