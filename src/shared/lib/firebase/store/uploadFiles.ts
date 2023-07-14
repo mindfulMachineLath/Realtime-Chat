@@ -1,46 +1,54 @@
 import { auth, db, storage } from 'firebase.config';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
-import { updateProfile } from 'firebase/auth';
+import { updateProfile, User } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 
 interface Upload {
-  setError: () => void;
-  url: string;
+  // setError: () => void;
+  // url: string;
+  file: File;
+  setImg: (url: string) => void;
+  // loading: boolean;
+  // setLoading: () => void;
 }
 
-// для того чтобы обновить данные, нужно получить предыдущие данные пользователя
-// потому что они сихраняются в current User
-
-const uploadFiles = async (file: File) => {
-  let url = '';
-  //сreate a unique image name
+const uploadFiles = async ({ file, setImg }: Upload) => {
+  // create a unique image name
   const date = new Date().getTime();
-  const storageRef = ref(storage, `${date}`);
 
-  // TODO: check async operations
+  if (auth.currentUser) {
+    const storageRef = ref(storage, `${auth.currentUser.uid + date}`);
 
-  try {
-    await uploadBytesResumable(storageRef, file).then(() => {
-      getDownloadURL(storageRef).then(async (downloadURL) => {
-        console.log('File available at', downloadURL, auth.currentUser);
+    // TODO: check async operations
 
-        // find user
-        if (auth.currentUser) {
-          // update auth data user
-          await updateProfile(auth.currentUser, {
-            photoURL: downloadURL,
-          });
+    try {
+      await uploadBytesResumable(storageRef, file).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          console.log('File available at', downloadURL, auth.currentUser);
+          setImg(downloadURL);
 
-          // update data user in firebase
-          await updateDoc(doc(db, 'users', auth.currentUser.uid), {
-            photo: downloadURL,
-          });
-        }
+          try {
+            // update auth data user
+            await updateProfile(auth.currentUser as User, {
+              photoURL: downloadURL,
+            });
 
-        return url;
+            // update data user in firebase
+            await updateDoc(
+              doc(db, 'users', auth?.currentUser?.uid as string),
+              {
+                photo: downloadURL,
+              }
+            );
+          } catch (err) {
+            throw err;
+          }
+        });
       });
-    });
-  } catch (err) {}
+    } catch (err) {
+      throw err;
+    }
+  }
 };
 
 export default uploadFiles;

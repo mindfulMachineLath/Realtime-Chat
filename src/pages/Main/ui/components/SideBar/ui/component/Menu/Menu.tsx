@@ -11,18 +11,22 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { auth, signOut } from 'firebase.config';
-import { useLogOut } from 'shared/hook';
+import { useAppDispatch, useLogOut, useAuthState } from 'shared/hook';
 import uploadFiles from 'shared/lib/firebase/store/uploadFiles';
 import { AlertMessages } from 'shared/ui';
+import { setImage } from 'shared/store/reducers/UserSlice';
 
 const Profile: React.FC = () => {
+  const { photo, name } = useAuthState();
+
   // TODO: add user data
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [imageUrl, setImageUrl] = React.useState<string | ArrayBuffer | null>(
-    null
-  );
+  const [imageUrl, setImageUrl] = React.useState<string | null>(photo);
+  console.log(photo);
+
+  const dispatch = useAppDispatch();
 
   const logOutUser = useLogOut();
 
@@ -47,13 +51,13 @@ const Profile: React.FC = () => {
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log('this is file', event?.target?.files);
     if (!event.target.files) {
       return;
     }
 
     const file = event.target.files[0];
-    await uploadFiles(file);
+    await uploadFiles({ file, setImg: setImageUrl });
+    dispatch(setImage({ photo: imageUrl }));
     // TODO: update store!
   };
 
@@ -100,7 +104,8 @@ const Profile: React.FC = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> Profile
+          <Avatar src={imageUrl} />
+          {name || 'Profile'}
         </MenuItem>
 
         <Divider />

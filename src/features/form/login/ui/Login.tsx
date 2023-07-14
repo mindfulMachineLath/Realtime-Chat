@@ -6,6 +6,8 @@ import { AlertMessages } from 'shared/ui';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
 
+// ПРИ входе все данные есть, но при перезагрузки страницы нет! получать данные нужно с firebase либо складывать все в хранилище
+
 const Login = () => {
   const [showOTP, setShowOTP] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -67,19 +69,24 @@ const Login = () => {
         const refFirestore = doc(db, 'users', id);
         const docSnap = await getDoc(refFirestore);
 
-        const initData = {
+        const initData: AuthUserData = {
           name: 'Person',
           photo: null,
           phoneNumber,
           id,
           token,
+          loading: false,
         };
 
         // if not - create write in firestore
         if (!docSnap.exists()) {
           await setDoc(refFirestore, initData);
           setUser(initData);
-        } else setUser(docSnap.data() as AuthUserData); //  if there is - take the data from there
+        } else {
+          console.log('docSnap.data()', docSnap.data());
+          setUser(docSnap.data() as AuthUserData);
+        }
+        //  if there is - take the data from there
 
         setLoading(false);
       })

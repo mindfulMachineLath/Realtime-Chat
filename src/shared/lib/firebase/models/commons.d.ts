@@ -12,4 +12,5 @@ interface AuthUserData {
   id: null | string;
   name: null | string;
   photo: null | string;
+  loading?: false;
 }
