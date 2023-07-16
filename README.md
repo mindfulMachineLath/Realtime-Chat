@@ -14,6 +14,7 @@
 
 - Typescript
 - React
+- React Hook Form
 - Redux
 - Firebase, firestore
 - Scss

@@ -56,6 +56,7 @@ const Profile: React.FC = () => {
     }
 
     const file = event.target.files[0];
+
     await uploadFiles({ file, setImg: setImageUrl });
     dispatch(setImage({ photo: imageUrl })); // update store
   };
