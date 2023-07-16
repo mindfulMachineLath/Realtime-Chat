@@ -30,9 +30,7 @@ export const getFirestoreData = createAsyncThunk(
 
       dispatch(setUser(data));
     } catch (err) {
-      console.log('Firebase error');
-      throw new Error('Firebase error');
-      //   TODO: обработать здесь или пробросить дальше
+      return rejectWithValue('Firebase error');
     }
   }
 );

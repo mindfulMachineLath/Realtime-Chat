@@ -1,4 +1,6 @@
+import React from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
+import { useAuthState } from 'shared/hook';
 import s from './Message.module.scss';
 
 interface IMessage {
@@ -10,14 +12,19 @@ interface IMessage {
 }
 
 const Message: React.FC<IMessage> = ({ text, own, file }) => {
+  const { photo } = useAuthState();
+
+  // TODO: как тригернуть изменение аватара на изменение картинки?
+
   return (
     <Box className={`${own ? `${s.own} ${s.message_box}` : s.message_box}`}>
       <Box className={s.message_info}>
         {/* TODO: подгружать данные по фото с firebase */}
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+        <Avatar alt="Remy Sharp" src={own ? (photo as string) : undefined} />
       </Box>
       {!file ? (
         <Typography variant="body2" className={s.message_text}>
+          {!own && <p>Friend</p>}
           {text || 'Message 1'}
         </Typography>
       ) : (

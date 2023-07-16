@@ -15,7 +15,6 @@ import { useAppDispatch, useLogOut, useAuthState } from 'shared/hook';
 import uploadFiles from 'shared/lib/firebase/store/uploadFiles';
 import { AlertMessages } from 'shared/ui';
 import { setImage } from 'shared/store/reducers/UserSlice';
-import { getFirestoreData } from 'shared/store/actions/uploadFirestoreFile';
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -58,7 +57,7 @@ const Profile: React.FC = () => {
 
     const file = event.target.files[0];
     await uploadFiles({ file, setImg: setImageUrl });
-    dispatch(setImage({ photo: imageUrl })); // update store!
+    dispatch(setImage({ photo: imageUrl })); // update store
   };
 
   return (
