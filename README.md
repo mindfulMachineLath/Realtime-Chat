@@ -9,6 +9,8 @@
 - Responsive design (up to 320px)
 
 ## Screenshot
+![image](https://github.com/Alesia-Abaeva/chat-app/assets/101274979/009205af-4a45-4b41-8871-ac4665caa776)
+
 
 ## Tech stack
 
