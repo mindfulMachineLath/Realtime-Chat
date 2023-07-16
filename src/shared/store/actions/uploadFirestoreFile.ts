@@ -1,12 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '..';
-import { setImage, setUser } from '../reducers/UserSlice';
+import { setImage, setUser, setLoadingPhoto } from '../reducers/UserSlice';
 import { auth, db, storage } from 'firebase.config';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  StorageError,
+} from 'firebase/storage';
 import { updateProfile, User } from 'firebase/auth';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
-// TODO: create async in upload
 export const uploadFireStoreFile = createAsyncThunk(
   'upload/file',
   async (file: File, { rejectWithValue, dispatch, getState }) => {
@@ -17,29 +21,62 @@ export const uploadFireStoreFile = createAsyncThunk(
     const storageRef = ref(storage, `${id + '_' + date}`);
 
     try {
-      await uploadBytesResumable(storageRef, file).then(() => {
-        getDownloadURL(storageRef).then(async (downloadURL) => {
-          console.log('File available at', downloadURL, auth.currentUser);
-          // update store
-          dispatch(setImage({ photo: downloadURL }));
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-          // update auth data user
-          await updateProfile(
-            // auth.currentuser
-            (getState() as RootState).userReducer as unknown as User,
-            {
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          dispatch(setLoadingPhoto(true));
+        },
+        (error) => {
+          console.error(error.message);
+          dispatch(setLoadingPhoto(false));
+          throw new Error('Firebase upload error');
+          // Handle unsuccessful uploads
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log('File available at', downloadURL);
+
+            await updateProfile(auth.currentUser as User, {
               photoURL: downloadURL,
-            }
-          );
+            });
 
-          // update data user in firebase
-          await updateDoc(doc(db, 'users', id as string), {
-            photo: downloadURL,
+            // update data user in firebase
+            await updateDoc(doc(db, 'users', id as string), {
+              photo: downloadURL,
+            });
+
+            dispatch(setImage({ photo: downloadURL }));
+            dispatch(setLoadingPhoto(false));
           });
-        });
-      });
-    } catch (err) {
-      return rejectWithValue('Firebase upload error');
+        }
+      );
+
+      // TODO: нужен ли здесь async thunk если все делается на стороне firestore?
+
+      // await uploadBytesResumable(storageRef, file).then(() => {
+      //   getDownloadURL(storageRef).then(async (downloadURL) => {
+      //     console.log('File available at', downloadURL, auth.currentUser);
+      //     // update store
+      //     // update auth data user
+      //     await updateProfile(
+      //       // auth.currentuser
+      //       auth.currentUser as User,
+      //       {
+      //         photoURL: downloadURL,
+      //       }
+      //     );
+      //     // update data user in firebase
+      //     await updateDoc(doc(db, 'users', id as string), {
+      //       photo: downloadURL,
+      //     });
+
+      //     dispatch(setImage({ photo: downloadURL }));
+      //   });
+      // });
+    } catch (err: unknown) {
+      return rejectWithValue((err as StorageError).message);
     }
   }
 );

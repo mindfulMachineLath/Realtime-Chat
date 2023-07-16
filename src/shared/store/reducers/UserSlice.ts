@@ -34,26 +34,29 @@ const userSlice = createSlice({
     setImage(state, action: PayloadAction<Pick<AuthUserData, 'photo'>>) {
       state.photo = action.payload.photo;
     },
+    setLoadingPhoto(state, action: PayloadAction<boolean>) {
+      state.loadingPhoto = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
-    builder.addCase(getFirestoreData.fulfilled, (state, action) => {
+    builder.addCase(getFirestoreData.fulfilled, (state) => {
       state.loading = false;
     });
-    builder.addCase(getFirestoreData.pending, (state, action) => {
+    builder.addCase(getFirestoreData.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getFirestoreData.rejected, (state, action) => {
+    builder.addCase(getFirestoreData.rejected, (state) => {
       state.loading = true;
     });
 
-    builder.addCase(uploadFireStoreFile.fulfilled, (state, action) => {
+    builder.addCase(uploadFireStoreFile.fulfilled, (state) => {
       state.loadingPhoto = false;
     });
-    builder.addCase(uploadFireStoreFile.pending, (state, action) => {
+    builder.addCase(uploadFireStoreFile.pending, (state) => {
       state.loadingPhoto = true;
     });
-    builder.addCase(uploadFireStoreFile.rejected, (state, action) => {
+    builder.addCase(uploadFireStoreFile.rejected, (state) => {
       state.loadingPhoto = true;
     });
   },
@@ -61,6 +64,6 @@ const userSlice = createSlice({
 
 const { actions, reducer } = userSlice;
 
-export const { setUser, removeUser, setImage } = actions;
+export const { setUser, removeUser, setImage, setLoadingPhoto } = actions;
 
 export default reducer;

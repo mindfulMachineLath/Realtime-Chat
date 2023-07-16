@@ -2,6 +2,7 @@ import React from 'react';
 import { Logout, Settings, AddAPhoto } from '@mui/icons-material';
 import {
   Avatar,
+  CircularProgress,
   Divider,
   IconButton,
   ListItemIcon,
@@ -95,7 +96,15 @@ const Profile: React.FC = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar src={photo as string} />
+          {loadingPhoto ? (
+            <CircularProgress
+              color="inherit"
+              size="32px"
+              sx={{ mr: '0.2rem' }}
+            />
+          ) : (
+            <Avatar src={photo as string} sx={{ mr: '0.5rem' }} />
+          )}
           {name || 'Profile'}
         </MenuItem>
 
