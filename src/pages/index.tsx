@@ -11,14 +11,11 @@ import { LayoutPage } from './Layout';
 
 // TODO: изменить названия страниц
 
-import { Login } from './Login/Login';
-
 const Routing: React.FC = () => {
   return (
     <Routes>
       <Route path={ROUTES.HOME} element={<LayoutPage />}>
         <Route index element={<Home />} />
-        <Route path={ROUTES.LOGIN} element={<Login />} />
 
         <Route
           path={ROUTES.MAIN}

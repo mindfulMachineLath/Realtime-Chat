@@ -4,12 +4,8 @@ import { updateProfile, User } from 'firebase/auth';
 import { doc, updateDoc } from 'firebase/firestore';
 
 interface Upload {
-  // setError: () => void;
-  // url: string;
   file: File;
   setImg: (url: string) => void;
-  // loading: boolean;
-  // setLoading: () => void;
 }
 
 const uploadFiles = async ({ file, setImg }: Upload) => {

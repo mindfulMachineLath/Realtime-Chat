@@ -1,5 +1,10 @@
 import React from 'react';
-import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import {
+  RecaptchaVerifier,
+  signInWithPhoneNumber,
+  updateProfile,
+  User,
+} from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { auth, db } from 'firebase.config';
 import { AlertMessages } from 'shared/ui';
@@ -8,7 +13,7 @@ import { Otp, Form } from './components';
 
 // ПРИ входе все данные есть, но при перезагрузки страницы нет! получать данные нужно с firebase либо складывать все в хранилище
 
-const Login = () => {
+const Login: React.FC = () => {
   const [showOTP, setShowOTP] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -63,8 +68,6 @@ const Login = () => {
           accessToken: token,
         } = user as unknown as UserFirebase;
 
-        console.log(user, 'this is user');
-
         // check whether the user has data in the database
         const refFirestore = doc(db, 'users', id);
         const docSnap = await getDoc(refFirestore);
@@ -80,11 +83,20 @@ const Login = () => {
 
         // if not - create write in firestore
         if (!docSnap.exists()) {
+          // устанавливаем имя сразу в юзере
+          // await updateProfile(auth.currentUser as User, {
+          //   displayName: 'Person',
+          // });
+
           await setDoc(refFirestore, initData);
           setUser(initData);
         } else {
-          console.log('docSnap.data()', docSnap.data());
+          // console.log('docSnap.data()', docSnap.data());
           setUser(docSnap.data() as AuthUserData);
+          // устанавливаем имя сразу в юзере
+          // await updateProfile(auth.currentUser as User, {
+          //   displayName: docSnap.data().name,
+          // });
         }
         //  if there is - take the data from there
 

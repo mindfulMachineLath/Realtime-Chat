@@ -15,25 +15,26 @@ import { useAppDispatch, useLogOut, useAuthState } from 'shared/hook';
 import uploadFiles from 'shared/lib/firebase/store/uploadFiles';
 import { AlertMessages } from 'shared/ui';
 import { setImage } from 'shared/store/reducers/UserSlice';
+import { getFirestoreData } from 'shared/store/actions/uploadFirestoreFile';
 
 const Profile: React.FC = () => {
-  const { photo, name } = useAuthState();
-
-  // TODO: add user data
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [open, setOpen] = React.useState(false);
-  const [error, setError] = React.useState(false);
-  const [imageUrl, setImageUrl] = React.useState<string | null>(photo);
-  console.log(photo);
-
   const dispatch = useAppDispatch();
 
   const logOutUser = useLogOut();
 
+  const { photo, name } = useAuthState();
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [open, setOpen] = React.useState(false);
+  const [error, setError] = React.useState(false);
+  const [imageUrl, setImageUrl] = React.useState<string | null>(photo);
+
+  React.useEffect(() => {
+    setImageUrl(photo);
+  }, [photo]);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
     setOpen(true);
-    console.log(auth.currentUser?.uid, 'i am user');
   };
 
   const handleClose = () => {
@@ -57,8 +58,7 @@ const Profile: React.FC = () => {
 
     const file = event.target.files[0];
     await uploadFiles({ file, setImg: setImageUrl });
-    dispatch(setImage({ photo: imageUrl }));
-    // TODO: update store!
+    dispatch(setImage({ photo: imageUrl })); // update store!
   };
 
   return (
@@ -104,7 +104,7 @@ const Profile: React.FC = () => {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar src={imageUrl} />
+          <Avatar src={imageUrl as string} />
           {name || 'Profile'}
         </MenuItem>
 

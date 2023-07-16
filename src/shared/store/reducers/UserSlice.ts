@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getLocalStorage, LOCAL_STORAGE_KEYS } from 'shared/lib/localStorage';
-import { uploadFireStoreFile } from '../actions/uploadFirestoreFile';
+import { getFirestoreData } from '../actions/uploadFirestoreFile';
 
 const initialState: AuthUserData = getLocalStorage(LOCAL_STORAGE_KEYS.USER) || {
   phoneNumber: null,
   token: null,
   id: null,
   loading: false,
-  name: null,
+  name: 'Person',
   photo: null,
 };
 
@@ -31,11 +31,16 @@ const userSlice = createSlice({
       state.photo = action.payload.photo;
     },
   },
-  // TODO: сделать асинхронный диспач
+
   extraReducers: (builder) => {
-    builder.addCase(uploadFireStoreFile.fulfilled, (state, action) => {
-      // Add user to the state array
-      // state.entities.push(action.payload);
+    builder.addCase(getFirestoreData.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(getFirestoreData.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(getFirestoreData.rejected, (state, action) => {
+      state.loading = true;
     });
   },
 });
@@ -45,24 +50,3 @@ const { actions, reducer } = userSlice;
 export const { setUser, removeUser, setImage } = actions;
 
 export default reducer;
-
-// Изменять аватар и имя! - аватар с индикатором загрузки!
-//
-
-// builder.addCase(updateFirestore.pending, (state, action) => {
-//   state.isLoading = true;
-
-//   action.meta.arg.data.tabs &&
-//     (state.tabs = action.meta.arg.data.tabs as Tab[]);
-
-//   action.meta.arg.data.activeKey &&
-//     (state.activeKey = action.meta.arg.data.activeKey as string);
-// });
-
-// builder.addCase(updateFirestore.fulfilled, (state) => {
-//   state.isLoading = false;
-// });
-
-// builder.addCase(updateFirestore.rejected, (state) => {
-//   state.isLoading = false;
-// });

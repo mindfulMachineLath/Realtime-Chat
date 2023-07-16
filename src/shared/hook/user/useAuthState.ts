@@ -2,17 +2,18 @@ import { useAppSelector } from '../redux';
 
 export const useAuthState = () => {
   const tokenStorage = useAppSelector((state) => state.userReducer.token);
-  const idStorage = useAppSelector((state) => state.userReducer.id);
+  const id = useAppSelector((state) => state.userReducer.id);
   const photo = useAppSelector((state) => state.userReducer.photo);
-  const name = useAppSelector((state) => {
-    console.log(state);
-    return state.userReducer.name;
-  });
+  const name = useAppSelector((state) => state.userReducer.name);
+  const loading = useAppSelector((state) => state.userReducer.loading);
+
+  // console.log(photo, name, 'this is in STORE');
 
   return {
     isAuth: !!tokenStorage,
-    id: idStorage,
+    id,
     photo,
     name,
+    loading,
   };
 };
