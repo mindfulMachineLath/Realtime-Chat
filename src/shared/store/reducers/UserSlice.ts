@@ -1,6 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getLocalStorage, LOCAL_STORAGE_KEYS } from 'shared/lib/localStorage';
-import { getFirestoreData } from '../actions/uploadFirestoreFile';
+import {
+  getFirestoreData,
+  uploadFireStoreFile,
+} from '../actions/uploadFirestoreFile';
 
 const initialState: AuthUserData = getLocalStorage(LOCAL_STORAGE_KEYS.USER) || {
   phoneNumber: null,
@@ -9,6 +12,7 @@ const initialState: AuthUserData = getLocalStorage(LOCAL_STORAGE_KEYS.USER) || {
   loading: false,
   name: 'Person',
   photo: null,
+  loadingPhoto: false,
 };
 
 const userSlice = createSlice({
@@ -41,6 +45,16 @@ const userSlice = createSlice({
     });
     builder.addCase(getFirestoreData.rejected, (state, action) => {
       state.loading = true;
+    });
+
+    builder.addCase(uploadFireStoreFile.fulfilled, (state, action) => {
+      state.loadingPhoto = false;
+    });
+    builder.addCase(uploadFireStoreFile.pending, (state, action) => {
+      state.loadingPhoto = true;
+    });
+    builder.addCase(uploadFireStoreFile.rejected, (state, action) => {
+      state.loadingPhoto = true;
     });
   },
 });
