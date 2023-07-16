@@ -14,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { auth, signOut } from 'firebase.config';
 import { useAppDispatch, useLogOut, useAuthState } from 'shared/hook';
 import { AlertMessages } from 'shared/ui';
-import { uploadFireStoreFile } from 'shared/store/actions/uploadFirestoreFile';
+import { uploadFireStoreFile } from 'shared/store/actions';
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();

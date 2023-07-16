@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getLocalStorage, LOCAL_STORAGE_KEYS } from 'shared/lib/localStorage';
-import {
-  getFirestoreData,
-  uploadFireStoreFile,
-} from '../actions/uploadFirestoreFile';
+import { getFirestoreData, uploadFireStoreFile } from '../actions';
 
 const initialState: AuthUserData = getLocalStorage(LOCAL_STORAGE_KEYS.USER) || {
   phoneNumber: null,

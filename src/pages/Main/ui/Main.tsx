@@ -1,9 +1,9 @@
 import React from 'react';
 import { Box } from '@mui/material';
 import { useAppDispatch, useAuthState } from 'shared/hook';
-import { ChatPanel, SideBar } from './components';
-import { getFirestoreData } from 'shared/store/actions/uploadFirestoreFile';
+import { getFirestoreData } from 'shared/store/actions';
 import { Loader } from 'shared/ui';
+import { ChatPanel, SideBar } from './components';
 
 const Main: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
