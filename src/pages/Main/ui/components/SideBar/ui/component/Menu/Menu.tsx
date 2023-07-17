@@ -15,6 +15,7 @@ import { auth, signOut } from 'firebase.config';
 import { useAppDispatch, useLogOut, useAuthState } from 'shared/hook';
 import { AlertMessages } from 'shared/ui';
 import { uploadFireStoreFile } from 'shared/store/actions';
+import { AccountModal } from './components';
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +25,8 @@ const Profile: React.FC = () => {
   const { photo, name, loadingPhoto } = useAuthState();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [open, setOpen] = React.useState(false);
+  const [openModal, setOpenModal] = React.useState(false);
+
   const [error, setError] = React.useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -123,7 +126,12 @@ const Profile: React.FC = () => {
           Change foto
         </MenuItem>
 
-        <MenuItem onClick={handleClose}>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            setOpenModal(true);
+          }}
+        >
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
@@ -137,6 +145,9 @@ const Profile: React.FC = () => {
           Logout
         </MenuItem>
       </Menu>
+
+      {/* modal settings account */}
+      <AccountModal open={openModal} handleClose={() => setOpenModal(false)} />
     </>
   );
 };
