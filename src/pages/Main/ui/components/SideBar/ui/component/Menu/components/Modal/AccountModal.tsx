@@ -1,7 +1,16 @@
 import React from 'react';
-import { Avatar, Box, Modal, Typography, Badge } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Modal,
+  Typography,
+  Badge,
+  Grid,
+  Paper,
+} from '@mui/material';
 import s from './AccountModal.module.scss';
 import { useAuthState } from 'shared/hook';
+import { CameraAlt, Person, LocalPhone } from '@mui/icons-material';
 
 interface IAccountModal {
   open: boolean;
@@ -9,7 +18,7 @@ interface IAccountModal {
 }
 
 const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
-  const { photo, name, loadingPhoto } = useAuthState();
+  const { photo, name, loadingPhoto, phoneNumber } = useAuthState();
 
   return (
     <Modal
@@ -20,7 +29,16 @@ const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
     >
       <Box className={s.box_modal}>
         {/* TODO: add badge content */}
-        <Badge badgeContent={99} color="secondary" className={s.avatar_badge}>
+        <Badge
+          badgeContent={<CameraAlt />}
+          color="secondary"
+          className={s.avatar_badge}
+          overlap="circular"
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+        >
           <Avatar
             src={photo as string}
             sx={{ mr: '0.5rem' }}
@@ -33,6 +51,37 @@ const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           {name}
         </Typography>
+
+        <Box className={s.box_person}>
+          <Grid container spacing={3} className={s.person__data_container}>
+            <Grid item xs={1} className={s.data_container}>
+              <Paper className={s.person_data}>
+                <Person className={s.icon} />
+              </Paper>
+            </Grid>
+            <Grid item xs={6} className={s.data_container}>
+              <Paper className={s.person_data}>Name</Paper>
+            </Grid>
+            <Grid item xs className={s.data_container}>
+              <Paper className={s.person_data}>{name}</Paper>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={3} className={s.person__data_container}>
+            <Grid item xs={1} className={s.data_container}>
+              <Paper className={s.person_data}>
+                <LocalPhone className={s.icon} />
+              </Paper>
+            </Grid>
+            <Grid item xs={6} className={s.data_container}>
+              <Paper className={s.person_data}>Phone number</Paper>
+            </Grid>
+            <Grid item xs className={s.data_container}>
+              <Paper className={s.person_data}>{phoneNumber}</Paper>
+            </Grid>
+          </Grid>
+        </Box>
+
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
         </Typography>

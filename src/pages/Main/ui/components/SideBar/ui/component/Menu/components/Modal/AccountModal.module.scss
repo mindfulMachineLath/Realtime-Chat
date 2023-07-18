@@ -3,7 +3,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30rem;
+  width: 35rem;
   border-radius: 10px;
   color: aliceblue;
   padding: 1.5rem;
@@ -16,10 +16,61 @@
   align-items: center;
 }
 
-.avatar {
-  //   max-width: 50%;
-  width: 15rem;
-  height: 15rem;
+.avatar_badge {
+  .avatar {
+    width: 13rem;
+    height: 13rem;
+  }
 
-  //   TODO: add adaptive
+  span {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    bottom: 10%;
+    right: 20%;
+    border: 2px solid #154e54;
+    background-color: #222239;
+  }
+}
+
+.box_person {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+  width: 90%;
+  font-size: 1.2rem;
+
+  .person__data_container {
+    cursor: pointer;
+
+    .data_container {
+      padding: 0.7em;
+      display: flex;
+
+      .person_data {
+        background-color: #154e54;
+        box-shadow: none;
+        padding: 0.4rem;
+        color: aliceblue;
+      }
+
+      &:last-child {
+        text-align: right;
+        width: 100%;
+        justify-content: flex-end;
+
+        .person_data {
+          color: #0daba0;
+        }
+      }
+    }
+
+    &:hover {
+      background-color: #222239;
+      .person_data {
+        background-color: #222239;
+      }
+    }
+  }
 }
