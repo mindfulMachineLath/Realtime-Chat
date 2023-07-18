@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getLocalStorage, LOCAL_STORAGE_KEYS } from 'shared/lib/localStorage';
-import { getFirestoreData, uploadFireStoreFile } from '../actions';
+import {
+  getFirestoreData,
+  updateFirestoreData,
+  uploadFireStoreFile,
+} from '../actions';
 
 const initialState: AuthUserData = getLocalStorage(LOCAL_STORAGE_KEYS.USER) || {
   phoneNumber: null,
@@ -10,6 +14,7 @@ const initialState: AuthUserData = getLocalStorage(LOCAL_STORAGE_KEYS.USER) || {
   name: 'Person',
   photo: null,
   loadingPhoto: false,
+  loadingName: false,
 };
 
 const userSlice = createSlice({
@@ -30,6 +35,9 @@ const userSlice = createSlice({
     },
     setImage(state, action: PayloadAction<Pick<AuthUserData, 'photo'>>) {
       state.photo = action.payload.photo;
+    },
+    setName(state, action: PayloadAction<Pick<AuthUserData, 'name'>>) {
+      state.name = action.payload.name;
     },
     setLoadingPhoto(state, action: PayloadAction<boolean>) {
       state.loadingPhoto = action.payload;
@@ -56,11 +64,21 @@ const userSlice = createSlice({
     builder.addCase(uploadFireStoreFile.rejected, (state) => {
       state.loadingPhoto = true;
     });
+    builder.addCase(updateFirestoreData.fulfilled, (state) => {
+      state.loadingName = false;
+    });
+    builder.addCase(updateFirestoreData.pending, (state) => {
+      state.loadingName = true;
+    });
+    builder.addCase(updateFirestoreData.rejected, (state) => {
+      state.loadingName = true;
+    });
   },
 });
 
 const { actions, reducer } = userSlice;
 
-export const { setUser, removeUser, setImage, setLoadingPhoto } = actions;
+export const { setUser, removeUser, setImage, setLoadingPhoto, setName } =
+  actions;
 
 export default reducer;

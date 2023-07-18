@@ -14,4 +14,5 @@ interface AuthUserData {
   photo: null | string;
   loading?: boolean;
   loadingPhoto?: boolean;
+  loadingName?: boolean;
 }

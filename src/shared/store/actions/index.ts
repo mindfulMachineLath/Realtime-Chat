@@ -1,6 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '..';
-import { setImage, setUser, setLoadingPhoto } from '../reducers/UserSlice';
+import {
+  setImage,
+  setUser,
+  setLoadingPhoto,
+  setName,
+} from '../reducers/UserSlice';
 import { auth, db, storage } from 'firebase.config';
 import {
   ref,
@@ -36,8 +41,6 @@ export const uploadFireStoreFile = createAsyncThunk(
         },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log('File available at', downloadURL);
-
             await updateProfile(auth.currentUser as User, {
               photoURL: downloadURL,
             });
@@ -92,6 +95,29 @@ export const getFirestoreData = createAsyncThunk(
       const data = docSnap.data() as AuthUserData;
 
       dispatch(setUser(data));
+    } catch (err) {
+      return rejectWithValue('Firebase error');
+    }
+  }
+);
+
+export const updateFirestoreData = createAsyncThunk(
+  'update/data',
+  async (name: string, { rejectWithValue, dispatch, getState }) => {
+    try {
+      const { id } = (getState() as RootState).userReducer;
+
+      const refFirestore = doc(db, 'users', id as string);
+
+      await updateDoc(refFirestore, {
+        name,
+      });
+
+      await updateProfile(auth.currentUser as User, {
+        displayName: name,
+      });
+
+      dispatch(setName({ name }));
     } catch (err) {
       return rejectWithValue('Firebase error');
     }

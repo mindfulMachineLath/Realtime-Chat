@@ -1,8 +1,9 @@
 import React from 'react';
 import { Box, Modal, Typography, TextField, Button } from '@mui/material';
-import { useAuthState } from 'shared/hook';
-import s from './NestedModal.module.scss';
 import styled from '@emotion/styled';
+import { updateFirestoreData } from 'shared/store/actions';
+import { useAppDispatch, useAuthState } from 'shared/hook';
+import s from './NestedModal.module.scss';
 
 interface IAccountModal {
   open: boolean;
@@ -30,7 +31,20 @@ const MuiInputStyled = styled(TextField)`
 // TODO: change border color input
 
 const NestedModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
-  const { photo, name, loadingPhoto, phoneNumber } = useAuthState();
+  const dispatch = useAppDispatch();
+  const { name } = useAuthState();
+  const [inputDefault, setInputName] = React.useState(name);
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setInputName(event.target.value);
+  };
+
+  const handleSaveName = () => {
+    dispatch(updateFirestoreData(inputDefault as string));
+    handleClose();
+  };
 
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
@@ -46,14 +60,19 @@ const NestedModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
 
         <MuiInputStyled
           label="Name"
-          defaultValue={name}
+          defaultValue={inputDefault}
           variant="standard"
           className={s.input}
+          onChange={handleChange}
         />
 
         <Box className={s.buttons_box}>
-          <Button variant="text">Cancel</Button>
-          <Button variant="text">Save</Button>
+          <Button variant="text" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="text" onClick={handleSaveName}>
+            Save
+          </Button>
         </Box>
       </Box>
     </Modal>
