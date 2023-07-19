@@ -19,7 +19,7 @@ interface IAccountModal {
 }
 
 const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
-  const { photo, name, loadingPhoto, phoneNumber } = useAuthState();
+  const { photo, name, loadingName, phoneNumber } = useAuthState();
   const [openModal, setOpenModal] = React.useState(false);
 
   return (
@@ -33,6 +33,7 @@ const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
         <NestedModal open={openModal} handleClose={() => setOpenModal(false)} />
 
         {/* TODO: add badge content */}
+        {/* TODO: add upload new avatar */}
         <Badge
           badgeContent={<CameraAlt />}
           color="secondary"
@@ -53,7 +54,7 @@ const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
         {/* TODO: add number, name, bio */}
 
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          {name}
+          {loadingName ? 'update...' : name}
         </Typography>
 
         <Box className={s.box_person}>
@@ -75,7 +76,9 @@ const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
             </Grid>
 
             <Grid item xs className={s.data_container}>
-              <Paper className={s.person_data}>{name}</Paper>
+              <Paper className={s.person_data}>
+                {loadingName ? 'update...' : name}
+              </Paper>
             </Grid>
           </Grid>
 
@@ -94,9 +97,9 @@ const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
           </Grid>
         </Box>
 
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
+        </Typography> */}
       </Box>
     </Modal>
   );

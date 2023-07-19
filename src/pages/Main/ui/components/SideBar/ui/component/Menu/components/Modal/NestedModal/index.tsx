@@ -38,10 +38,19 @@ const NestedModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setInputName(event.target.value);
+    if (event.target.value.replace(/\s/g, '') !== '') {
+      setInputName(event.target.value);
+    }
   };
 
   const handleSaveName = () => {
+    if (
+      inputDefault === name ||
+      (inputDefault as string).replace(/\s/g, '') === ''
+    ) {
+      handleClose();
+      return;
+    }
     dispatch(updateFirestoreData(inputDefault as string));
     handleClose();
   };
