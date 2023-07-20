@@ -62,7 +62,10 @@ const Login: React.FC = () => {
     (window as CustomWindow).confirmationResult
       ?.confirm(otp)
       .then(async ({ user }) => {
+        console.log(user);
+
         const {
+          displayName,
           phoneNumber,
           uid: id,
           accessToken: token,
@@ -76,7 +79,7 @@ const Login: React.FC = () => {
         const docChatsSnap = await getDoc(refChatsFirestore);
 
         const initData: AuthUserData = {
-          name: 'Person',
+          name: displayName,
           photo: null,
           phoneNumber,
           id,

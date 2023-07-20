@@ -16,9 +16,14 @@ import s from './AccountModal.module.scss';
 interface IAccountModal {
   open: boolean;
   handleClose: () => void;
+  active?: boolean;
 }
 
-const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
+const AccountModal: React.FC<IAccountModal> = ({
+  open,
+  handleClose,
+  active,
+}) => {
   const { photo, name, loadingName, phoneNumber } = useAuthState();
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -62,7 +67,11 @@ const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
           <Grid
             container
             spacing={3}
-            className={s.person__data_container}
+            className={
+              active
+                ? `${s.person__data_container} ${s.active_container}`
+                : s.person__data_container
+            }
             onClick={() => setOpenModal(true)}
           >
             <Grid item xs={1} className={s.data_container}>
@@ -96,10 +105,6 @@ const AccountModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
             </Grid>
           </Grid>
         </Box>
-
-        {/* <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography> */}
       </Box>
     </Modal>
   );

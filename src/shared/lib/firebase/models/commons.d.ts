@@ -10,7 +10,7 @@ interface AuthUserData {
   phoneNumber: null | string;
   token: null | string;
   id: null | string;
-  name: string | null;
+  name?: string | null;
   photo: null | string;
   loading?: boolean;
   loadingPhoto?: boolean;

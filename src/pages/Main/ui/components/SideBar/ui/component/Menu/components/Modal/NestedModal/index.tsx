@@ -73,6 +73,9 @@ const NestedModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
           variant="standard"
           className={s.input}
           onChange={handleChange}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
 
         <Box className={s.buttons_box}>

@@ -1,15 +1,27 @@
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Snackbar, SnackbarOrigin } from '@mui/material';
 
 interface IAlert {
   text: string;
   severity: 'success' | 'info' | 'warning' | 'error';
   status: boolean;
   close?: () => void;
+  anchorOrigin?: SnackbarOrigin;
 }
 
-const AlertMessages: React.FC<IAlert> = ({ text, severity, status, close }) => {
+const AlertMessages: React.FC<IAlert> = ({
+  text,
+  severity,
+  status,
+  close,
+  anchorOrigin,
+}) => {
   return (
-    <Snackbar open={status} autoHideDuration={6000} onClose={close}>
+    <Snackbar
+      open={status}
+      autoHideDuration={6000}
+      onClose={close}
+      anchorOrigin={anchorOrigin}
+    >
       <Alert onClose={close} severity={severity} sx={{ width: '100%' }}>
         {text}
       </Alert>
