@@ -22,7 +22,12 @@ const AlertMessages: React.FC<IAlert> = ({
       onClose={close}
       anchorOrigin={anchorOrigin}
     >
-      <Alert onClose={close} severity={severity} sx={{ width: '100%' }}>
+      <Alert
+        onClose={close}
+        severity={severity}
+        sx={{ width: '100%' }}
+        variant={'filled'}
+      >
         {text}
       </Alert>
     </Snackbar>

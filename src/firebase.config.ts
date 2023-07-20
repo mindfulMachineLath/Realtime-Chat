@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signOut } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
-import { getFirestore } from 'firebase/firestore';
+import { collection, getFirestore } from 'firebase/firestore';
 import handleUserDataInStorage from './shared/lib/firebase/utils/userDataInStorage';
 
 const API_KEY = import.meta.env.VITE_FB_API_KEY;
@@ -20,6 +20,11 @@ const firebaseConfig = {
   appId: ID,
 };
 
+enum CLOUD {
+  USERS = 'users',
+  CHATS = 'userChats',
+}
+
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
@@ -27,8 +32,10 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage();
 
+const usersCollection = collection(db, CLOUD.USERS);
+
 auth.onAuthStateChanged((user) => {
   handleUserDataInStorage(user);
 });
 
-export { auth, signOut, storage, db };
+export { auth, signOut, storage, db, CLOUD, usersCollection };

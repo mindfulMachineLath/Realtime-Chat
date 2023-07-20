@@ -11,11 +11,11 @@ import { MessageExample } from './fakeData';
 import s from './Chats.module.scss';
 
 interface ChatsProps {
-  data: MessageExample[];
+  chats: AuthUserData[];
 }
 
-const Chats: React.FC<ChatsProps> = ({ data }) => {
-  if (!data.length) {
+const Chats: React.FC<ChatsProps> = ({ chats }) => {
+  if (!chats || !chats.length) {
     return (
       <Typography variant="h6" noWrap component="div" sx={{ mt: 6, ml: 4 }}>
         ooops...
@@ -28,16 +28,16 @@ const Chats: React.FC<ChatsProps> = ({ data }) => {
       sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}
       className={s.scroll}
     >
-      {data.map(({ primary, secondary, person }, index) => (
+      {chats.map(({ name, photo, id }, index) => (
         <ListItem
           button
-          key={index + person}
+          key={(id as string) + index}
           onClick={() => console.log('data')}
         >
           <ListItemAvatar>
-            <Avatar alt="Profile Picture" src={person} />
+            <Avatar alt="Profile Picture" src={photo as string | undefined} />
           </ListItemAvatar>
-          <ListItemText primary={primary} secondary={secondary} />
+          <ListItemText primary={name} secondary={name} />
         </ListItem>
       ))}
     </List>

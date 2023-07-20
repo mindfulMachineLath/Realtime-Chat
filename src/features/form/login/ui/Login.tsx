@@ -1,31 +1,31 @@
 import React from 'react';
-import {
-  RecaptchaVerifier,
-  signInWithPhoneNumber,
-  updateProfile,
-  User,
-} from 'firebase/auth';
+import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { auth, db } from 'firebase.config';
+import { auth, db, CLOUD } from 'firebase.config';
 import { AlertMessages } from 'shared/ui';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
 
 // ПРИ входе все данные есть, но при перезагрузки страницы нет! получать данные нужно с firebase либо складывать все в хранилище
+// TODO: проверить создается ли новый пользователь
 
 const Login: React.FC = () => {
   const [showOTP, setShowOTP] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [error, setError] = React.useState(false);
+
   const setUser = useLoginUser();
 
   const onCaptchaVerify = (data: FormValue) => {
+    console.log(auth, 'мы зашли в onCaptchaVerify');
     if (!(window as CustomWindow).recaptchaVerifier) {
       (window as CustomWindow).recaptchaVerifier = new RecaptchaVerifier(
         'sign-in-button',
         {
           size: 'invisible',
           callback: () => {
+            console.log('reCAPTCHA');
             // reCAPTCHA solved, allow signInWithPhoneNumber.
             onSignInSubmit(data);
           },
@@ -37,7 +37,11 @@ const Login: React.FC = () => {
   };
 
   const onSignInSubmit = (data: FormValue) => {
+    setError(false);
     setLoading(true);
+
+    console.log('onSignInSubmit', data);
+
     onCaptchaVerify(data);
 
     const appVerifier = (window as unknown as CustomWindow).recaptchaVerifier;
@@ -50,10 +54,14 @@ const Login: React.FC = () => {
           setLoading(false);
           setShowOTP(true);
           setOpen(true);
+          setError(false);
         })
         .catch((error) => {
+          setError(true);
           console.error(error);
+          console.log('signInWithPhoneNumber ERRRRRRR');
           setLoading(false);
+          setOpen(true);
         });
   };
 
@@ -72,8 +80,8 @@ const Login: React.FC = () => {
         } = user as unknown as UserFirebase;
 
         // check whether the user has data in the database
-        const refUserFirestore = doc(db, 'users', id);
-        const refChatsFirestore = doc(db, 'usersChats', id);
+        const refUserFirestore = doc(db, CLOUD.USERS, id);
+        const refChatsFirestore = doc(db, CLOUD.CHATS, id);
 
         const docSnap = await getDoc(refUserFirestore);
         const docChatsSnap = await getDoc(refChatsFirestore);
@@ -124,8 +132,8 @@ const Login: React.FC = () => {
   return (
     <>
       <AlertMessages
-        text="OTP sended successfully!"
-        severity="success"
+        text={error ? 'ERROR' : 'OTP sended successfully!'}
+        severity={error ? 'error' : 'success'}
         close={() => setOpen(false)}
         status={open}
       />

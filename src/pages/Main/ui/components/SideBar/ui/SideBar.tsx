@@ -3,16 +3,67 @@ import { Toolbar, Drawer, Divider, Box } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Chats, SearchChat, Profile } from './component';
 import { refreshMessages } from './component/Chats/fakeData';
-import { filterCountries } from './component/Chats/utils/filterData';
 import { DRAWER_WIDTH } from 'shared/const/common';
 import { ButtonIcon } from 'shared/ui';
+import { and, getDocs, or, query, where } from 'firebase/firestore';
+import { usersCollection } from 'firebase.config';
 
 const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
   const [search, setSearch] = React.useState('');
   const [messages, setMessages] = React.useState(() => refreshMessages());
+  const [chat, setChat] = React.useState([]);
+  const [findedUsers, setfindedUsers] = React.useState<AuthUserData[]>([]);
 
-  const handleSearchChange = (value: string) => {
+  const handleSearchChange = async (value: string) => {
     setSearch(value);
+  };
+
+  const handleKey = (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (e.code === 'Enter' && search !== '') {
+      setfindedUsers([]);
+      handleSearch();
+    }
+
+    if (search === '') {
+      setfindedUsers([]);
+    }
+  };
+
+  const handleSearch = async () => {
+    const q = query(
+      usersCollection,
+      or(
+        // query as-is:
+        and(
+          where('name', '>=', search),
+          where('name', '<=', search + '\uf8ff')
+        ),
+        // capitalize first letter:
+        and(
+          where('name', '>=', search.charAt(0).toUpperCase() + search.slice(1)),
+          where(
+            'name',
+            '<=',
+            search.charAt(0).toUpperCase() + search.slice(1) + '\uf8ff'
+          )
+        ),
+        // lowercase:
+        and(
+          where('name', '>=', search.toLowerCase()),
+          where('name', '<=', search.toLowerCase() + '\uf8ff')
+        )
+      )
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      if (!findedUsers.includes(doc.data() as AuthUserData)) {
+        return setfindedUsers((prev) => [...prev, doc.data() as AuthUserData]);
+      }
+    });
   };
 
   const drawer = (
@@ -20,7 +71,10 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
       <Toolbar sx={{ position: 'fixed', pl: 0 }}>
         <Box sx={{ display: 'flex', gap: 1.1 }}>
           <Profile />
-          <SearchChat onSearchChange={handleSearchChange} />
+          <SearchChat
+            onSearchChange={handleSearchChange}
+            handleKey={handleKey}
+          />
           <ButtonIcon onClick={setMobile}>
             <ArrowForwardIosIcon />
           </ButtonIcon>
@@ -28,8 +82,9 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
       </Toolbar>
 
       <Divider sx={{ mb: 2 }} />
+      <Chats chats={findedUsers} />
 
-      <Chats data={filterCountries({ data: messages, search })} />
+      {/* <Chats data={filterCountries({ data: messages, search })} /> */}
     </>
   );
 
