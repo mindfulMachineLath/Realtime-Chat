@@ -7,7 +7,6 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { MessageExample } from './fakeData';
 import s from './Chats.module.scss';
 
 interface ChatsProps {

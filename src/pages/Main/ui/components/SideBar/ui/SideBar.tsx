@@ -2,7 +2,6 @@ import React from 'react';
 import { Toolbar, Drawer, Divider, Box } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Chats, SearchChat, Profile } from './component';
-import { refreshMessages } from './component/Chats/fakeData';
 import { DRAWER_WIDTH } from 'shared/const/common';
 import { ButtonIcon } from 'shared/ui';
 import { and, getDocs, or, query, where } from 'firebase/firestore';
@@ -10,7 +9,6 @@ import { usersCollection } from 'firebase.config';
 
 const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
   const [search, setSearch] = React.useState('');
-  const [messages, setMessages] = React.useState(() => refreshMessages());
   const [chat, setChat] = React.useState([]);
   const [findedUsers, setfindedUsers] = React.useState<AuthUserData[]>([]);
 
