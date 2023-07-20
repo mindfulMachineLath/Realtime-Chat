@@ -69,8 +69,11 @@ const Login: React.FC = () => {
         } = user as unknown as UserFirebase;
 
         // check whether the user has data in the database
-        const refFirestore = doc(db, 'users', id);
-        const docSnap = await getDoc(refFirestore);
+        const refUserFirestore = doc(db, 'users', id);
+        const refChatsFirestore = doc(db, 'usersChats', id);
+
+        const docSnap = await getDoc(refUserFirestore);
+        const docChatsSnap = await getDoc(refChatsFirestore);
 
         const initData: AuthUserData = {
           name: 'Person',
@@ -88,9 +91,16 @@ const Login: React.FC = () => {
           //   displayName: 'Person',
           // });
 
-          await setDoc(refFirestore, initData);
+          // обновляем данные в firestore по user
+          await setDoc(refUserFirestore, initData);
+
+          // добавляем данные в firestore по чатам
+          await setDoc(refChatsFirestore, {});
+          // TODO: нужно сетать данные в стор приложения!
+
           setUser(initData);
         } else {
+          // docChatsSnap.data() && сетать данные в стор!
           // console.log('docSnap.data()', docSnap.data());
           setUser(docSnap.data() as AuthUserData);
           // устанавливаем имя сразу в юзере

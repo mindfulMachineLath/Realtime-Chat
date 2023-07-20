@@ -1,6 +1,7 @@
 type FormValue = {
   country?: string;
   tel: string;
+  name: string;
 };
 
 interface DataCountry {

@@ -1,24 +1,10 @@
 import React from 'react';
-import { Stack } from '@mui/material';
+import { Stack, TextField } from '@mui/material';
 import { useForm, Controller, FieldValues } from 'react-hook-form';
-import { MuiTelInput, matchIsValidTel } from 'mui-tel-input';
+import { matchIsValidTel } from 'mui-tel-input';
 import { LoadingButton } from 'shared/ui';
-import { MenuProps } from './style';
-import styled from '@emotion/styled';
-
-const MuiTelInputStyled = styled(MuiTelInput)`
-  & input {
-    color: #ffffffa8;
-  }
-
-  & label {
-    color: #ffffffa8;
-  }
-
-  & fieldset {
-    border-color: #ffffffa8;
-  }
-`;
+import { MenuProps, MuiInputStyled, MuiTelInputStyled } from './style';
+import { textValidate } from './utils/validate';
 
 interface FormProps {
   onClick: (data: FormValue) => void;
@@ -29,6 +15,7 @@ const Form: React.FC<FormProps> = ({ onClick, loading }) => {
   const { handleSubmit, control } = useForm<FieldValues>({
     defaultValues: {
       tel: '',
+      name: '',
     },
   });
 
@@ -52,6 +39,21 @@ const Form: React.FC<FormProps> = ({ onClick, loading }) => {
               defaultCountry="RU"
               error={fieldState.invalid}
               MenuProps={MenuProps}
+            />
+          )}
+        />
+        <Controller
+          name="name"
+          control={control}
+          rules={{ validate: textValidate }}
+          render={({ field, fieldState }) => (
+            <MuiInputStyled
+              label={fieldState.invalid ? 'Name Invalid' : 'Name'}
+              {...field}
+              error={fieldState.invalid}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
           )}
         />
