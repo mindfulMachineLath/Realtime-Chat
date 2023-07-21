@@ -105,9 +105,9 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
 
         await updateDoc(refChatsWithUser, {
           [combinedId + '.userInfo']: {
-            id: user.id,
-            name: user.name,
-            photo: user.photo,
+            id: id,
+            name: name,
+            photo: photo,
           },
           [combinedId + '.date']: serverTimestamp(),
         });
@@ -115,9 +115,9 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
         // create user chats at the current user
         await updateDoc(refChatsCurrentUser, {
           [combinedId + '.userInfo']: {
-            id: id,
-            name: name,
-            photo: photo,
+            id: user.id,
+            name: user.name,
+            photo: user.photo,
           },
           [combinedId + '.date']: serverTimestamp(),
         });
@@ -147,7 +147,7 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
       </Toolbar>
 
       <Divider sx={{ mb: 2 }} />
-      <Chats chats={findedUsers} onClick={handleSelect} />
+      <Chats findedUsers={findedUsers} onClick={handleSelect} />
     </>
   );
 };
