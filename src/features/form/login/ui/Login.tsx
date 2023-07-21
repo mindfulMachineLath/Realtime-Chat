@@ -81,7 +81,7 @@ const Login: React.FC = () => {
 
         // check whether the user has data in the database
         const refUserFirestore = doc(db, CLOUD.USERS, id);
-        const refChatsFirestore = doc(db, CLOUD.CHATS, id);
+        const refChatsFirestore = doc(db, CLOUD.USER_CHATS, id);
 
         const docSnap = await getDoc(refUserFirestore);
         const docChatsSnap = await getDoc(refChatsFirestore);

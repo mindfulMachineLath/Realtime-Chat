@@ -11,9 +11,10 @@ import s from './Chats.module.scss';
 
 interface ChatsProps {
   chats: AuthUserData[];
+  onClick: (user: AuthUserData) => void;
 }
 
-const Chats: React.FC<ChatsProps> = ({ chats }) => {
+const Chats: React.FC<ChatsProps> = ({ chats, onClick }) => {
   if (!chats || !chats.length) {
     return (
       <Typography variant="h6" noWrap component="div" sx={{ mt: 6, ml: 4 }}>
@@ -27,16 +28,19 @@ const Chats: React.FC<ChatsProps> = ({ chats }) => {
       sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}
       className={s.scroll}
     >
-      {chats.map(({ name, photo, id }, index) => (
+      {chats.map((user, index) => (
         <ListItem
           button
-          key={(id as string) + index}
-          onClick={() => console.log('data')}
+          key={(user.id as string) + index}
+          onClick={() => onClick(user)}
         >
           <ListItemAvatar>
-            <Avatar alt="Profile Picture" src={photo as string | undefined} />
+            <Avatar
+              alt="Profile Picture"
+              src={user.photo as string | undefined}
+            />
           </ListItemAvatar>
-          <ListItemText primary={name} secondary={name} />
+          <ListItemText primary={user.name} secondary={user.name} />
         </ListItem>
       ))}
     </List>

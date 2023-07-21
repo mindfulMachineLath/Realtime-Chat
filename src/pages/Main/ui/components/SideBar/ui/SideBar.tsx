@@ -4,18 +4,34 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Chats, SearchChat, Profile } from './component';
 import { DRAWER_WIDTH } from 'shared/const/common';
 import { ButtonIcon } from 'shared/ui';
-import { and, getDocs, or, query, where } from 'firebase/firestore';
-import { usersCollection } from 'firebase.config';
+import {
+  and,
+  doc,
+  getDoc,
+  getDocs,
+  or,
+  query,
+  serverTimestamp,
+  setDoc,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { CLOUD, usersCollection, db } from 'firebase.config';
+import { useAuthState } from 'shared/hook';
 
 const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
   const [search, setSearch] = React.useState('');
   const [chat, setChat] = React.useState([]);
   const [findedUsers, setfindedUsers] = React.useState<AuthUserData[]>([]);
 
+  const { id, name, photo } = useAuthState();
+
+  // сетаем значения вводимые в поиск
   const handleSearchChange = async (value: string) => {
     setSearch(value);
   };
 
+  // на ентер ищем юзера
   const handleKey = (
     e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -64,12 +80,60 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
     });
   };
 
+  const handleSelect = async (user: AuthUserData) => {
+    // check whether the group (chat in firestore) exists, if not create
+
+    const combinedId =
+      (id as string) > (user.id as string) ? id + user.id : user.id + id;
+
+    console.log(combinedId, user, id);
+    try {
+      const refChatsFirestore = doc(db, CLOUD.CHATS, combinedId);
+      const refChatsCurrentUser = doc(db, CLOUD.USER_CHATS, id as string);
+      const refChatsWithUser = doc(db, CLOUD.USER_CHATS, user.id as string);
+
+      const docChatsSnap = await getDoc(refChatsFirestore);
+
+      // create a chat in chats collection
+      if (!docChatsSnap.exists()) {
+        await setDoc(refChatsFirestore, { messages: [] });
+
+        // create user chats at the companion
+
+        await updateDoc(refChatsWithUser, {
+          [combinedId + '.userInfo']: {
+            id: user.id,
+            name: user.name,
+            photo: user.photo,
+          },
+          [combinedId + '.date']: serverTimestamp(),
+        });
+
+        // create user chats at the current user
+        await updateDoc(refChatsCurrentUser, {
+          [combinedId + '.userInfo']: {
+            id: id,
+            name: name,
+            photo: photo,
+          },
+          [combinedId + '.date']: serverTimestamp(),
+        });
+      }
+    } catch (err) {
+      // TODO: добавить обработку ошибок
+    }
+    setfindedUsers([]);
+    setSearch('');
+    // добавить очищение списка поиска и серча
+  };
+
   const drawer = (
     <>
       <Toolbar sx={{ position: 'fixed', pl: 0 }}>
         <Box sx={{ display: 'flex', gap: 1.1 }}>
           <Profile />
           <SearchChat
+            value={search}
             onSearchChange={handleSearchChange}
             handleKey={handleKey}
           />
@@ -80,9 +144,7 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
       </Toolbar>
 
       <Divider sx={{ mb: 2 }} />
-      <Chats chats={findedUsers} />
-
-      {/* <Chats data={filterCountries({ data: messages, search })} /> */}
+      <Chats chats={findedUsers} onClick={handleSelect} />
     </>
   );
 

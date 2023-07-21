@@ -6,7 +6,7 @@ import {
 } from './ui/styled/StyledSearchComponent';
 
 interface SearchChatProps {
-  value?: string;
+  value: string;
   onSearchChange: (value: string) => void;
   handleKey: (
     e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -16,6 +16,7 @@ interface SearchChatProps {
 const SearchChat: React.FC<SearchChatProps> = ({
   handleKey,
   onSearchChange,
+  value,
 }) => {
   return (
     <Search>
@@ -23,6 +24,7 @@ const SearchChat: React.FC<SearchChatProps> = ({
         <SearchIcon />
       </SearchIconWrapper>
       <StyledInputBase
+        value={value}
         placeholder="Find user..."
         inputProps={{ 'aria-label': 'search' }}
         onKeyDown={(e) => handleKey(e)}

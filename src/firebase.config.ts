@@ -22,7 +22,8 @@ const firebaseConfig = {
 
 enum CLOUD {
   USERS = 'users',
-  CHATS = 'userChats',
+  USER_CHATS = 'userChats',
+  CHATS = 'chats',
 }
 
 const app = initializeApp(firebaseConfig);
