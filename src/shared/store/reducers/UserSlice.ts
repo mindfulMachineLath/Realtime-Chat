@@ -11,7 +11,7 @@ const initialState: AuthUserData = getLocalStorage(LOCAL_STORAGE_KEYS.USER) || {
   token: null,
   id: null,
   loading: false,
-  name: 'Person',
+  name: '',
   photo: null,
   loadingPhoto: false,
   loadingName: false,
@@ -31,7 +31,8 @@ const userSlice = createSlice({
     removeUser(state) {
       state.phoneNumber = null;
       state.token = null;
-      state.id = null;
+      state.id = '';
+      // TODO: null?
     },
     setImage(state, action: PayloadAction<Pick<AuthUserData, 'photo'>>) {
       state.photo = action.payload.photo;

@@ -6,9 +6,6 @@ import { AlertMessages } from 'shared/ui';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
 
-// ПРИ входе все данные есть, но при перезагрузки страницы нет! получать данные нужно с firebase либо складывать все в хранилище
-// TODO: проверить создается ли новый пользователь
-
 const Login: React.FC = () => {
   const [showOTP, setShowOTP] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
@@ -87,7 +84,7 @@ const Login: React.FC = () => {
         const docChatsSnap = await getDoc(refChatsFirestore);
 
         const initData: AuthUserData = {
-          name: displayName,
+          name: displayName || '',
           photo: null,
           phoneNumber,
           id,
