@@ -21,7 +21,7 @@ interface ChatsProps {
 const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
   const { id } = useAuthState();
 
-  const [chat, setChat] = React.useState<ChatsData[]>([]);
+  const [chat, setChat] = React.useState<[string, Data][]>([]);
 
   React.useEffect(() => {
     const unsub = onSnapshot(doc(db, CLOUD.USER_CHATS, id), (doc) => {
@@ -64,17 +64,17 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
       ))}
       {!!findedUsers.length && <Divider />}
 
-      {chat.map((data) => (
-        <ListItem button key={data[0] as string} onClick={() => onClick(data)}>
+      {chat.map(([idChats, chatData]) => (
+        <ListItem button key={idChats as string} onClick={() => onClick(data)}>
           <ListItemAvatar>
             <Avatar
               alt="Profile Picture"
-              src={data[1].userInfo.photo as string | undefined}
+              src={chatData.userInfo.photo as string | undefined}
             />
           </ListItemAvatar>
           <ListItemText
-            primary={data[1].userInfo.name}
-            secondary={data[1].lastMessage.text}
+            primary={chatData.userInfo.name}
+            // secondary={chatData.lastMessage.text}
           />
         </ListItem>
       ))}
