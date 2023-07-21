@@ -14,7 +14,7 @@ const handleUserDataInStorage = (user: User | null) => {
       token: accessToken,
       id: uid,
       photo: photoURL || null,
-      name: displayName || null,
+      name: displayName || '',
     };
     setLocalStorage(userData, LOCAL_STORAGE_KEYS.USER);
   } else {
