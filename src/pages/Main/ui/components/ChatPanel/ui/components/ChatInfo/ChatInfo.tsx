@@ -10,8 +10,11 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { ButtonIcon } from 'shared/ui';
 import { DRAWER_WIDTH } from 'shared/const/common';
+import { useGetActiveChat } from 'shared/hook';
 
 const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {
+  const { user } = useGetActiveChat();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
@@ -27,12 +30,12 @@ const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {
           </ButtonIcon>
 
           <Avatar
-            alt="Profile Picture"
-            src={'<Avatar alt="Profile Picture" src={person} />'}
+            alt={'Profile Picture ' + user.name}
+            src={user.photo as string | undefined}
           />
           <Box>
             <Typography variant="h6" noWrap component="div">
-              Name CHAT
+              {user.name}
             </Typography>
             <Typography noWrap component="p">
               descriptions

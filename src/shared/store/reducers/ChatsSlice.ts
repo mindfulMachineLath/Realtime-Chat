@@ -4,7 +4,7 @@ import { getLocalStorage, LOCAL_STORAGE_KEYS } from 'shared/lib/localStorage';
 import { getIdUser } from './UserSlice';
 
 interface ChatsInitialData {
-  user: AuthUserData;
+  user: UserInfo;
   chatID: string;
   currentUserID?: string;
 }
@@ -13,8 +13,7 @@ const initialState: ChatsInitialData = {
   user: {
     id: '',
     name: '',
-    photo: null,
-    token: null,
+    photo: 'null',
     phoneNumber: '',
   },
   chatID: 'null',
