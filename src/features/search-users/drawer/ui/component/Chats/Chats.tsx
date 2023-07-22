@@ -11,7 +11,8 @@ import {
 } from '@mui/material';
 import s from './Chats.module.scss';
 import { CLOUD, db } from 'firebase.config';
-import { useAuthState } from 'shared/hook';
+import { useAppDispatch, useAuthState } from 'shared/hook';
+import { changeUser } from 'shared/store/reducers/ChatsSlice';
 
 interface ChatsProps {
   findedUsers: AuthUserData[];
@@ -19,13 +20,24 @@ interface ChatsProps {
 }
 
 const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
-  const { id } = useAuthState();
+  const dispatch = useAppDispatch();
 
+  const { id } = useAuthState();
   const [chat, setChat] = React.useState<[string, Data][]>([]);
+
+  const handleClick = (data: UserInfo) => {
+    console.log('ПОКАЖИТЕ!', data);
+    dispatch(changeUser({ user: data }));
+  };
+
+  const handleClickOnFindUser = (user: AuthUserData) => {
+    console.log(user);
+    onClick(user);
+    dispatch(changeUser({ user }));
+  };
 
   React.useEffect(() => {
     const unsub = onSnapshot(doc(db, CLOUD.USER_CHATS, id), (doc) => {
-      console.log('Current data: ', doc.data());
       setChat(Object.entries(doc.data() as ChatsData));
     });
 
@@ -51,7 +63,7 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
         <ListItem
           button
           key={(user.id as string) + index}
-          onClick={() => onClick(user)}
+          onClick={() => handleClickOnFindUser(user)}
         >
           <ListItemAvatar>
             <Avatar
@@ -65,7 +77,11 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
       {!!findedUsers.length && <Divider />}
 
       {chat.map(([idChats, chatData]) => (
-        <ListItem button key={idChats as string} onClick={() => onClick(data)}>
+        <ListItem
+          button
+          key={idChats as string}
+          onClick={() => handleClick(chatData.userInfo)}
+        >
           <ListItemAvatar>
             <Avatar
               alt="Profile Picture"

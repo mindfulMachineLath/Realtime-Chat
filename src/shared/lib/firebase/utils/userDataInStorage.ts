@@ -17,6 +17,7 @@ const handleUserDataInStorage = (user: User | null) => {
       name: displayName || '',
     };
     setLocalStorage(userData, LOCAL_STORAGE_KEYS.USER);
+    // setLocalStorage(userData, LOCAL_STORAGE_KEYS.USER);
   } else {
     removeLocalStorage(LOCAL_STORAGE_KEYS.USER);
   }

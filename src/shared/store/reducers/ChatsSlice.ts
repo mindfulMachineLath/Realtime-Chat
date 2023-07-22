@@ -1,34 +1,58 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { auth } from 'firebase.config';
 import { getLocalStorage, LOCAL_STORAGE_KEYS } from 'shared/lib/localStorage';
+import { getIdUser } from './UserSlice';
 
+interface ChatsInitialData {
+  user: AuthUserData;
+  chatID: string;
+  currentUserID?: string;
+}
 // TODO: получать данные из firestore!
-const initialState: AuthUserData = getLocalStorage(LOCAL_STORAGE_KEYS.USER) || {
-  phoneNumber: null,
-  token: null,
-  id: null,
-  loading: false,
-  name: 'Person',
-  photo: null,
-  loadingPhoto: false,
-  loadingName: false,
+const initialState: ChatsInitialData = {
+  user: {
+    id: '',
+    name: '',
+    photo: null,
+    token: null,
+    phoneNumber: '',
+  },
+  chatID: 'null',
+  currentUserID: getLocalStorage(LOCAL_STORAGE_KEYS.USER).id,
+
+  //
 };
 
 const chatsSlice = createSlice({
   name: 'userChats',
   initialState,
   reducers: {
-    setChats(state, action: PayloadAction<AuthUserData>) {
-      state.phoneNumber = action.payload.phoneNumber;
-      state.token = action.payload.token;
-      state.id = action.payload.id;
-      state.name = action.payload.name;
-      state.photo = action.payload.photo;
+    // changeUser(state, action: PayloadAction<Pick<ChatsInitialData, 'user'>>) {
+    changeUser(
+      state,
+      action: PayloadAction<Pick<ChatsInitialData, 'user' | 'currentUserID'>>
+    ) {
+      const { user, currentUserID } = action.payload;
+
+      console.log(initialState);
+      state.user = user;
+      state.currentUserID = currentUserID;
+
+      state.chatID =
+        (currentUserID as string) > user.id
+          ? currentUserID + user.id
+          : user.id + currentUserID;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getIdUser, (state, action) => {
+      console.log(state, action);
+    });
   },
 });
 
 const { actions, reducer } = chatsSlice;
 
-export const { setChats } = actions;
+export const { changeUser } = actions;
 
 export default reducer;

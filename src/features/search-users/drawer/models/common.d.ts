@@ -3,10 +3,8 @@ interface ChatsData {
 }
 
 interface Data {
-  date: 'string';
-  userInfo: {
-    id: string;
-    name: string;
-    photo: string | null;
-  };
+  date: DateConstructor;
+  userInfo: UserInfo;
 }
+
+type UserInfo = Pick<AuthUserData, 'id' | 'name' | 'photo' | 'phoneNumber'>;

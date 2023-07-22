@@ -8,7 +8,7 @@ interface UserFirebase extends import('firebase/auth').User {
 
 interface AuthUserData {
   phoneNumber: null | string;
-  token: null | string;
+  token?: null | string;
   id: string;
   name?: string;
   photo: null | string;

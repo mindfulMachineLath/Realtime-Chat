@@ -43,6 +43,9 @@ const userSlice = createSlice({
     setLoadingPhoto(state, action: PayloadAction<boolean>) {
       state.loadingPhoto = action.payload;
     },
+    getIdUser(state, action) {
+      state.id = action.payload;
+    },
   },
 
   extraReducers: (builder) => {
@@ -79,7 +82,13 @@ const userSlice = createSlice({
 
 const { actions, reducer } = userSlice;
 
-export const { setUser, removeUser, setImage, setLoadingPhoto, setName } =
-  actions;
+export const {
+  setUser,
+  removeUser,
+  setImage,
+  setLoadingPhoto,
+  setName,
+  getIdUser,
+} = actions;
 
 export default reducer;
