@@ -19,14 +19,12 @@ const Login: React.FC<ILogin> = ({ title }) => {
   const setUser = useLoginUser();
 
   const onCaptchaVerify = (data: FormValue) => {
-    console.log(auth, 'мы зашли в onCaptchaVerify');
     if (!(window as CustomWindow).recaptchaVerifier) {
       (window as CustomWindow).recaptchaVerifier = new RecaptchaVerifier(
-        'sign-in-button',
+        'sign-in-button', // добавляем reCAPTCHA в контейнер
         {
           size: 'invisible',
           callback: () => {
-            console.log('reCAPTCHA');
             // reCAPTCHA solved, allow signInWithPhoneNumber.
             onSignInSubmit(data);
           },
@@ -41,7 +39,7 @@ const Login: React.FC<ILogin> = ({ title }) => {
     setError(false);
     setLoading(true);
 
-    onCaptchaVerify(data);
+    onCaptchaVerify(data); // вызываем рекапчу
 
     const appVerifier = (window as unknown as CustomWindow).recaptchaVerifier;
     const phoneNumber = data.tel;
@@ -56,7 +54,7 @@ const Login: React.FC<ILogin> = ({ title }) => {
           setError(false);
           title(true);
         })
-        .catch((error) => {
+        .catch(() => {
           setError(true);
           setLoading(false);
           setOpen(true);
@@ -82,7 +80,6 @@ const Login: React.FC<ILogin> = ({ title }) => {
         const refChatsFirestore = doc(db, CLOUD.USER_CHATS, id);
 
         const docSnap = await getDoc(refUserFirestore);
-        const docChatsSnap = await getDoc(refChatsFirestore);
 
         const initData: AuthUserData = {
           name: displayName || '',
@@ -95,35 +92,21 @@ const Login: React.FC<ILogin> = ({ title }) => {
 
         // if not - create write in firestore
         if (!docSnap.exists()) {
-          // устанавливаем имя сразу в юзере
-          // await updateProfile(auth.currentUser as User, {
-          //   displayName: 'Person',
-          // });
+          await setDoc(refUserFirestore, initData); // обновляем данные в firestore по user
 
-          // обновляем данные в firestore по user
-          await setDoc(refUserFirestore, initData);
+          await setDoc(refChatsFirestore, {}); // добавляем данные в firestore по чатам
 
-          // добавляем данные в firestore по чатам
-          await setDoc(refChatsFirestore, {});
-          // TODO: нужно сетать данные в стор приложения!
-
-          setUser(initData);
+          setUser(initData); // обновляем стор
         } else {
-          // docChatsSnap.data() && сетать данные в стор!
-          // console.log('docSnap.data()', docSnap.data());
-          setUser(docSnap.data() as AuthUserData);
-          // устанавливаем имя сразу в юзере
-          // await updateProfile(auth.currentUser as User, {
-          //   displayName: docSnap.data().name,
-          // });
+          //  if there is - take the data from there
+          setUser(docSnap.data() as AuthUserData); // обновляем стор
         }
-        //  if there is - take the data from there
 
         setLoading(false);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         setLoading(false);
+        setError(true);
       });
   };
 
