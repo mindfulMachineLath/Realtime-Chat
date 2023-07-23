@@ -33,7 +33,6 @@ const chatsSlice = createSlice({
     ) {
       const { user, currentUserID } = action.payload;
 
-      console.log(initialState);
       state.user = user;
 
       if (currentUserID) {

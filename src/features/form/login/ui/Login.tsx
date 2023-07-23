@@ -19,12 +19,14 @@ const Login: React.FC<ILogin> = ({ title }) => {
   const setUser = useLoginUser();
 
   const onCaptchaVerify = (data: FormValue) => {
+    console.log('reCAPTCHA solved');
     if (!(window as CustomWindow).recaptchaVerifier) {
       (window as CustomWindow).recaptchaVerifier = new RecaptchaVerifier(
         'sign-in-button', // добавляем reCAPTCHA в контейнер
         {
           size: 'invisible',
           callback: () => {
+            console.log('reCAPTCHA solved1212313123');
             // reCAPTCHA solved, allow signInWithPhoneNumber.
             onSignInSubmit(data);
           },
@@ -38,6 +40,8 @@ const Login: React.FC<ILogin> = ({ title }) => {
   const onSignInSubmit = (data: FormValue) => {
     setError(false);
     setLoading(true);
+
+    console.log('data', data);
 
     onCaptchaVerify(data); // вызываем рекапчу
 
@@ -54,7 +58,7 @@ const Login: React.FC<ILogin> = ({ title }) => {
           setError(false);
           title(true);
         })
-        .catch(() => {
+        .catch((e) => {
           setError(true);
           setLoading(false);
           setOpen(true);
@@ -104,7 +108,7 @@ const Login: React.FC<ILogin> = ({ title }) => {
 
         setLoading(false);
       })
-      .catch(() => {
+      .catch((e) => {
         setLoading(false);
         setError(true);
       });

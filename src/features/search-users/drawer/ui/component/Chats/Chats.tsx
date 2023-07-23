@@ -26,12 +26,12 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
   const [chat, setChat] = React.useState<[string, Data][]>([]);
 
   const handleClick = ({ userInfo, date, lastMessage }: Data) => {
-    dispatch(changeUser({ user: userInfo }));
+    dispatch(changeUser({ user: userInfo, currentUserID: id }));
   };
 
   const handleClickOnFindUser = (user: AuthUserData) => {
     onClick(user);
-    dispatch(changeUser({ user }));
+    dispatch(changeUser({ user, currentUserID: id }));
   };
 
   // получаем данные о чатах юзера

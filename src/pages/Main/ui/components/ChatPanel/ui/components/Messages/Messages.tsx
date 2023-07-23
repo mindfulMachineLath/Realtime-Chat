@@ -1,24 +1,15 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { useGetActiveChat } from 'shared/hook';
+import { useAuthState } from 'shared/hook';
 import Message from './Message/Message';
 import s from './Messages.module.scss';
-import { CLOUD, db } from 'firebase.config';
-import { doc, onSnapshot } from 'firebase/firestore';
 
-const Messages: React.FC = () => {
-  const [messages, setMessages] = React.useState<MessageFirestore[]>([]);
-  const { chatID, currentUserID } = useGetActiveChat();
+interface IMessages {
+  messages: MessageFirestore[];
+}
 
-  React.useEffect(() => {
-    const onSub = onSnapshot(doc(db, CLOUD.CHATS, chatID), (doc) => {
-      doc.exists() && setMessages(doc.data().messages);
-    });
-
-    return () => {
-      onSub();
-    };
-  }, [chatID]);
+const Messages: React.FC<IMessages> = ({ messages }) => {
+  const { id } = useAuthState();
 
   return (
     // TODO: change bg color
@@ -28,7 +19,7 @@ const Messages: React.FC = () => {
           <Message
             key={m.id}
             text={m.text}
-            own={m.senderId === currentUserID}
+            own={m.senderId === id}
             file={m.image}
           />
         ))}
