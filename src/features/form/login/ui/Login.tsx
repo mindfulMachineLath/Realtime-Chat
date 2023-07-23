@@ -10,11 +10,16 @@ interface ILogin {
   title: (b: boolean) => void;
 }
 
+const initialError = {
+  status: false,
+  text: '',
+};
+
 const Login: React.FC<ILogin> = ({ title }) => {
   const [showOTP, setShowOTP] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [error, setError] = React.useState(initialError);
 
   const setUser = useLoginUser();
 
@@ -38,28 +43,28 @@ const Login: React.FC<ILogin> = ({ title }) => {
   };
 
   const onSignInSubmit = (data: FormValue) => {
-    setError(false);
+    setError(initialError);
     setLoading(true);
-
-    console.log('data', data);
 
     onCaptchaVerify(data); // вызываем рекапчу
 
     const appVerifier = (window as unknown as CustomWindow).recaptchaVerifier;
-    const phoneNumber = data.tel;
+
+    console.log('data', appVerifier);
 
     appVerifier &&
-      signInWithPhoneNumber(auth, phoneNumber, appVerifier)
+      signInWithPhoneNumber(auth, data.tel, appVerifier)
         .then((confirmationResult) => {
           (window as CustomWindow).confirmationResult = confirmationResult;
           setLoading(false);
           setShowOTP(true);
           setOpen(true);
-          setError(false);
+          setError(initialError);
           title(true);
         })
         .catch((e) => {
-          setError(true);
+          console.error(e);
+          setError({ status: true, text: e.message });
           setLoading(false);
           setOpen(true);
         });
@@ -70,8 +75,6 @@ const Login: React.FC<ILogin> = ({ title }) => {
     (window as CustomWindow).confirmationResult
       ?.confirm(otp)
       .then(async ({ user }) => {
-        console.log(user);
-
         const {
           displayName,
           phoneNumber,
@@ -109,15 +112,16 @@ const Login: React.FC<ILogin> = ({ title }) => {
         setLoading(false);
       })
       .catch((e) => {
+        console.error(e);
         setLoading(false);
-        setError(true);
+        setError({ status: true, text: e.message });
       });
   };
 
   return (
     <>
       <AlertMessages
-        text={error ? 'ERROR' : 'OTP sended successfully!'}
+        text={error ? error.text : 'OTP sended successfully!'}
         severity={error ? 'error' : 'success'}
         close={() => setOpen(false)}
         status={open}

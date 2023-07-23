@@ -13,8 +13,6 @@ const ChatPanel: React.FC<IChild> = ({ mobile, setMobile }) => {
   React.useEffect(() => {
     const onSub = onSnapshot(doc(db, CLOUD.CHATS, chatID), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
-      console.log(chatID);
-      console.log(doc.exists());
     });
 
     return () => {
