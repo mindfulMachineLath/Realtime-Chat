@@ -32,6 +32,9 @@ export const theme = createTheme({
       light: '#69b4e4',
       dark: '#004a8c',
     },
+    action: {
+      disabled: '#ffffffcc',
+    },
 
     contrastThreshold: 3,
     tonalOffset: 0.2,
