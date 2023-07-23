@@ -3,8 +3,11 @@ interface ChatsData {
 }
 
 interface Data {
-  date: DateConstructor;
+  date: import('firebase/firestore').Timestamp;
   userInfo: UserInfo;
+  lastMessage: {
+    text: string;
+  };
 }
 
 type UserInfo = Pick<AuthUserData, 'id' | 'name' | 'photo' | 'phoneNumber'>;

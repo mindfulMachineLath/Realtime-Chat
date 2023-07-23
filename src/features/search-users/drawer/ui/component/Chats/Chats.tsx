@@ -25,17 +25,16 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
   const { id } = useAuthState();
   const [chat, setChat] = React.useState<[string, Data][]>([]);
 
-  const handleClick = (data: UserInfo) => {
-    console.log('ПОКАЖИТЕ!', data);
-    dispatch(changeUser({ user: data }));
+  const handleClick = ({ userInfo, date, lastMessage }: Data) => {
+    dispatch(changeUser({ user: userInfo }));
   };
 
   const handleClickOnFindUser = (user: AuthUserData) => {
-    console.log(user);
     onClick(user);
     dispatch(changeUser({ user }));
   };
 
+  // получаем данные о чатах юзера
   React.useEffect(() => {
     const unsub = onSnapshot(doc(db, CLOUD.USER_CHATS, id), (doc) => {
       setChat(Object.entries(doc.data() as ChatsData));
@@ -80,7 +79,7 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
         <ListItem
           button
           key={idChats as string}
-          onClick={() => handleClick(chatData.userInfo)}
+          onClick={() => handleClick(chatData)}
         >
           <ListItemAvatar>
             <Avatar
@@ -90,7 +89,7 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
           </ListItemAvatar>
           <ListItemText
             primary={chatData.userInfo.name}
-            // secondary={chatData.lastMessage.text}
+            secondary={chatData.lastMessage?.text}
           />
         </ListItem>
       ))}

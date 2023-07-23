@@ -22,7 +22,6 @@ const ChatPanel: React.FC<IChild> = ({ mobile, setMobile }) => {
     <>
       <Box className={s.chat_box}>
         <ChatInfo mobile={mobile} setMobile={setMobile} />
-
         <Box className={s.chat_message_box}>
           <Messages />
           <Input />

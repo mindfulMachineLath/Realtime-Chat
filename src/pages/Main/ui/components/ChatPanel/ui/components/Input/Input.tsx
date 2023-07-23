@@ -3,8 +3,13 @@ import { Box, IconButton, InputBase } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { EmojiSet } from 'shared/ui';
-
-import { updateDoc, doc, arrayUnion, Timestamp } from 'firebase/firestore';
+import {
+  updateDoc,
+  doc,
+  arrayUnion,
+  Timestamp,
+  serverTimestamp,
+} from 'firebase/firestore';
 import { CLOUD, db, storage } from 'firebase.config';
 import { useAuthState, useGetActiveChat } from 'shared/hook';
 import { v4 as uid } from 'uuid';
@@ -13,7 +18,8 @@ import s from './Input.module.scss';
 
 const Input: React.FC = () => {
   const { id } = useAuthState();
-  const { user, chatID, currentUserID } = useGetActiveChat();
+  const { chatID, user } = useGetActiveChat();
+  // TODO: выгрузить отсюда действующего юзера
   const [image, setImageUrl] = React.useState<File | null>(null);
   const [value, setValue] = React.useState('');
 
@@ -24,7 +30,6 @@ const Input: React.FC = () => {
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('this is file', event?.target?.files);
     if (!event.target.files) {
       return;
     }
@@ -38,8 +43,6 @@ const Input: React.FC = () => {
 
     if (image) {
       const storageRef = ref(storage, uid());
-      // const uploadTask = uploadBytesResumable(storageRef, image);
-
       await uploadBytesResumable(storageRef, image).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
           await updateDoc(doc(db, CLOUD.CHATS, chatID), {
@@ -63,6 +66,26 @@ const Input: React.FC = () => {
         }),
       });
     }
+
+    // TODO: необходимо обновить данные о чате, добавив последнее сообщение в базу данных
+
+    // TODO: вынести обнолвения для обоих пользователей в хук
+    await updateDoc(doc(db, CLOUD.USER_CHATS, id), {
+      [chatID + '.lastMessage']: {
+        text: value,
+      },
+      [chatID + '.date']: serverTimestamp(),
+    });
+
+    await updateDoc(doc(db, CLOUD.USER_CHATS, user.id), {
+      [chatID + '.lastMessage']: {
+        text: value,
+      },
+      [chatID + '.date']: serverTimestamp(),
+    });
+
+    setValue('');
+    setImageUrl(null);
   };
 
   return (

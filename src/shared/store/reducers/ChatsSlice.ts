@@ -16,7 +16,9 @@ const initialState: ChatsInitialData = {
     phoneNumber: '',
   },
   chatID: 'null',
-  currentUserID: getLocalStorage(LOCAL_STORAGE_KEYS.USER).id,
+  currentUserID: getLocalStorage(LOCAL_STORAGE_KEYS.USER)
+    ? getLocalStorage(LOCAL_STORAGE_KEYS.USER).id
+    : '',
 
   //
 };
