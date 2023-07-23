@@ -30,8 +30,6 @@ const EmojiSet = () => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
   const [selectedEmoji, setSelectedEmoji] = React.useState<string>('');
 
-  console.log(selectedEmoji);
-
   const handlePopoverOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };

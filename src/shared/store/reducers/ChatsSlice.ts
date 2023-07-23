@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { auth } from 'firebase.config';
 import { getLocalStorage, LOCAL_STORAGE_KEYS } from 'shared/lib/localStorage';
 import { getIdUser } from './UserSlice';
 
@@ -26,7 +25,6 @@ const chatsSlice = createSlice({
   name: 'userChats',
   initialState,
   reducers: {
-    // changeUser(state, action: PayloadAction<Pick<ChatsInitialData, 'user'>>) {
     changeUser(
       state,
       action: PayloadAction<Pick<ChatsInitialData, 'user' | 'currentUserID'>>
@@ -35,12 +33,20 @@ const chatsSlice = createSlice({
 
       console.log(initialState);
       state.user = user;
-      state.currentUserID = currentUserID;
+
+      if (currentUserID) {
+        state.currentUserID = currentUserID;
+
+        state.chatID =
+          (currentUserID as string) > user.id
+            ? currentUserID + user.id
+            : user.id + currentUserID;
+      }
 
       state.chatID =
-        (currentUserID as string) > user.id
-          ? currentUserID + user.id
-          : user.id + currentUserID;
+        (state.currentUserID as string) > user.id
+          ? state.currentUserID + user.id
+          : user.id + state.currentUserID;
     },
   },
   extraReducers: (builder) => {

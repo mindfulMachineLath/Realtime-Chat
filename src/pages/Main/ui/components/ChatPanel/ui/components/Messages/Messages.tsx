@@ -7,7 +7,7 @@ import { CLOUD, db } from 'firebase.config';
 import { doc, onSnapshot } from 'firebase/firestore';
 
 const Messages: React.FC = () => {
-  const [messages, setMessages] = React.useState([]);
+  const [messages, setMessages] = React.useState<MessageFirestore[]>([]);
   const { user, chatID } = useGetActiveChat();
 
   React.useEffect(() => {

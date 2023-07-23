@@ -3,12 +3,25 @@ import { Box, IconButton, InputBase } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { EmojiSet } from 'shared/ui';
+
+import { updateDoc, doc, arrayUnion, Timestamp } from 'firebase/firestore';
+import { CLOUD, db, storage } from 'firebase.config';
+import { useAuthState, useGetActiveChat } from 'shared/hook';
+import { v4 as uid } from 'uuid';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import s from './Input.module.scss';
 
 const Input: React.FC = () => {
-  const [imageUrl, setImageUrl] = React.useState<string | ArrayBuffer | null>(
-    null
-  );
+  const { id } = useAuthState();
+  const { user, chatID, currentUserID } = useGetActiveChat();
+  const [image, setImageUrl] = React.useState<File | null>(null);
+  const [value, setValue] = React.useState('');
+
+  const handleKeyBoard = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setValue(event.target.value);
+  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     console.log('this is file', event?.target?.files);
@@ -17,14 +30,39 @@ const Input: React.FC = () => {
     }
 
     const file = event.target.files[0];
-    const reader = new FileReader();
-    console.log(reader);
+    setImageUrl(file);
+  };
 
-    reader.onloadend = () => {
-      setImageUrl(reader.result);
-    };
+  const handleSendMessage = async () => {
+    console.log('uid()', uid(), value, id, Timestamp.now(), chatID);
 
-    reader.readAsDataURL(file);
+    if (image) {
+      const storageRef = ref(storage, uid());
+      // const uploadTask = uploadBytesResumable(storageRef, image);
+
+      await uploadBytesResumable(storageRef, image).then(() => {
+        getDownloadURL(storageRef).then(async (downloadURL) => {
+          await updateDoc(doc(db, CLOUD.CHATS, chatID), {
+            messages: arrayUnion({
+              id: uid(),
+              image: downloadURL,
+              senderId: id,
+              date: Timestamp.now(),
+              text: value,
+            }),
+          });
+        });
+      });
+    } else {
+      await updateDoc(doc(db, CLOUD.CHATS, chatID), {
+        messages: arrayUnion({
+          id: uid(),
+          text: value,
+          senderId: id,
+          date: Timestamp.now(),
+        }),
+      });
+    }
   };
 
   return (
@@ -40,10 +78,12 @@ const Input: React.FC = () => {
         sx={{ ml: 1, flex: 1, color: '#0daba0' }}
         placeholder="write a message"
         inputProps={{ 'aria-label': 'write a message' }}
+        onChange={handleKeyBoard}
+        value={value}
       />
 
       {/* TODO: прикрутить эмоции */}
-      <EmojiSet />
+      {/* <EmojiSet /> */}
       {/* <IconButton
         aria-label="delete"
         onMouseEnter={handlePopoverOpen}
@@ -52,7 +92,7 @@ const Input: React.FC = () => {
         <SentimentSatisfiedAltIcon color="primary" />
       </IconButton> */}
 
-      <IconButton aria-label="delete">
+      <IconButton aria-label="delete" onClick={handleSendMessage}>
         <SendIcon color="primary" />
       </IconButton>
     </Box>
