@@ -10,6 +10,8 @@ const Home: React.FC = () => {
   const { isAuth } = useAuthState();
   const location = useLocation();
 
+  const [title, setTitle] = React.useState(false);
+
   if (isAuth) {
     return <Navigate to={ROUTES.MAIN} state={{ from: location }} />;
   }
@@ -22,10 +24,12 @@ const Home: React.FC = () => {
           Chatty
         </Typography>
         <Typography component="p" className={styles.note}>
-          Please confirm your country code and enter your phone number.
+          {title
+            ? 'Please enter verify code'
+            : 'Please confirm your country code and enter your phone number.'}
         </Typography>
 
-        <Form.Login />
+        <Form.Login title={setTitle} />
       </div>
     </div>
   );

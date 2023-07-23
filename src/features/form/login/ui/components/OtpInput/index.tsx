@@ -2,6 +2,7 @@ import React from 'react';
 import { MuiOtpInput } from 'mui-one-time-password-input';
 import { Stack } from '@mui/material';
 import { LoadingButton } from 'shared/ui';
+import s from './Otp.module.scss';
 
 interface OtpInputProps {
   onClick: (otp: string) => void;
@@ -21,7 +22,13 @@ const OtpInput: React.FC<OtpInputProps> = ({ onClick, loading }) => {
 
   return (
     <Stack spacing={4} sx={{ marginTop: '2rem' }}>
-      <MuiOtpInput value={otp} onChange={handleChange} length={6} autoFocus />
+      <MuiOtpInput
+        value={otp}
+        onChange={handleChange}
+        length={6}
+        autoFocus
+        className={s.otp}
+      />
 
       <LoadingButton
         text="Verify OTP"

@@ -6,7 +6,11 @@ import { AlertMessages } from 'shared/ui';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
 
-const Login: React.FC = () => {
+interface ILogin {
+  title: (b: boolean) => void;
+}
+
+const Login: React.FC<ILogin> = ({ title }) => {
   const [showOTP, setShowOTP] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -37,8 +41,6 @@ const Login: React.FC = () => {
     setError(false);
     setLoading(true);
 
-    console.log('onSignInSubmit', data);
-
     onCaptchaVerify(data);
 
     const appVerifier = (window as unknown as CustomWindow).recaptchaVerifier;
@@ -52,11 +54,10 @@ const Login: React.FC = () => {
           setShowOTP(true);
           setOpen(true);
           setError(false);
+          title(true);
         })
         .catch((error) => {
           setError(true);
-          console.error(error);
-          console.log('signInWithPhoneNumber ERRRRRRR');
           setLoading(false);
           setOpen(true);
         });

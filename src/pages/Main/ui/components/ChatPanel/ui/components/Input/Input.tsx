@@ -33,7 +33,6 @@ const Input: React.FC = () => {
     if (!event.target.files) {
       return;
     }
-
     const file = event.target.files[0];
     setImageUrl(file);
   };
