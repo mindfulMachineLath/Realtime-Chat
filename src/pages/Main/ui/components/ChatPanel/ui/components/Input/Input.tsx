@@ -87,6 +87,16 @@ const Input: React.FC = () => {
     setImageUrl(null);
   };
 
+  const handleKey = async (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (e.code === 'Enter') {
+      e.preventDefault(); // чтобы убрать перенос строки в инпуте на Enter
+      handleSendMessage();
+      setValue('');
+    }
+  };
+
   return (
     <Box className={s.send_box}>
       <IconButton aria-label="upload avatar" component="label">
@@ -101,6 +111,7 @@ const Input: React.FC = () => {
         placeholder="write a message"
         inputProps={{ 'aria-label': 'write a message' }}
         onChange={handleKeyBoard}
+        onKeyDown={handleKey}
         value={value}
       />
 
