@@ -25,7 +25,7 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
   const { id } = useAuthState();
   const [chat, setChat] = React.useState<[string, Data][]>([]);
 
-  const handleClick = ({ userInfo, date, lastMessage }: Data) => {
+  const handleClick = ({ userInfo, date }: Data) => {
     dispatch(changeUser({ user: userInfo, currentUserID: id }));
   };
 
@@ -43,12 +43,13 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
     return () => {
       unsub;
     };
-  }, []);
+  }, []); // TODO: необходимо менять данные при клике!
 
-  if ((!findedUsers || !findedUsers.length) && !chat.length) {
+  if (!chat.length && (!findedUsers || !findedUsers.length)) {
     return (
       <Typography variant="h6" noWrap component="div" sx={{ mt: 6, ml: 4 }}>
-        ooops...
+        you don't have any active chats yet, enter your friend's name in the
+        search
       </Typography>
     );
   }

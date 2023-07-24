@@ -24,7 +24,6 @@ const Login: React.FC<ILogin> = ({ title }) => {
   const setUser = useLoginUser();
 
   const onCaptchaVerify = (data: FormValue) => {
-    console.log('reCAPTCHA solved');
     if (!(window as CustomWindow).recaptchaVerifier) {
       (window as CustomWindow).recaptchaVerifier = new RecaptchaVerifier(
         'sign-in-button', // добавляем reCAPTCHA в контейнер

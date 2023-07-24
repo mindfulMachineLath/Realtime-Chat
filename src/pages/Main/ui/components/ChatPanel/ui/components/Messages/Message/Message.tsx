@@ -24,8 +24,7 @@ const Message: React.FC<IMessage> = ({ text, own, file }) => {
         />
       </Box>
       {!file ? (
-        <Typography variant="body2" className={s.message_text}>
-          {!own && <p>{user.name}</p>}
+        <Typography className={s.message_text} variant="body2">
           {text || 'Message 1'}
         </Typography>
       ) : (
