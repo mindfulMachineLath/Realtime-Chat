@@ -2,8 +2,7 @@ import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { ChatInfo, Input, Messages } from './components';
 import { useGetActiveChat } from 'shared/hook';
-import { CLOUD, db } from 'firebase.config';
-import { doc, onSnapshot } from 'firebase/firestore';
+import { onSnapshot } from 'firebase/firestore';
 import s from './ChatPanel.module.scss';
 import { DOC } from 'shared/lib/firebase/utils/documentReferense';
 
@@ -12,13 +11,9 @@ const ChatPanel: React.FC<IChild> = ({ mobile, setMobile }) => {
   const [messages, setMessages] = React.useState<MessageFirestore[]>([]);
 
   React.useEffect(() => {
-    const onSub = onSnapshot(
-      DOC.chats(chatID),
-      // doc(db, CLOUD.CHATS, chatID)
-      (doc) => {
-        doc.exists() && setMessages(doc.data().messages);
-      }
-    );
+    const onSub = onSnapshot(DOC.chats(chatID), (doc) => {
+      doc.exists() && setMessages(doc.data().messages);
+    });
 
     return () => {
       onSub();

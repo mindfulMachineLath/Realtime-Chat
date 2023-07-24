@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@mui/material';
 import s from './Chats.module.scss';
-import { CLOUD, db } from 'firebase.config';
 import { useAppDispatch, useAuthState } from 'shared/hook';
 import { changeUser } from 'shared/store/reducers/ChatsSlice';
 import { DOC } from 'shared/lib/firebase/utils/documentReferense';
@@ -25,6 +24,7 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
 
   const { id } = useAuthState();
   const [chat, setChat] = React.useState<[string, Data][]>([]);
+  console.log('Я перерисовался', chat);
 
   const handleClick = ({ userInfo, date }: Data) => {
     dispatch(changeUser({ user: userInfo, currentUserID: id }));
@@ -37,13 +37,9 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
 
   // получаем данные о чатах юзера
   React.useEffect(() => {
-    const unsub = onSnapshot(
-      DOC.userChats(id),
-      // doc(db, CLOUD.USER_CHATS, id)
-      (doc) => {
-        setChat(Object.entries(doc.data() as ChatsData));
-      }
-    );
+    const unsub = onSnapshot(DOC.userChats(id), (doc) => {
+      setChat(Object.entries(doc.data() as ChatsData));
+    });
 
     return () => {
       unsub;

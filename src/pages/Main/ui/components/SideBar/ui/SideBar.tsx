@@ -25,7 +25,10 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: '100%',
-            backgroundColor: '#10101b',
+            backgroundColor: '#10101bc4',
+            color: 'antiquewhite',
+
+            // '#10101b',
           },
         }}
       >
@@ -39,7 +42,9 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: DRAWER_WIDTH,
-            backgroundColor: '#10101b',
+            backgroundColor: '#10101bc4',
+            color: 'antiquewhite',
+            // backgroundColor: '#10101b',
           },
         }}
         open
