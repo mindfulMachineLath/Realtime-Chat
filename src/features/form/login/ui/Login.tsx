@@ -5,6 +5,7 @@ import { auth, db, CLOUD } from 'firebase.config';
 import { AlertMessages } from 'shared/ui';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
+import { DOC } from 'shared/lib/firebase/utils/documentReferense';
 
 interface ILogin {
   title: (b: boolean) => void;
@@ -82,8 +83,11 @@ const Login: React.FC<ILogin> = ({ title }) => {
         } = user as unknown as UserFirebase;
 
         // check whether the user has data in the database
-        const refUserFirestore = doc(db, CLOUD.USERS, id);
-        const refChatsFirestore = doc(db, CLOUD.USER_CHATS, id);
+        const refUserFirestore = DOC.users(id);
+
+        // doc(db, CLOUD.USERS, id);
+        const refChatsFirestore = DOC.userChats(id);
+        // doc(db, CLOUD.USER_CHATS, id);
 
         const docSnap = await getDoc(refUserFirestore);
 

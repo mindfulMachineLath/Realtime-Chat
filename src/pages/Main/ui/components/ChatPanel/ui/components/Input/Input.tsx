@@ -15,11 +15,11 @@ import { useAuthState, useGetActiveChat } from 'shared/hook';
 import { v4 as uid } from 'uuid';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import s from './Input.module.scss';
+import { DOC } from 'shared/lib/firebase/utils/documentReferense';
 
 const Input: React.FC = () => {
   const { id } = useAuthState();
   const { chatID, user } = useGetActiveChat();
-  // TODO: выгрузить отсюда действующего юзера
   const [image, setImageUrl] = React.useState<File | null>(null);
   const [value, setValue] = React.useState('');
 
@@ -39,49 +39,64 @@ const Input: React.FC = () => {
 
   const handleSendMessage = async () => {
     console.log('uid()', uid(), value, id, Timestamp.now(), chatID);
+    const chatReference = DOC.chats(chatID);
 
     if (image) {
       const storageRef = ref(storage, uid());
       await uploadBytesResumable(storageRef, image).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
-          await updateDoc(doc(db, CLOUD.CHATS, chatID), {
-            messages: arrayUnion({
-              id: uid(),
-              image: downloadURL,
-              senderId: id,
-              date: Timestamp.now(),
-              text: value,
-            }),
-          });
+          await updateDoc(
+            chatReference,
+            // doc(db, CLOUD.CHATS, chatID)
+            {
+              messages: arrayUnion({
+                id: uid(),
+                image: downloadURL,
+                senderId: id,
+                date: Timestamp.now(),
+                text: value,
+              }),
+            }
+          );
         });
       });
     } else {
-      await updateDoc(doc(db, CLOUD.CHATS, chatID), {
-        messages: arrayUnion({
-          id: uid(),
-          text: value,
-          senderId: id,
-          date: Timestamp.now(),
-        }),
-      });
+      await updateDoc(
+        chatReference,
+        // doc(db, CLOUD.CHATS, chatID)
+        {
+          messages: arrayUnion({
+            id: uid(),
+            text: value,
+            senderId: id,
+            date: Timestamp.now(),
+          }),
+        }
+      );
     }
 
-    // TODO: необходимо обновить данные о чате, добавив последнее сообщение в базу данных
-
     // TODO: вынести обнолвения для обоих пользователей в хук
-    await updateDoc(doc(db, CLOUD.USER_CHATS, id), {
-      [chatID + '.lastMessage']: {
-        text: value,
-      },
-      [chatID + '.date']: serverTimestamp(),
-    });
+    await updateDoc(
+      DOC.userChats(id),
+      // doc(db, CLOUD.USER_CHATS, id)
+      {
+        [chatID + '.lastMessage']: {
+          text: value,
+        },
+        [chatID + '.date']: serverTimestamp(),
+      }
+    );
 
-    await updateDoc(doc(db, CLOUD.USER_CHATS, user.id), {
-      [chatID + '.lastMessage']: {
-        text: value,
-      },
-      [chatID + '.date']: serverTimestamp(),
-    });
+    await updateDoc(
+      DOC.userChats(user.id),
+      // doc(db, CLOUD.USER_CHATS, user.id)
+      {
+        [chatID + '.lastMessage']: {
+          text: value,
+        },
+        [chatID + '.date']: serverTimestamp(),
+      }
+    );
 
     setValue('');
     setImageUrl(null);

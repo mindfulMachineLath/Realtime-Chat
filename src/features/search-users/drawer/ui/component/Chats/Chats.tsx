@@ -13,6 +13,7 @@ import s from './Chats.module.scss';
 import { CLOUD, db } from 'firebase.config';
 import { useAppDispatch, useAuthState } from 'shared/hook';
 import { changeUser } from 'shared/store/reducers/ChatsSlice';
+import { DOC } from 'shared/lib/firebase/utils/documentReferense';
 
 interface ChatsProps {
   findedUsers: AuthUserData[];
@@ -36,9 +37,13 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
 
   // получаем данные о чатах юзера
   React.useEffect(() => {
-    const unsub = onSnapshot(doc(db, CLOUD.USER_CHATS, id), (doc) => {
-      setChat(Object.entries(doc.data() as ChatsData));
-    });
+    const unsub = onSnapshot(
+      DOC.userChats(id),
+      // doc(db, CLOUD.USER_CHATS, id)
+      (doc) => {
+        setChat(Object.entries(doc.data() as ChatsData));
+      }
+    );
 
     return () => {
       unsub;
@@ -85,11 +90,11 @@ const Chats: React.FC<ChatsProps> = ({ findedUsers, onClick }) => {
           <ListItemAvatar>
             <Avatar
               alt="Profile Picture"
-              src={chatData.userInfo.photo as string | undefined}
+              src={chatData.userInfo?.photo as string | undefined}
             />
           </ListItemAvatar>
           <ListItemText
-            primary={chatData.userInfo.name}
+            primary={chatData.userInfo?.name}
             secondary={chatData.lastMessage?.text}
           />
         </ListItem>

@@ -1,14 +1,16 @@
 import React from 'react';
-import {  Drawer,  Box } from '@mui/material';
+import { Drawer, Box } from '@mui/material';
 import { SideBarComponent } from 'features/search-users';
 import { DRAWER_WIDTH } from 'shared/const/common';
-
 
 const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: DRAWER_WIDTH }, flexShrink: { sm: 0 } }}
+      sx={{
+        width: { sm: DRAWER_WIDTH },
+        flexShrink: { sm: 0 },
+      }}
       aria-label="mailbox folders"
     >
       <Drawer
@@ -20,7 +22,11 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
         }}
         sx={{
           display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '100%' },
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            width: '100%',
+            backgroundColor: '#10101b',
+          },
         }}
       >
         <SideBarComponent.Drawer setMobile={setMobile} />
@@ -33,6 +39,7 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
             width: DRAWER_WIDTH,
+            backgroundColor: '#10101b',
           },
         }}
         open
