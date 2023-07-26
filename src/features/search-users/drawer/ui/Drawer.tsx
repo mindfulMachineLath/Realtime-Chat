@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Divider, Toolbar } from '@mui/material';
+import { Box, Divider, List, Toolbar } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {
   getDoc,
@@ -8,9 +8,8 @@ import {
   setDoc,
   updateDoc,
 } from 'firebase/firestore';
-import { CLOUD, db } from 'firebase.config';
 import { ButtonIcon } from 'shared/ui';
-import { Chats, Profile, SearchChat } from './component';
+import { Chats, FoundUsers, Profile, SearchChat } from './component';
 import { useAuthState } from 'shared/hook';
 import { DRAWER_WIDTH } from 'shared/const/common';
 import { getFilterUsersQuery } from '../utils';
@@ -22,7 +21,7 @@ interface IDrawer {
 
 const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
   const [search, setSearch] = React.useState('');
-  const [findedUsers, setfindedUsers] = React.useState<AuthUserData[]>([]);
+  const [foundUsers, setfindedUsers] = React.useState<AuthUserData[]>([]);
   const { id, name, photo } = useAuthState();
 
   const handleSearchChange = async (value: string) => {
@@ -47,7 +46,7 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
     const querySnapshot = await getDocs(q); // получаем данные из базы, по отфильтрованному значению
 
     querySnapshot.forEach((doc) => {
-      if (!findedUsers.includes(doc.data() as AuthUserData)) {
+      if (!foundUsers.includes(doc.data() as AuthUserData)) {
         return setfindedUsers((prev) => [...prev, doc.data() as AuthUserData]);
       }
     });
@@ -119,9 +118,14 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
           </ButtonIcon>
         </Box>
       </Toolbar>
-
-      <Divider sx={{ mb: 2 }} />
-      <Chats findedUsers={findedUsers} onClick={handleSelect} />
+      <Divider sx={{ mb: 2 }} />.
+      <List
+        sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}
+        // className={s.scroll}
+      >
+        <FoundUsers foundUsers={foundUsers} handleSelect={handleSelect} />
+        <Chats />
+      </List>
     </>
   );
 };
