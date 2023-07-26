@@ -48,7 +48,7 @@
 
 .error__message {
   text-align: center;
-  color: #181828;
+  color: var(--bg-modal);
 }
 
 .message__title {
@@ -130,8 +130,8 @@
   display: inline-block;
   vertical-align: top;
   margin: 0 15px;
-  border: 1px solid #181828;
-  color: #181828;
+  border: 1px solid var(--bg-modal);
+  color: var(--bg-modal);
   text-decoration: none;
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
@@ -163,7 +163,7 @@
   }
 
   &:hover {
-    color: #fff;
+    color: var(--white);
     &::before {
       top: -60px;
       right: -50px;
@@ -172,5 +172,5 @@
 }
 
 .e-nav__link:nth-child(2):hover:after {
-  color: #fff;
+  color: var(--white);
 }

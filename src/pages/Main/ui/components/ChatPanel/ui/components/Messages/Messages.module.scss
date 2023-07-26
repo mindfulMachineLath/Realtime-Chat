@@ -5,7 +5,7 @@
   height: calc(100vh - var(--header));
   padding-top: 3rem;
   padding-left: 4rem;
-  color: #a0ded1;
+  color: var(--text-theme-hover);
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-start;

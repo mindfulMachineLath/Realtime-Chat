@@ -6,19 +6,8 @@
 }
 
 .main_container {
-  // background: linear-gradient(
-  //   -45deg,
-  //   #10b9bc,
-  //   #0daba1,
-  //   #0b8e85,
-  //   #0b748e,
-  //   #600b8e
-  // );
-  // background-size: 400% 400%;
-  // animation: gradient 10s ease infinite;
   height: calc(100vh - var(--footer));
   margin: auto 0;
-
   display: flex;
   flex-direction: column;
   padding: 0;

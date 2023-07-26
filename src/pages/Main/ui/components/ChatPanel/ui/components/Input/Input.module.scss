@@ -4,7 +4,7 @@
 .send_box {
   width: 100%;
   height: auto;
-  background-color: var(--bg-color-prime);
+  background-color: var(--bg-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -23,6 +23,6 @@
   min-height: 3rem;
   width: 50%;
   margin-right: 1rem;
-  color: #a0ded1;
+  color: var(--text-theme-hover);
   padding-left: 1rem;
 }

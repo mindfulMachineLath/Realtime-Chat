@@ -5,11 +5,10 @@
   transform: translate(-50%, -50%);
   width: 35rem;
   border-radius: 10px;
-  color: aliceblue;
+  color: var(--aliceblue);
   padding: 1.5rem;
   box-shadow: 2px;
-  background-color: #222239;
-  background-color: #154e54;
+  background-color: var(--bg-dark-cyan);
 
   display: flex;
   flex-direction: column;
@@ -28,8 +27,8 @@
     border-radius: 50%;
     bottom: 10%;
     right: 20%;
-    border: 2px solid #154e54;
-    background-color: #222239;
+    border: 2px solid var(--bg-dark-cyan);
+    background-color: var(--bg-hover-modal);
   }
 }
 
@@ -49,10 +48,10 @@
       display: flex;
 
       .person_data {
-        background-color: #154e54;
+        background-color: var(--bg-dark-cyan);
         box-shadow: none;
         padding: 0.4rem;
-        color: aliceblue;
+        color: var(--aliceblue);
       }
 
       &:last-child {
@@ -67,18 +66,18 @@
     }
 
     &:hover {
-      background-color: #222239;
+      background-color: var(--bg-hover-modal);
       .person_data {
-        background-color: #222239;
+        background-color: var(--bg-hover-modal);
       }
     }
   }
 
   .active_container {
-    background-color: #222239;
+    background-color: var(--bg-hover-modal);
     .data_container {
       .person_data {
-        background-color: #222239;
+        background-color: var(--bg-hover-modal);
       }
     }
   }

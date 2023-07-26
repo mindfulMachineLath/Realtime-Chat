@@ -8,21 +8,20 @@
       var(--tabs-padding)
   );
 
-  // General colors
-  --color-neutral: 219, 28%, 32%; // text color to configure other colors
   --bg-primary: #ffffffc0; // background and request field
   --bg-secondary: #f1f2f4; // response field
-  --bg-ternary: 188, 100%, 36%;
-  --bg-primary-dark: #281e5b; // dark-bg header/footer etc.
-  --text-primary: hsla(var(--color-neutral), 1); // contrast text / active
-  --text-secondary: #6f7a8f; // light text / regular
-  --text-ternary: #ffffffa8; // light text for dark bg
-  --text-default: #ffffffcc;
-  --text-theme-hover: #a0ded1;
-  --border-primary: 1px solid hsla(var(--color-neutral), 0.1);
-  --border-active: hsla(var(--color-neutral), 0.15);
+  --bg-primary-dark: #281e5b;
+  --bg-dark: #10101bc4;
+  --bg-message: #ffffff2c;
+  --bg-modal: #181828; // background
+  --bg-dark-cyan: #154e54; // for modal
+  --bg-hover-modal: #222239;
+  --text-ternary: #ffffffa8;
+  --text-theme-hover: #a0ded1; // light text for dark bg
   --black: #000000;
   --white: #ffffff;
+  --antiquewhite: #faebd7;
+  --aliceblue: #f0f8ff;
   --bg-color-prime: rgba(44, 255, 255, 0.24);
 }
 

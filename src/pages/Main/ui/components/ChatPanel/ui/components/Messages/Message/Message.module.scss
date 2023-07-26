@@ -8,7 +8,7 @@
   margin-right: 3rem;
 
   .message_text {
-    background-color: rgba(255, 255, 255, 0.174);
+    background-color: var(--bg-message);
     border-radius: 10px 10px 10px 0px;
   }
 
@@ -23,7 +23,7 @@
   .message_text {
     background-color: var(--bg-color-prime);
     border-radius: 10px 10px 0px 10px;
-    color: antiquewhite;
+    color: var(--antiquewhite);
   }
 }
 

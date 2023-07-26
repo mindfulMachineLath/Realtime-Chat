@@ -1,11 +1,11 @@
 .otp {
-  color: white;
+  color: var(--white);
 
   input {
-    color: white;
+    color: var(--white);
   }
 
   fieldset {
-    border-color: white;
+    color: var(--white);
   }
 }
