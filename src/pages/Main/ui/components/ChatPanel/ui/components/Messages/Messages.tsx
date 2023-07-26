@@ -13,7 +13,7 @@ const Messages: React.FC<IMessages> = ({ messages }) => {
 
   return (
     // TODO: change bg color
-    <Box className={s.message_box}>
+    <Box className={s.messages_box}>
       <div className={s.scroll}>
         {messages.map((m) => (
           <Message

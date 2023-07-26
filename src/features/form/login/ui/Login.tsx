@@ -31,7 +31,6 @@ const Login: React.FC<ILogin> = ({ title }) => {
         {
           size: 'invisible',
           callback: () => {
-            console.log('reCAPTCHA solved1212313123');
             // reCAPTCHA solved, allow signInWithPhoneNumber.
             onSignInSubmit(data);
           },
@@ -49,8 +48,6 @@ const Login: React.FC<ILogin> = ({ title }) => {
     onCaptchaVerify(data); // вызываем рекапчу
 
     const appVerifier = (window as unknown as CustomWindow).recaptchaVerifier;
-
-    console.log('data', appVerifier);
 
     appVerifier &&
       signInWithPhoneNumber(auth, data.tel, appVerifier)

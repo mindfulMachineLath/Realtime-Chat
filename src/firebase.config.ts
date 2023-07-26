@@ -36,7 +36,6 @@ const storage = getStorage();
 const usersCollection = collection(db, CLOUD.USERS);
 
 auth.onAuthStateChanged((user) => {
-  console.log(user);
   handleUserDataInStorage(user);
 });
 

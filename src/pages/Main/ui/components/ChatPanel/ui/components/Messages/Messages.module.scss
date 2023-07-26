@@ -1,14 +1,14 @@
 @import 'src/app/styles/normalize', 'src/app/styles/vars',
   'src/app/styles/mixins';
 
-.message_box {
+.messages_box {
   height: calc(100vh - var(--header));
   padding-top: 3rem;
   padding-left: 4rem;
   color: #a0ded1;
   display: flex;
   flex-direction: column-reverse;
-  justify-content: flex-end;
+  justify-content: flex-start;
 
   @include tablet {
     padding-top: 4rem;
@@ -20,5 +20,3 @@
   overflow-y: scroll;
   @include custom-scroll-bar;
 }
-
-// TODO: промотка сообщений с последнего!

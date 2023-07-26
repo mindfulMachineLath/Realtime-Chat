@@ -15,8 +15,16 @@ const Message: React.FC<IMessage> = ({ text, own, file }) => {
   const { photo } = useAuthState();
   const { user } = useGetActiveChat();
 
+  const ref = React.useRef<HTMLElement>();
+  React.useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [text]);
+
   return (
-    <Box className={`${own ? `${s.own} ${s.message_box}` : s.message_box}`}>
+    <Box
+      className={`${own ? `${s.own} ${s.message_box}` : s.message_box}`}
+      ref={ref}
+    >
       <Box className={s.message_info}>
         <Avatar
           alt="Remy Sharp"

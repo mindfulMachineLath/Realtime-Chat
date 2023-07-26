@@ -60,7 +60,7 @@ export const uploadFireStoreFile = createAsyncThunk(
 
       // await uploadBytesResumable(storageRef, file).then(() => {
       //   getDownloadURL(storageRef).then(async (downloadURL) => {
-      //     console.log('File available at', downloadURL, auth.currentUser);
+
       //     // update store
       //     // update auth data user
       //     await updateProfile(

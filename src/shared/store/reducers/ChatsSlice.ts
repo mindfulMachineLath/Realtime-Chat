@@ -50,11 +50,6 @@ const chatsSlice = createSlice({
           : user.id + state.currentUserID;
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(getIdUser, (state, action) => {
-      console.log(state, action);
-    });
-  },
 });
 
 const { actions, reducer } = chatsSlice;

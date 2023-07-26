@@ -38,7 +38,6 @@ const Input: React.FC = () => {
   };
 
   const handleSendMessage = async () => {
-    console.log('uid()', uid(), value, id, Timestamp.now(), chatID);
     const chatReference = DOC.chats(chatID);
 
     if (image) {
