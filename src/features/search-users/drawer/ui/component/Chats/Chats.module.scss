@@ -3,4 +3,9 @@
 
 .scroll {
   @include custom-scroll-bar;
+
+  .divider {
+    border-color: #181828;
+    border-bottom-width: 10px;
+  }
 }

@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Divider, Toolbar } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {
-  doc,
   getDoc,
   getDocs,
   serverTimestamp,
@@ -26,12 +25,10 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
   const [findedUsers, setfindedUsers] = React.useState<AuthUserData[]>([]);
   const { id, name, photo } = useAuthState();
 
-  // сетаем значения вводимые в поиск
   const handleSearchChange = async (value: string) => {
     setSearch(value);
   };
 
-  // на ентер ищем юзера
   const handleKey = (
     e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -47,7 +44,6 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
 
   const handleSearch = async () => {
     const q = getFilterUsersQuery(search);
-
     const querySnapshot = await getDocs(q); // получаем данные из базы, по отфильтрованному значению
 
     querySnapshot.forEach((doc) => {
@@ -64,15 +60,10 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
       (id as string) > (user.id as string) ? id + user.id : user.id + id;
 
     const refChatsFirestore = DOC.chats(combinedId);
-    //  doc(db, CLOUD.CHATS, combinedId);
     const refChatsCurrentUser = DOC.userChats(id as string);
-    // doc(db, CLOUD.USER_CHATS, id as string);
     const refChatsWithUser = DOC.userChats(user.id as string);
-    // doc(db, CLOUD.USER_CHATS, user.id as string);
 
     const docChatsSnap = await getDoc(refChatsFirestore);
-
-    console.log(docChatsSnap.exists());
 
     // create a chat in chats collection
     if (!docChatsSnap.exists()) {
@@ -112,8 +103,6 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
           position: 'fixed',
           pl: 0,
           backgroundColor: '#0daba0',
-          // '#2cffff3d',
-          // #10101b
           width: DRAWER_WIDTH,
           borderRight: '1px solid #2cffff3d',
         }}
