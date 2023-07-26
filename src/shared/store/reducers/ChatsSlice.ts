@@ -19,8 +19,6 @@ const initialState: ChatsInitialData = {
   currentUserID: getLocalStorage(LOCAL_STORAGE_KEYS.USER)
     ? getLocalStorage(LOCAL_STORAGE_KEYS.USER).id
     : '',
-
-  //
 };
 
 const chatsSlice = createSlice({
@@ -49,11 +47,17 @@ const chatsSlice = createSlice({
           ? state.currentUserID + user.id
           : user.id + state.currentUserID;
     },
+
+    updatePhoto(state, action: PayloadAction<Pick<ChatsInitialData, 'user'>>) {
+      const { user } = action.payload;
+      state.user = { ...user, photo: user.photo };
+    },
+    // TODO: добавить Action для обновления данных в базе данных
   },
 });
 
 const { actions, reducer } = chatsSlice;
 
-export const { changeUser } = actions;
+export const { changeUser, updatePhoto } = actions;
 
 export default reducer;

@@ -27,6 +27,7 @@ const Chats: React.FC = () => {
       unsub;
     };
   }, []); // TODO: необходимо менять данные при клике!
+  // TODO: перенести в store????
 
   if (!chat.length) {
     return (

@@ -146,7 +146,6 @@ const Profile: React.FC = () => {
         </MenuItem>
       </Menu>
 
-      {/* modal settings account */}
       <AccountModal open={openModal} handleClose={() => setOpenModal(false)} />
     </>
   );

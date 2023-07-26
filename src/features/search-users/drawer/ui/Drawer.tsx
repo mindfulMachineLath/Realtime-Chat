@@ -9,11 +9,12 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { ButtonIcon } from 'shared/ui';
-import { Chats, FoundUsers, Profile, SearchChat } from './component';
 import { useAuthState } from 'shared/hook';
 import { DRAWER_WIDTH } from 'shared/const/common';
+import { Chats, FoundUsers, Profile, SearchChat } from './component';
 import { getFilterUsersQuery } from '../utils';
 import { DOC } from 'shared/lib/firebase/utils/documentReferense';
+import s from './Drawer.module.scss';
 
 interface IDrawer {
   setMobile: () => void;
@@ -121,7 +122,7 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
       <Divider sx={{ mb: 2 }} />.
       <List
         sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}
-        // className={s.scroll}
+        className={s.scroll}
       >
         <FoundUsers foundUsers={foundUsers} handleSelect={handleSelect} />
         <Chats />

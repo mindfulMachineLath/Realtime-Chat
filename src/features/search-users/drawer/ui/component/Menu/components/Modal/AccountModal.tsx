@@ -7,10 +7,12 @@ import {
   Badge,
   Grid,
   Paper,
+  CircularProgress,
 } from '@mui/material';
-import { useAuthState } from 'shared/hook';
+import { useAppDispatch, useAuthState } from 'shared/hook';
 import { CameraAlt, Person, LocalPhone } from '@mui/icons-material';
 import NestedModal from './NestedModal';
+import { uploadFireStoreFile } from 'shared/store/actions';
 import s from './AccountModal.module.scss';
 
 interface IAccountModal {
@@ -24,8 +26,20 @@ const AccountModal: React.FC<IAccountModal> = ({
   handleClose,
   active,
 }) => {
-  const { photo, name, loadingName, phoneNumber } = useAuthState();
+  const dispatch = useAppDispatch();
+  const { photo, name, loadingName, phoneNumber, loadingPhoto } =
+    useAuthState();
   const [openModal, setOpenModal] = React.useState(false);
+
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (!event.target.files) {
+      return;
+    }
+    const file = event.target.files[0];
+    dispatch(uploadFireStoreFile(file));
+  };
 
   return (
     <Modal
@@ -37,10 +51,9 @@ const AccountModal: React.FC<IAccountModal> = ({
       <Box className={s.box_modal}>
         <NestedModal open={openModal} handleClose={() => setOpenModal(false)} />
 
-        {/* TODO: add badge content */}
-        {/* TODO: add upload new avatar */}
         <Badge
-          badgeContent={<CameraAlt />}
+          component="label"
+          aria-label="upload picture"
           color="secondary"
           className={s.avatar_badge}
           overlap="circular"
@@ -48,6 +61,22 @@ const AccountModal: React.FC<IAccountModal> = ({
             vertical: 'bottom',
             horizontal: 'right',
           }}
+          badgeContent={
+            <>
+              {loadingPhoto ? (
+                <CircularProgress color="inherit" />
+              ) : (
+                <CameraAlt />
+              )}
+
+              <input
+                hidden
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+              />
+            </>
+          }
         >
           <Avatar
             src={photo as string}
@@ -91,6 +120,7 @@ const AccountModal: React.FC<IAccountModal> = ({
             </Grid>
           </Grid>
 
+          {/* phone number grid */}
           <Grid container spacing={3} className={s.person__data_container}>
             <Grid item xs={1} className={s.data_container}>
               <Paper className={s.person_data}>
