@@ -44,8 +44,18 @@ const Chats: React.FC = () => {
         <ChatListItem
           key={idChats}
           onClick={() => handleClick(chatData)}
-          src={chatData.userInfo?.photo as string | undefined}
-          name={chatData.userInfo?.name}
+          // если id активного юзера совпадает с id созданного чата, меняется иконка и название чата
+          src={
+            chatData.userInfo?.id === id
+              ? undefined
+              : (chatData.userInfo?.photo as string | undefined)
+          }
+          save={chatData.userInfo?.id === id}
+          name={
+            chatData.userInfo?.id === id
+              ? 'Saved Messages'
+              : chatData.userInfo?.name
+          }
           message={chatData.lastMessage?.text}
         />
       ))}
