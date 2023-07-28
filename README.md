@@ -7,6 +7,10 @@
 - Authentication by phone number with Firebase
 - Verification via OTP with automatic recaptcha
 - Responsive design (up to 320px)
+- User account and settings
+- Sending messages in real time
+- Search for users across the entire database
+- Can send not only text messages, but also files
 
 ## Screenshot
 
