@@ -5,3 +5,4 @@ export { default as EmojiSet } from './EmojiSet';
 export { default as AlertMessages } from './AlertMessages';
 export { default as ChatListItem } from './ChatListItem';
 export { default as AvatarUsers } from './AvatarUsers';
+export * from './ErrorFallback';
