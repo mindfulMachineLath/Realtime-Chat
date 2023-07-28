@@ -35,8 +35,9 @@ const Home: React.FC = () => {
                 ? 'Please enter verify code'
                 : 'Please confirm your country code and enter your phone number.'}
             </Typography>
-
-            <Form.Login title={setTitle} />
+            <ErrorBoundary type="notification">
+              <Form.Login title={setTitle} />
+            </ErrorBoundary>
           </div>
         </div>
       </ErrorBoundary>

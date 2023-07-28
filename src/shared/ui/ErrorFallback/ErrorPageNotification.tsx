@@ -45,10 +45,3 @@ const ErrorPageNotification: React.FC<ErrorPageNotificationProps> = ({
 };
 
 export default ErrorPageNotification;
-
-// "errorBoundary": {
-//     "errorTitle": "An error occurred",
-//     "defaultMsg": "Something went wrong",
-//     "errorReset": "Try again",
-//     "errorReload": "Try to reload",
-//     "errorSignOut": "There was an error while signing out"
