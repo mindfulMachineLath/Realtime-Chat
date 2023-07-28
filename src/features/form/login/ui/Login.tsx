@@ -1,13 +1,13 @@
 import React from 'react';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { auth, db, CLOUD } from 'firebase.config';
+import { setDoc, getDoc } from 'firebase/firestore';
+import { auth } from 'firebase.config';
 import { AlertMessages } from 'shared/ui';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
 import { DOC } from 'shared/lib/firebase/utils/documentReferense';
 
-interface ILogin {
+interface LoginProps {
   title: (b: boolean) => void;
 }
 
@@ -16,7 +16,7 @@ const initialError = {
   text: '',
 };
 
-const Login: React.FC<ILogin> = ({ title }) => {
+const Login: React.FC<LoginProps> = ({ title }) => {
   const [showOTP, setShowOTP] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [open, setOpen] = React.useState(false);
@@ -27,7 +27,7 @@ const Login: React.FC<ILogin> = ({ title }) => {
   const onCaptchaVerify = (data: FormValue) => {
     if (!(window as CustomWindow).recaptchaVerifier) {
       (window as CustomWindow).recaptchaVerifier = new RecaptchaVerifier(
-        'sign-in-button', // добавляем reCAPTCHA в контейнер
+        'sign-in-button', // добавляем reCAPTCHA в разметку
         {
           size: 'invisible',
           callback: () => {
@@ -42,29 +42,31 @@ const Login: React.FC<ILogin> = ({ title }) => {
   };
 
   const onSignInSubmit = (data: FormValue) => {
-    setError(initialError);
     setLoading(true);
 
-    onCaptchaVerify(data); // вызываем рекапчу
+    onCaptchaVerify(data); // вызываем reCAPTCHA
 
     const appVerifier = (window as unknown as CustomWindow).recaptchaVerifier;
 
-    appVerifier &&
-      signInWithPhoneNumber(auth, data.tel, appVerifier)
-        .then((confirmationResult) => {
-          (window as CustomWindow).confirmationResult = confirmationResult;
-          setLoading(false);
-          setShowOTP(true);
-          setOpen(true);
-          setError(initialError);
-          title(true);
-        })
-        .catch((e) => {
-          console.error(e);
-          setError({ status: true, text: e.message });
-          setLoading(false);
-          setOpen(true);
-        });
+    if (!appVerifier) {
+      return;
+    }
+
+    signInWithPhoneNumber(auth, data.tel, appVerifier)
+      .then((confirmationResult) => {
+        (window as CustomWindow).confirmationResult = confirmationResult;
+        setLoading(false);
+        setShowOTP(true);
+        setOpen(true);
+        setError(initialError);
+        title(true);
+      })
+      .catch((e) => {
+        console.error(e);
+        setError({ status: true, text: e.message });
+        setLoading(false);
+        setOpen(true);
+      });
   };
 
   const onOTPVerifier = (otp: string) => {
@@ -79,12 +81,9 @@ const Login: React.FC<ILogin> = ({ title }) => {
           accessToken: token,
         } = user as unknown as UserFirebase;
 
-        // check whether the user has data in the database
+        // проверяем есть ли юзер в базе данных
         const refUserFirestore = DOC.users(id);
-
-        // doc(db, CLOUD.USERS, id);
         const refChatsFirestore = DOC.userChats(id);
-        // doc(db, CLOUD.USER_CHATS, id);
 
         const docSnap = await getDoc(refUserFirestore);
 
@@ -97,7 +96,7 @@ const Login: React.FC<ILogin> = ({ title }) => {
           loading: false,
         };
 
-        // if not - create write in firestore
+        // юзера нет - создаем запись в базе данных firestore
         if (!docSnap.exists()) {
           await setDoc(refUserFirestore, initData); // обновляем данные в firestore по user
 
@@ -105,7 +104,7 @@ const Login: React.FC<ILogin> = ({ title }) => {
 
           setUser(initData); // обновляем стор
         } else {
-          //  if there is - take the data from there
+          //  данные юзера есть - берем данные и сетаем в стор
           setUser(docSnap.data() as AuthUserData); // обновляем стор
         }
 
@@ -121,8 +120,8 @@ const Login: React.FC<ILogin> = ({ title }) => {
   return (
     <>
       <AlertMessages
-        text={error ? error.text : 'OTP sended successfully!'}
-        severity={error ? 'error' : 'success'}
+        text={error.status ? error.text : 'OTP sended successfully!'}
+        severity={error.status ? 'error' : 'success'}
         close={() => setOpen(false)}
         status={open}
       />

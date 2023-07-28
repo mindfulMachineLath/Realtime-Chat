@@ -32,7 +32,6 @@ const userSlice = createSlice({
       state.phoneNumber = null;
       state.token = null;
       state.id = '';
-      // TODO: null?
     },
     setImage(state, action: PayloadAction<Pick<AuthUserData, 'photo'>>) {
       state.photo = action.payload.photo;

@@ -5,12 +5,11 @@ import AttachFileIcon from '@mui/icons-material/AttachFile';
 import { EmojiSet } from 'shared/ui';
 import {
   updateDoc,
-  doc,
   arrayUnion,
   Timestamp,
   serverTimestamp,
 } from 'firebase/firestore';
-import { CLOUD, db, storage } from 'firebase.config';
+import { storage } from 'firebase.config';
 import { useAuthState, useGetActiveChat } from 'shared/hook';
 import { v4 as uid } from 'uuid';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
@@ -44,58 +43,42 @@ const Input: React.FC = () => {
       const storageRef = ref(storage, uid());
       await uploadBytesResumable(storageRef, image).then(() => {
         getDownloadURL(storageRef).then(async (downloadURL) => {
-          await updateDoc(
-            chatReference,
-            // doc(db, CLOUD.CHATS, chatID)
-            {
-              messages: arrayUnion({
-                id: uid(),
-                image: downloadURL,
-                senderId: id,
-                date: Timestamp.now(),
-                text: value,
-              }),
-            }
-          );
+          await updateDoc(chatReference, {
+            messages: arrayUnion({
+              id: uid(),
+              image: downloadURL,
+              senderId: id,
+              date: Timestamp.now(),
+              text: value,
+            }),
+          });
         });
       });
     } else {
-      await updateDoc(
-        chatReference,
-        // doc(db, CLOUD.CHATS, chatID)
-        {
-          messages: arrayUnion({
-            id: uid(),
-            text: value,
-            senderId: id,
-            date: Timestamp.now(),
-          }),
-        }
-      );
+      await updateDoc(chatReference, {
+        messages: arrayUnion({
+          id: uid(),
+          text: value,
+          senderId: id,
+          date: Timestamp.now(),
+        }),
+      });
     }
 
     // TODO: вынести обнолвения для обоих пользователей в хук
-    await updateDoc(
-      DOC.userChats(id),
-      // doc(db, CLOUD.USER_CHATS, id)
-      {
-        [chatID + '.lastMessage']: {
-          text: value,
-        },
-        [chatID + '.date']: serverTimestamp(),
-      }
-    );
+    await updateDoc(DOC.userChats(id), {
+      [chatID + '.lastMessage']: {
+        text: value,
+      },
+      [chatID + '.date']: serverTimestamp(),
+    });
 
-    await updateDoc(
-      DOC.userChats(user.id),
-      // doc(db, CLOUD.USER_CHATS, user.id)
-      {
-        [chatID + '.lastMessage']: {
-          text: value,
-        },
-        [chatID + '.date']: serverTimestamp(),
-      }
-    );
+    await updateDoc(DOC.userChats(user.id), {
+      [chatID + '.lastMessage']: {
+        text: value,
+      },
+      [chatID + '.date']: serverTimestamp(),
+    });
 
     setValue('');
     setImageUrl(null);

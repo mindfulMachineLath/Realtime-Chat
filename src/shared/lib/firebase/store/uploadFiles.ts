@@ -10,13 +10,11 @@ interface Upload {
 
 /** функция для загрузки файлов в хранилище firebase(store) */
 const uploadFiles = async ({ file, setImg }: Upload) => {
-  // create a unique image name
+  // создаем уникальное название файла
   const date = new Date().getTime();
 
   if (auth.currentUser) {
     const storageRef = ref(storage, `${auth.currentUser.uid + date}`);
-
-    // TODO: check async operations
 
     try {
       await uploadBytesResumable(storageRef, file).then(() => {
@@ -24,12 +22,12 @@ const uploadFiles = async ({ file, setImg }: Upload) => {
           setImg(downloadURL);
 
           try {
-            // update auth data user
+            // обновляем профиль
             await updateProfile(auth.currentUser as User, {
               photoURL: downloadURL,
             });
 
-            // update data user in firebase
+            // обновляем данные в хранилище
             await updateDoc(
               doc(db, 'users', auth?.currentUser?.uid as string),
               {

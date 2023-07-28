@@ -1,7 +1,6 @@
 import React from 'react';
 import { onSnapshot } from 'firebase/firestore';
 import { Typography } from '@mui/material';
-import s from './Chats.module.scss';
 import { useAppDispatch, useAuthState } from 'shared/hook';
 import { changeUser } from 'shared/store/reducers/ChatsSlice';
 import { DOC } from 'shared/lib/firebase/utils/documentReferense';
