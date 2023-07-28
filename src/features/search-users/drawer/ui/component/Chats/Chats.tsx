@@ -40,25 +40,27 @@ const Chats: React.FC = () => {
 
   return (
     <>
-      {chat.map(([idChats, chatData]) => (
-        <ChatListItem
-          key={idChats}
-          onClick={() => handleClick(chatData)}
-          // если id активного юзера совпадает с id созданного чата, меняется иконка и название чата
-          src={
-            chatData.userInfo?.id === id
-              ? undefined
-              : (chatData.userInfo?.photo as string | undefined)
-          }
-          save={chatData.userInfo?.id === id}
-          name={
-            chatData.userInfo?.id === id
-              ? 'Saved Messages'
-              : chatData.userInfo?.name
-          }
-          message={chatData.lastMessage?.text}
-        />
-      ))}
+      {chat.map(([idChats, chatData]) => {
+        const isCurrentUserChat = chatData.userInfo?.id === id;
+
+        return (
+          <ChatListItem
+            key={idChats}
+            onClick={() => handleClick(chatData)}
+            // если id активного юзера совпадает с id созданного чата, меняется иконка и название чата
+            src={
+              isCurrentUserChat
+                ? undefined
+                : (chatData.userInfo?.photo as string | undefined)
+            }
+            isCurrentUser={isCurrentUserChat}
+            name={
+              isCurrentUserChat ? 'Saved Messages' : chatData.userInfo?.name
+            }
+            message={chatData.lastMessage?.text}
+          />
+        );
+      })}
     </>
   );
 };

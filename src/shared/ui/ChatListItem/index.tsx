@@ -1,28 +1,31 @@
 import React from 'react';
-import { Avatar, ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import { BookmarkBorder, Person } from '@mui/icons-material';
+import { ListItem, ListItemAvatar, ListItemText } from '@mui/material';
+import AvatarUsers from '../AvatarUsers';
 
-interface IChatList {
+interface ChatListItemProps {
   onClick: () => void;
   src?: string;
   name?: string;
   message?: string;
-  save?: boolean;
+  isCurrentUser?: boolean;
 }
 
-const ChatListItem: React.FC<IChatList> = ({
+const ChatListItem: React.FC<ChatListItemProps> = ({
   onClick,
   name,
   src,
   message,
-  save,
+  isCurrentUser,
 }) => {
   return (
     <ListItem button onClick={onClick}>
       <ListItemAvatar>
-        <Avatar alt={`${name} Picture`} src={src} sx={{ bgcolor: '#0daba0' }}>
-          {save ? <BookmarkBorder /> : <Person />}
-        </Avatar>
+        <AvatarUsers
+          name={name}
+          src={src}
+          isCurrentUser={isCurrentUser}
+          color="#0daba0"
+        />
       </ListItemAvatar>
       <ListItemText primary={name} secondary={message} />
     </ListItem>

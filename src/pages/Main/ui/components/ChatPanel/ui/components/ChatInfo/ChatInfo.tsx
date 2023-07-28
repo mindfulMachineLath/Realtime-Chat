@@ -8,12 +8,13 @@ import {
 } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { ButtonIcon } from 'shared/ui';
+import { AvatarUsers, ButtonIcon } from 'shared/ui';
 import { DRAWER_WIDTH } from 'shared/const/common';
 import { useGetActiveChat } from 'shared/hook';
 
 const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {
-  const { user } = useGetActiveChat();
+  const { user, currentUserID } = useGetActiveChat();
+  const isCurrentUserChat = currentUserID === user.id;
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -29,16 +30,17 @@ const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {
             <ArrowBackIosNewIcon />
           </ButtonIcon>
 
-          <Avatar
-            alt={'Profile Picture ' + user.name}
-            src={user.photo as string | undefined}
+          <AvatarUsers
+            name={user.name}
+            src={
+              isCurrentUserChat ? undefined : (user.photo as string | undefined)
+            }
+            isCurrentUser={isCurrentUserChat}
           />
+
           <Box>
             <Typography variant="h6" noWrap component="div">
-              {user.name}
-            </Typography>
-            <Typography noWrap component="p">
-              descriptions
+              {isCurrentUserChat ? 'Saved Messages' : user.name}
             </Typography>
           </Box>
 
