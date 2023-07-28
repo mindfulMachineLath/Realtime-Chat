@@ -1,5 +1,9 @@
 import React from 'react';
-import { ErrorNotification, ErrorPageNotification } from 'shared/ui';
+import {
+  ErrorAppNotification,
+  ErrorNotification,
+  ErrorPageNotification,
+} from 'shared/ui';
 
 interface ErrorBoundaryProps {
   children: React.ReactNode;
@@ -36,21 +40,7 @@ class ErrorBoundary extends React.Component<
       if (type === 'page') return <ErrorPageNotification errorMsg={errorMsg} />;
       if (type === 'notification')
         return <ErrorNotification errorMsg={errorMsg} />;
-      if (type === 'app')
-        return (
-          <h2
-            style={{
-              color: '#281E5B',
-              textAlign: 'center',
-              width: '60%',
-              fontSize: 24,
-              margin: '1em auto',
-            }}
-          >
-            Oops, an unexpected error occurred and the app does not work.
-            Please, try later once again.
-          </h2>
-        );
+      if (type === 'app') return <ErrorAppNotification />;
     }
     return children;
   }

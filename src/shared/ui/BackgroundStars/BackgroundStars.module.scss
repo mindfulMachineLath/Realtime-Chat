@@ -1,0 +1,18 @@
+@import 'src/app/styles/normalize', 'src/app/styles/vars',
+  'src/app/styles/mixins';
+
+.starsec {
+  @include stars(3px, 150s);
+}
+
+.starthird {
+  @include stars(3px, 10s);
+}
+
+.starfourth {
+  @include stars(2px, 50s);
+}
+
+.starfifth {
+  @include stars(1px, 80s);
+}
