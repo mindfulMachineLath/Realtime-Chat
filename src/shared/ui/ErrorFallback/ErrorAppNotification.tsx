@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import * as React from 'react';
-import BackgroundStars from '../BackgroundStars';
+import { BackgroundStars } from 'widgets/background';
 import s from './ErrorFallback.module.scss';
 
 const ErrorAppNotification: React.FC = () => {

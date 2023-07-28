@@ -1,8 +1,9 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { Footer } from 'widgets/footer';
+import { BackgroundStars } from 'widgets/background';
 import { Box, Container } from '@mui/material';
-import { BackgroundStars } from 'shared/ui';
+
 import s from './Layout.module.scss';
 
 const LayoutPage: React.FC = () => {

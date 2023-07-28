@@ -65,3 +65,11 @@ html {
 .MuiListItemText-secondary {
   color: #0daba0bd !important;
 }
+
+.MuiInputBase-root {
+  &:hover {
+    fieldset {
+      border-color: aqua !important;
+    }
+  }
+}
