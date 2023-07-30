@@ -8,7 +8,7 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
     <Box
       component="nav"
       sx={{
-        width: { sm: DRAWER_WIDTH },
+        width: { sm: DRA23WER_WIDTH },
         flexShrink: { sm: 0 },
       }}
       aria-label="mailbox folders"

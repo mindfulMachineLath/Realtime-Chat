@@ -1,6 +1,5 @@
 .app_title {
   color: var(--text-theme-hover);
-  //   #281e5b;
   text-align: center;
   width: 100vw;
   height: 100vh;
@@ -8,4 +7,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.page_container {
+  color: var(--text-theme-hover);
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 0.6rem;
 }

@@ -22,23 +22,20 @@ const ErrorPageNotification: React.FC<ErrorPageNotificationProps> = ({
       <Helmet>
         <title>ERROR</title>
       </Helmet>
-      <div className={styles['not-found']}>
-        <div className={styles['not-found__wrapper']}>
-          <h3>An error occurred</h3>
-          <h4>{errorMsg || 'Something went wrong'}</h4>
-          <Button
-            type="link"
-            href={location.pathname}
-            onClick={(event) => {
-              event?.preventDefault();
-              reloadPage();
-            }}
-          >
-            Try to reload
-          </Button>
-          {onReset && <Button onClick={onReset}> Try again</Button>}
-        </div>
-        <span className={styles.ground} />
+      <div className={styles.page_container}>
+        <h3>An error occurred </h3>
+        <h4>{errorMsg || 'Something went wrong'}</h4>
+        <Button
+          type="link"
+          href={location.pathname}
+          onClick={(event) => {
+            event?.preventDefault();
+            reloadPage();
+          }}
+        >
+          Try to reload
+        </Button>
+        {onReset && <Button onClick={onReset}> Try again</Button>}
       </div>
     </>
   );
