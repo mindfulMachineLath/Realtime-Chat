@@ -55,29 +55,6 @@ export const uploadFireStoreFile = createAsyncThunk(
           });
         }
       );
-
-      // TODO: нужен ли здесь async thunk если все делается на стороне firestore?
-
-      // await uploadBytesResumable(storageRef, file).then(() => {
-      //   getDownloadURL(storageRef).then(async (downloadURL) => {
-
-      //     // update store
-      //     // update auth data user
-      //     await updateProfile(
-      //       // auth.currentuser
-      //       auth.currentUser as User,
-      //       {
-      //         photoURL: downloadURL,
-      //       }
-      //     );
-      //     // update data user in firebase
-      //     await updateDoc(doc(db, 'users', id as string), {
-      //       photo: downloadURL,
-      //     });
-
-      //     dispatch(setImage({ photo: downloadURL }));
-      //   });
-      // });
     } catch (err: unknown) {
       return rejectWithValue((err as StorageError).message);
     }

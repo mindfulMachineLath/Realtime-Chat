@@ -7,7 +7,7 @@ interface ChatsInitialData {
   chatID: string;
   currentUserID?: string;
 }
-// TODO: получать данные из firestore!
+
 const initialState: ChatsInitialData = {
   user: {
     id: '',

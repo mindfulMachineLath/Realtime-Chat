@@ -7,10 +7,6 @@ import { NotFound } from './NotFound';
 import { Main } from './Main';
 import { LayoutPage } from './Layout';
 
-// TODO: изменить импорты страниц
-
-// TODO: изменить названия страниц
-
 const Routing: React.FC = () => {
   return (
     <Routes>

@@ -28,7 +28,6 @@ const MuiInputStyled = styled(TextField)`
   }
 `;
 
-// TODO: change border color input
 
 const NestedModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
   const dispatch = useAppDispatch();
