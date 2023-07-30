@@ -15,6 +15,7 @@ import { Chats, FoundUsers, Profile, SearchChat } from './component';
 import { getFilterUsersQuery } from '../utils';
 import { DOC } from 'shared/lib/firebase/utils/documentReferense';
 import s from './Drawer.module.scss';
+import { ErrorBoundary } from 'shared/hoc';
 
 interface IDrawer {
   setMobile: () => void;
@@ -108,24 +109,32 @@ const Drawer: React.FC<IDrawer> = ({ setMobile }) => {
         }}
       >
         <Box sx={{ display: 'flex', gap: 1.1 }}>
-          <Profile />
-          <SearchChat
-            value={search}
-            onSearchChange={handleSearchChange}
-            handleKey={handleKey}
-          />
+          <ErrorBoundary type="notification">
+            <Profile />
+          </ErrorBoundary>
+          <ErrorBoundary type="notification">
+            <SearchChat
+              value={search}
+              onSearchChange={handleSearchChange}
+              handleKey={handleKey}
+            />
+          </ErrorBoundary>
           <ButtonIcon onClick={setMobile}>
             <ArrowForwardIosIcon />
           </ButtonIcon>
         </Box>
       </Toolbar>
-      <Divider sx={{ mb: 2 }} />.
+      <Divider sx={{ mb: 2 }} />
       <List
         sx={{ mt: 6, overflow: 'hidden', overflowY: 'auto' }}
         className={s.scroll}
       >
-        <FoundUsers foundUsers={foundUsers} handleSelect={handleSelect} />
-        <Chats />
+        <ErrorBoundary type="notification">
+          <FoundUsers foundUsers={foundUsers} handleSelect={handleSelect} />
+        </ErrorBoundary>
+        <ErrorBoundary type="notification">
+          <Chats />
+        </ErrorBoundary>
       </List>
     </>
   );

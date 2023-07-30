@@ -2,13 +2,14 @@ import React from 'react';
 import { Drawer, Box } from '@mui/material';
 import { SideBarComponent } from 'features/search-users';
 import { DRAWER_WIDTH } from 'shared/const/common';
+import { ErrorBoundary } from 'shared/hoc';
 
 const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
   return (
     <Box
       component="nav"
       sx={{
-        width: { sm: DRA23WER_WIDTH },
+        width: { sm: DRAWER_WIDTH },
         flexShrink: { sm: 0 },
       }}
       aria-label="mailbox folders"
@@ -30,7 +31,9 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
           },
         }}
       >
-        <SideBarComponent.Drawer setMobile={setMobile} />
+        <ErrorBoundary type="notification">
+          <SideBarComponent.Drawer setMobile={setMobile} />
+        </ErrorBoundary>
       </Drawer>
 
       <Drawer
@@ -46,7 +49,9 @@ const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {
         }}
         open
       >
-        <SideBarComponent.Drawer setMobile={setMobile} />
+        <ErrorBoundary type="notification">
+          <SideBarComponent.Drawer setMobile={setMobile} />
+        </ErrorBoundary>
       </Drawer>
     </Box>
   );
