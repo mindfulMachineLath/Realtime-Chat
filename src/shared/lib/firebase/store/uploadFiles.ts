@@ -8,7 +8,7 @@ interface Upload {
   setImg: (url: string) => void;
 }
 
-/** функция для загрузки файлов в хранилище firebase(store) */
+/** функция для загрузки файлов в хранилище firebase(store) с обновленией профиля юзера и данных в хранилище */
 const uploadFiles = async ({ file, setImg }: Upload) => {
   // создаем уникальное название файла
   const date = new Date().getTime();

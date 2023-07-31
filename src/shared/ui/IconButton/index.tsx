@@ -1,11 +1,11 @@
 import { IconButton } from '@mui/material';
 
-interface IButtonIcon {
+interface ButtonIconProps {
   onClick: () => void;
   children: JSX.Element;
 }
 
-const ButtonIcon: React.FC<IButtonIcon> = ({ onClick, children }) => {
+const ButtonIcon: React.FC<ButtonIconProps> = ({ onClick, children }) => {
   return (
     <IconButton
       color="inherit"

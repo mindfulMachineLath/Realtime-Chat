@@ -1,6 +1,6 @@
 import { Alert, Snackbar, SnackbarOrigin } from '@mui/material';
 
-interface IAlert {
+interface AlertProps {
   text: string;
   severity: 'success' | 'info' | 'warning' | 'error';
   status: boolean;
@@ -8,7 +8,7 @@ interface IAlert {
   anchorOrigin?: SnackbarOrigin;
 }
 
-const AlertMessages: React.FC<IAlert> = ({
+const AlertMessages: React.FC<AlertProps> = ({
   text,
   severity,
   status,

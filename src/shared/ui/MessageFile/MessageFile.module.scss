@@ -1,0 +1,17 @@
+.box_file-message {
+  display: flex;
+  width: 12rem;
+  gap: 1rem;
+
+  margin-bottom: 0.4rem;
+}
+
+.file-data {
+  gap: 0.6rem;
+  display: flex;
+  flex-direction: column;
+
+  span {
+    font-weight: 100;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
 import { useAuthState, useGetActiveChat } from 'shared/hook';
 import s from './Message.module.scss';
+import { MessageFile } from 'shared/ui';
 
 interface IMessage {
   src?: string;
@@ -9,9 +10,10 @@ interface IMessage {
   text?: string;
   file?: string;
   own?: boolean;
+  isFile?: boolean;
 }
 
-const Message: React.FC<IMessage> = ({ text, own, file }) => {
+const Message: React.FC<IMessage> = ({ text, own, file, isFile }) => {
   const { photo } = useAuthState();
   const { user } = useGetActiveChat();
 
@@ -31,10 +33,13 @@ const Message: React.FC<IMessage> = ({ text, own, file }) => {
           src={own ? (photo as string) : (user.photo as string)}
         />
       </Box>
+
       {!file ? (
-        <Typography className={s.message_text} variant="body2">
-          {text}
-        </Typography>
+        <Box className={s.message_text}>
+          <MessageFile />
+
+          <Typography variant="body2">{text}</Typography>
+        </Box>
       ) : (
         <img src={file} className={s.img} />
       )}

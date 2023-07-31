@@ -34,7 +34,11 @@ const Input: React.FC = () => {
     }
     const file = event.target.files[0];
 
-    console.log(file);
+    console.log(file.type);
+
+    if (file.type.includes('image')) {
+      console.log(file.size);
+    }
     setImageUrl(file);
   };
 
