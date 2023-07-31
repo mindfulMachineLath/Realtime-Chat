@@ -10,12 +10,13 @@ import {
 } from 'firebase/firestore';
 import { ButtonIcon } from 'shared/ui';
 import { useAuthState } from 'shared/hook';
-import { DRAWER_WIDTH } from 'shared/const/common';
+import { DRAWER_WIDTH } from 'shared/const';
+import { ErrorBoundary } from 'shared/hoc';
+import { DOC } from 'shared/lib';
 import { Chats, FoundUsers, Profile, SearchChat } from './component';
 import { getFilterUsersQuery } from '../utils';
-import { DOC } from 'shared/lib/firebase/utils/documentReferense';
+
 import s from './Drawer.module.scss';
-import { ErrorBoundary } from 'shared/hoc';
 
 interface IDrawer {
   setMobile: () => void;

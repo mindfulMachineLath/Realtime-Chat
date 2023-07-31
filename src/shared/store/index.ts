@@ -23,3 +23,7 @@ export const store = setupStore();
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppState = ReturnType<typeof setupStore>;
 export type AppDispatch = AppState['dispatch'];
+
+export * from './actions';
+export * from './reducers';
+export * from './selectors/root';

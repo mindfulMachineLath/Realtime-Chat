@@ -3,7 +3,7 @@ import { onSnapshot } from 'firebase/firestore';
 import { Typography } from '@mui/material';
 import { useAppDispatch, useAuthState } from 'shared/hook';
 import { changeUser } from 'shared/store/reducers/ChatsSlice';
-import { DOC } from 'shared/lib/firebase/utils/documentReferense';
+import { DOC } from 'shared/lib';
 import { ChatListItem } from 'shared/ui';
 
 const Chats: React.FC = () => {
@@ -45,8 +45,7 @@ const Chats: React.FC = () => {
         return (
           <ChatListItem
             key={idChats}
-            onClick={() => handleClick(chatData)}
-            // если id активного юзера совпадает с id созданного чата, меняется иконка и название чата
+            onClick={() => handleClick(chatData)} // если id активного юзера совпадает с id созданного чата, меняется иконка и название чата
             src={
               isCurrentUserChat
                 ? undefined

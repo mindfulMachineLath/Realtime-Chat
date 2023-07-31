@@ -14,7 +14,7 @@ import { useAuthState, useGetActiveChat } from 'shared/hook';
 import { v4 as uid } from 'uuid';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import s from './Input.module.scss';
-import { DOC } from 'shared/lib/firebase/utils/documentReferense';
+import { DOC } from 'shared/lib';
 
 const Input: React.FC = () => {
   const { id } = useAuthState();
@@ -33,6 +33,8 @@ const Input: React.FC = () => {
       return;
     }
     const file = event.target.files[0];
+
+    console.log(file);
     setImageUrl(file);
   };
 

@@ -1,15 +1,8 @@
-import {
-  AppBar,
-  Avatar,
-  Box,
-  IconButton,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { AvatarUsers, ButtonIcon } from 'shared/ui';
-import { DRAWER_WIDTH } from 'shared/const/common';
+import { DRAWER_WIDTH } from 'shared/const';
 import { useGetActiveChat } from 'shared/hook';
 
 const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {

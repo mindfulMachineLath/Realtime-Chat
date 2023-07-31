@@ -5,7 +5,7 @@ import { auth } from 'firebase.config';
 import { AlertMessages } from 'shared/ui';
 import { useLoginUser } from 'shared/hook';
 import { Otp, Form } from './components';
-import { DOC } from 'shared/lib/firebase/utils/documentReferense';
+import { DOC } from 'shared/lib';
 
 interface LoginProps {
   title: (b: boolean) => void;

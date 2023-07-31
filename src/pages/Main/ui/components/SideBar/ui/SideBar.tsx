@@ -1,7 +1,7 @@
 import React from 'react';
 import { Drawer, Box } from '@mui/material';
 import { SideBarComponent } from 'features/search-users';
-import { DRAWER_WIDTH } from 'shared/const/common';
+import { DRAWER_WIDTH } from 'shared/const';
 import { ErrorBoundary } from 'shared/hoc';
 
 const SideBar: React.FC<IChild> = ({ mobile: mobileOpen, setMobile }) => {

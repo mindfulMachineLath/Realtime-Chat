@@ -2,7 +2,7 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, signOut } from 'firebase/auth';
 import { getStorage } from 'firebase/storage';
 import { collection, getFirestore } from 'firebase/firestore';
-import handleUserDataInStorage from './shared/lib/firebase/utils/userDataInStorage';
+import { getDataInStorage } from 'shared/lib';
 
 const API_KEY = import.meta.env.VITE_FB_API_KEY;
 const DOMAIN = import.meta.env.VITE_FB_AUTH_DOMAIN;
@@ -36,7 +36,7 @@ const storage = getStorage();
 const usersCollection = collection(db, CLOUD.USERS);
 
 auth.onAuthStateChanged((user) => {
-  handleUserDataInStorage(user);
+  getDataInStorage(user);
 });
 
 export { auth, signOut, storage, db, CLOUD, usersCollection };
