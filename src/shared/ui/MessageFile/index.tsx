@@ -3,6 +3,11 @@ import { Box, CircularProgress, Fab } from '@mui/material';
 import { InsertDriveFile, Save as SaveIcon } from '@mui/icons-material';
 import s from './MessageFile.module.scss';
 
+interface MessageFileProps {
+  nameFile: string;
+  sizeFile: string;
+}
+
 const MessageFile: React.FC = () => {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -27,6 +32,7 @@ const MessageFile: React.FC = () => {
             <SaveIcon fontSize="small" />
           ) : (
             <InsertDriveFile fontSize="small" />
+            // TODO: на онклик повесить открытие файла по ссылке
           )}
         </Fab>
         {loading && (

@@ -15,6 +15,7 @@ import { v4 as uid } from 'uuid';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import s from './Input.module.scss';
 import { DOC } from 'shared/lib';
+import UploadFile from 'features/send-messages/upload-file/ui/UploadFile';
 
 const Input: React.FC = () => {
   const { id } = useAuthState();
@@ -39,6 +40,7 @@ const Input: React.FC = () => {
     if (file.type.includes('image')) {
       console.log(file.size);
     }
+    // так как компонент я заменила, не работает отравка файлов в стор
     setImageUrl(file);
   };
 
@@ -102,10 +104,11 @@ const Input: React.FC = () => {
 
   return (
     <Box className={s.send_box}>
-      <IconButton aria-label="upload avatar" component="label">
+      <UploadFile />
+      {/* <IconButton aria-label="upload avatar" component="label">
         <AttachFileIcon color="primary" />
         <input hidden type="file" onChange={handleFileUpload} />
-      </IconButton>
+      </IconButton> */}
 
       <InputBase
         multiline={true}

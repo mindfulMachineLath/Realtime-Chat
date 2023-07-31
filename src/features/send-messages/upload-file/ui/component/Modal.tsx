@@ -1,20 +1,23 @@
 import React from 'react';
 import { Box, Modal, Typography, TextField, Button } from '@mui/material';
 import s from './Modal.module.scss';
+import { MessageFile } from 'shared/ui';
 
 interface ModalProps {
   open: boolean;
   handleClose: () => void;
-  title: string;
-  file: File;
+  title?: string;
+  file?: File | null;
+  image?: string;
 }
 
 // TODO: вынести модалки в отдельный компонент
-const NestedModal: React.FC<ModalProps> = ({
+const ModalUploadFile: React.FC<ModalProps> = ({
   open,
   handleClose,
   title,
   file,
+  image,
 }) => {
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
@@ -28,22 +31,18 @@ const NestedModal: React.FC<ModalProps> = ({
           Send as a {title}
         </Typography>
 
-        <MuiInputStyled
-          label="Name"
-          defaultValue={inputDefault}
-          variant="standard"
-          className={s.input}
-          onChange={handleChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+        <div className={s.file_container}>
+          {image ? <img src={image} className={s.img} /> : <MessageFile />}
+        </div>
 
         <Box className={s.buttons_box}>
           <Button variant="text" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="text" onClick={handleSaveName}>
+          <Button
+            variant="text"
+            //   onClick={handleSaveName}
+          >
             Save
           </Button>
         </Box>
@@ -52,4 +51,4 @@ const NestedModal: React.FC<ModalProps> = ({
   );
 };
 
-export default NestedModal;
+export default ModalUploadFile;

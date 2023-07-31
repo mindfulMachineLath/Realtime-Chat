@@ -4,7 +4,7 @@ import { useAuthState, useGetActiveChat } from 'shared/hook';
 import s from './Message.module.scss';
 import { MessageFile } from 'shared/ui';
 
-interface IMessage {
+interface MessageProps {
   src?: string;
   name?: string;
   text?: string;
@@ -13,11 +13,12 @@ interface IMessage {
   isFile?: boolean;
 }
 
-const Message: React.FC<IMessage> = ({ text, own, file, isFile }) => {
+const Message: React.FC<MessageProps> = ({ text, own, file, isFile }) => {
   const { photo } = useAuthState();
   const { user } = useGetActiveChat();
 
   const ref = React.useRef<HTMLElement>();
+
   React.useEffect(() => {
     ref.current?.scrollIntoView({ behavior: 'smooth' });
   }, [text]);
@@ -29,7 +30,7 @@ const Message: React.FC<IMessage> = ({ text, own, file, isFile }) => {
     >
       <Box className={s.message_info}>
         <Avatar
-          alt="Remy Sharp"
+          alt={user.name + 'avatar'}
           src={own ? (photo as string) : (user.photo as string)}
         />
       </Box>

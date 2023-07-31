@@ -1,0 +1,40 @@
+.box_modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25rem;
+  border-radius: 10px;
+  color: var(--aliceblue);
+  padding: 1.5rem;
+  box-shadow: 2px;
+  background-color: var(--bg-modal);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  .title {
+    margin-bottom: 0.1rem;
+    text-align: left;
+    width: 100%;
+  }
+
+  .buttons_box {
+    margin-top: 0.1rem;
+    width: 80%;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .file_container {
+    text-align: left;
+    width: 100%;
+  }
+
+  .img {
+    width: 30%;
+    max-width: 500px;
+  }
+}
