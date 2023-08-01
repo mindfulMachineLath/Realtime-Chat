@@ -1,6 +1,5 @@
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { ArrowBackIosNew, MoreVert } from '@mui/icons-material';
 import { AvatarUsers, ButtonIcon } from 'shared/ui';
 import { DRAWER_WIDTH } from 'shared/const';
 import { useGetActiveChat } from 'shared/hook';
@@ -20,7 +19,7 @@ const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {
       >
         <Toolbar sx={{ gap: 2 }}>
           <ButtonIcon onClick={setMobile}>
-            <ArrowBackIosNewIcon />
+            <ArrowBackIosNew />
           </ButtonIcon>
 
           <AvatarUsers
@@ -44,7 +43,7 @@ const ChatInfo: React.FC<IChild> = ({ mobile, setMobile }) => {
               aria-label="show 4 new mails"
               color="inherit"
             >
-              <MoreVertIcon />
+              <MoreVert />
             </IconButton>
           </Box>
         </Toolbar>

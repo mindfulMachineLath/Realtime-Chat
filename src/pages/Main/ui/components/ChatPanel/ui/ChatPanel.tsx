@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { onSnapshot } from 'firebase/firestore';
-import { ChatInfo, Input, Messages } from './components';
+import { ChatInfo, Messages } from './components';
 import { useGetActiveChat } from 'shared/hook';
 import { DOC } from 'shared/lib';
 import s from './ChatPanel.module.scss';
+import { SendMessages } from 'features/send-messages';
 
 const ChatPanel: React.FC<IChild> = ({ mobile, setMobile }) => {
   const { user, chatID } = useGetActiveChat();
@@ -38,7 +39,11 @@ const ChatPanel: React.FC<IChild> = ({ mobile, setMobile }) => {
         <ChatInfo mobile={mobile} setMobile={setMobile} />
         <Box className={s.chat_message_box}>
           <Messages messages={messages} />
-          <Input />
+
+          <Box className={s.send_box}>
+            <SendMessages.UploadFile />
+            <SendMessages.Send />
+          </Box>
         </Box>
       </Box>
     </>

@@ -1,3 +1,6 @@
+@import 'src/app/styles/normalize', 'src/app/styles/vars',
+  'src/app/styles/mixins';
+
 .chat_box {
   width: 100%;
   height: 100vh;
@@ -18,5 +21,22 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+  }
+}
+
+.send_box {
+  width: 100%;
+  height: auto;
+  background-color: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 0.2rem;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  gap: 0.3rem;
+
+  @include tablet {
+    padding-right: 1rem;
   }
 }

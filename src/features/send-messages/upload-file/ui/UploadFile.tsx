@@ -10,11 +10,7 @@ import { DOC } from 'shared/lib';
 import { isImageFile } from 'shared/utils';
 import { ModalUploadFile } from './component';
 
-interface UploadFileProps {
-  sendFile: () => void;
-}
-
-const UploadFile: React.FC<UploadFileProps> = ({ sendFile }) => {
+const UploadFile: React.FC = () => {
   const [fileUpload, setFile] = React.useState<File | null>(null);
   const [fileImage, setImage] = React.useState('');
   const [value, setValue] = React.useState('');
@@ -46,6 +42,10 @@ const UploadFile: React.FC<UploadFileProps> = ({ sendFile }) => {
   };
 
   const handleSendFileToServer = async () => {
+    if (!fileUpload) {
+      return;
+    }
+
     const chatReference = DOC.chats(chatID);
 
     const storageRef = ref(storage, uid());
