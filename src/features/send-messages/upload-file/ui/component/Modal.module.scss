@@ -3,7 +3,9 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 25rem;
+  min-width: 25rem;
+  max-width: 10rem;
+
   border-radius: 10px;
   color: var(--aliceblue);
   padding: 1.5rem;
@@ -18,7 +20,7 @@
   .title {
     margin-bottom: 0.1rem;
     text-align: left;
-    width: 100%;
+    width: 80%;
   }
 
   .buttons_box {
@@ -30,11 +32,11 @@
 
   .file_container {
     text-align: left;
-    width: 100%;
+    width: 80%;
   }
 
   .img {
-    width: 30%;
+    width: 80%;
     max-width: 500px;
   }
 }

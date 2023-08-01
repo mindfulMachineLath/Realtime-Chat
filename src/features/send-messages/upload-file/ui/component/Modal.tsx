@@ -1,14 +1,17 @@
 import React from 'react';
 import { Box, Modal, Typography, TextField, Button } from '@mui/material';
 import s from './Modal.module.scss';
-import { MessageFile } from 'shared/ui';
+import { InputText, MessageFile } from 'shared/ui';
 
 interface ModalProps {
   open: boolean;
   handleClose: () => void;
   title?: string;
-  file?: File | null;
   image?: string;
+  sendFile?: () => void;
+  handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
 // TODO: вынести модалки в отдельный компонент
@@ -16,8 +19,9 @@ const ModalUploadFile: React.FC<ModalProps> = ({
   open,
   handleClose,
   title,
-  file,
   image,
+  sendFile,
+  handleChange,
 }) => {
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
@@ -35,14 +39,13 @@ const ModalUploadFile: React.FC<ModalProps> = ({
           {image ? <img src={image} className={s.img} /> : <MessageFile />}
         </div>
 
+        <InputText label="Caption" handleChange={handleChange} />
+
         <Box className={s.buttons_box}>
           <Button variant="text" onClick={handleClose}>
             Cancel
           </Button>
-          <Button
-            variant="text"
-            //   onClick={handleSaveName}
-          >
+          <Button variant="text" onClick={sendFile}>
             Save
           </Button>
         </Box>

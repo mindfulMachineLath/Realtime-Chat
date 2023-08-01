@@ -104,7 +104,7 @@ const Input: React.FC = () => {
 
   return (
     <Box className={s.send_box}>
-      <UploadFile />
+      <UploadFile sendFile={handleSendMessage} />
       {/* <IconButton aria-label="upload avatar" component="label">
         <AttachFileIcon color="primary" />
         <input hidden type="file" onChange={handleFileUpload} />

@@ -1,35 +1,16 @@
 import React from 'react';
-import { Box, Modal, Typography, TextField, Button } from '@mui/material';
-import styled from '@emotion/styled';
-import { updateFirestoreData } from 'shared/store/actions';
+import { Box, Modal, Typography, Button } from '@mui/material';
+import { updateFirestoreData } from 'shared/store';
 import { useAppDispatch, useAuthState } from 'shared/hook';
+import { InputText } from 'shared/ui';
 import s from './NestedModal.module.scss';
 
-interface IAccountModal {
+interface AccountModalProps {
   open: boolean;
   handleClose: () => void;
 }
 
-const MuiInputStyled = styled(TextField)`
-  & input {
-    color: #ffffffa8;
-  }
-
-  & input::before {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.42);
-  }
-
-  & label {
-    color: #ffffffa8;
-  }
-
-  & fieldset {
-    border-color: #ffffffa8;
-  }
-`;
-
-
-const NestedModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
+const NestedModal: React.FC<AccountModalProps> = ({ open, handleClose }) => {
   const dispatch = useAppDispatch();
   const { name } = useAuthState();
   const [inputDefault, setInputName] = React.useState(name);
@@ -66,15 +47,10 @@ const NestedModal: React.FC<IAccountModal> = ({ open, handleClose }) => {
           Edit your name
         </Typography>
 
-        <MuiInputStyled
+        <InputText
           label="Name"
           defaultValue={inputDefault}
-          variant="standard"
-          className={s.input}
-          onChange={handleChange}
-          InputLabelProps={{
-            shrink: true,
-          }}
+          handleChange={handleChange}
         />
 
         <Box className={s.buttons_box}>

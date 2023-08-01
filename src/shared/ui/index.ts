@@ -6,5 +6,6 @@ export { default as AlertMessages } from './AlertMessages';
 export { default as ChatListItem } from './ChatListItem';
 export { default as AvatarUsers } from './AvatarUsers';
 export { default as MessageFile } from './MessageFile';
+export { default as InputText } from './InputText';
 
 export * from './ErrorFallback';
