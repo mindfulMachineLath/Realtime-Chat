@@ -9,4 +9,5 @@ interface MessageFirestore {
   senderId: string;
   date: import('firebase/firestore').Timestamp;
   image?: string;
+  document?: string;
 }

@@ -1,13 +1,14 @@
 import React from 'react';
 import { IconButton } from '@mui/material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
-import ModalUploadFile from './component/Modal';
-import { DOC } from 'shared/lib';
-import { useAuthState, useGetActiveChat } from 'shared/hook';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
-import { storage } from 'firebase.config';
-import { v4 as uid } from 'uuid';
 import { updateDoc, arrayUnion, Timestamp } from 'firebase/firestore';
+import { v4 as uid } from 'uuid';
+import { storage } from 'firebase.config';
+import { useAuthState, useGetActiveChat } from 'shared/hook';
+import { DOC } from 'shared/lib';
+import { isImageFile } from 'shared/utils';
+import { ModalUploadFile } from './component';
 
 interface UploadFileProps {
   sendFile: () => void;
@@ -47,22 +48,31 @@ const UploadFile: React.FC<UploadFileProps> = ({ sendFile }) => {
   const handleSendFileToServer = async () => {
     const chatReference = DOC.chats(chatID);
 
-    if (fileUpload) {
-      const storageRef = ref(storage, uid());
-      await uploadBytesResumable(storageRef, fileUpload).then(() => {
-        getDownloadURL(storageRef).then(async (downloadURL) => {
-          await updateDoc(chatReference, {
-            messages: arrayUnion({
-              id: uid(),
-              image: downloadURL,
-              senderId: id,
-              date: Timestamp.now(),
-              text: value,
-            }),
-          });
+    const storageRef = ref(storage, uid());
+    await uploadBytesResumable(storageRef, fileUpload).then(() => {
+      getDownloadURL(storageRef).then(async (downloadURL) => {
+        await updateDoc(chatReference, {
+          messages: arrayUnion(
+            // проверяем какого типа файл, если изображение - делаем запись в image, нет - в document
+            isImageFile(fileUpload)
+              ? {
+                  id: uid(),
+                  image: downloadURL,
+                  senderId: id,
+                  date: Timestamp.now(),
+                  text: value,
+                }
+              : {
+                  id: uid(),
+                  document: downloadURL,
+                  senderId: id,
+                  date: Timestamp.now(),
+                  text: value,
+                }
+          ),
         });
       });
-    }
+    });
   };
 
   const handleCancelMessage = () => {
