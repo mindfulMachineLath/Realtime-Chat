@@ -1,19 +1,18 @@
 import React from 'react';
 import { Avatar, Box, Typography } from '@mui/material';
 import { useAuthState, useGetActiveChat } from 'shared/hook';
-import s from './Message.module.scss';
 import { MessageFile } from 'shared/ui';
+import s from './Message.module.scss';
 
 interface MessageProps {
-  src?: string;
   name?: string;
   text?: string;
-  file?: string;
+  image?: string;
   own?: boolean;
-  isFile?: boolean;
+  doc?: IDocument;
 }
 
-const Message: React.FC<MessageProps> = ({ text, own, file, isFile }) => {
+const Message: React.FC<MessageProps> = ({ text, own, image, doc }) => {
   const { photo } = useAuthState();
   const { user } = useGetActiveChat();
 
@@ -35,14 +34,20 @@ const Message: React.FC<MessageProps> = ({ text, own, file, isFile }) => {
         />
       </Box>
 
-      {!file ? (
+      {!image ? (
         <Box className={s.message_text}>
-          <MessageFile />
-
-          <Typography variant="body2">{text}</Typography>
+          {doc && <MessageFile nameFile={doc.name} sizeFile={doc.size} />}
+          {text && <Typography variant="body2">{text}</Typography>}
         </Box>
       ) : (
-        <img src={file} className={s.img} />
+        <Box className={s.message_image}>
+          <img src={image} className={s.img} />
+          {text && (
+            <Box className={s.message_text}>
+              <Typography variant="body2">{text}</Typography>
+            </Box>
+          )}
+        </Box>
       )}
     </Box>
   );

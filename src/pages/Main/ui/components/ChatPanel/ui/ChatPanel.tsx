@@ -1,11 +1,11 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { onSnapshot } from 'firebase/firestore';
+import { SendMessages } from 'features/send-messages';
 import { ChatInfo, Messages } from './components';
 import { useGetActiveChat } from 'shared/hook';
 import { DOC } from 'shared/lib';
 import s from './ChatPanel.module.scss';
-import { SendMessages } from 'features/send-messages';
 
 const ChatPanel: React.FC<IChild> = ({ mobile, setMobile }) => {
   const { user, chatID } = useGetActiveChat();

@@ -19,7 +19,8 @@ const Messages: React.FC<MessagesProps> = ({ messages }) => {
             key={m.id}
             text={m.text}
             own={m.senderId === id}
-            file={m.image}
+            image={m.image}
+            doc={m.document}
           />
         ))}
       </div>

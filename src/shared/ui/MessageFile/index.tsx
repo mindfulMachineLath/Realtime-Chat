@@ -4,11 +4,11 @@ import { InsertDriveFile, Save as SaveIcon } from '@mui/icons-material';
 import s from './MessageFile.module.scss';
 
 interface MessageFileProps {
-  nameFile: string;
-  sizeFile: string;
+  nameFile?: string;
+  sizeFile?: string;
 }
 
-const MessageFile: React.FC = () => {
+const MessageFile: React.FC<MessageFileProps> = ({ nameFile, sizeFile }) => {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
 
@@ -49,9 +49,8 @@ const MessageFile: React.FC = () => {
         )}
 
         <div className={s['file-data']}>
-          <p>name</p>
-          {/* TODO: передавать сюда значения */}
-          <span>size</span>
+          <p>{nameFile}</p>
+          <span>{sizeFile}</span>
         </div>
       </Box>
     </>

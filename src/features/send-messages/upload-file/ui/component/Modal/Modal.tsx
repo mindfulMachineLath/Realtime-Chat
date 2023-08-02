@@ -12,9 +12,9 @@ interface ModalProps {
   handleChange: (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
+  file: File | null;
 }
 
-// TODO: вынести модалки в отдельный компонент
 const ModalUploadFile: React.FC<ModalProps> = ({
   open,
   handleClose,
@@ -22,6 +22,7 @@ const ModalUploadFile: React.FC<ModalProps> = ({
   image,
   sendFile,
   handleChange,
+  file,
 }) => {
   return (
     <Modal open={open} onClose={handleClose} aria-labelledby="modal-title">
@@ -36,7 +37,11 @@ const ModalUploadFile: React.FC<ModalProps> = ({
         </Typography>
 
         <div className={s.file_container}>
-          {image ? <img src={image} className={s.img} /> : <MessageFile />}
+          {image ? (
+            <img src={image} className={s.img} />
+          ) : (
+            <MessageFile nameFile={file?.name} sizeFile={String(file?.size)} />
+          )}
         </div>
 
         <InputText label="Caption" handleChange={handleChange} />

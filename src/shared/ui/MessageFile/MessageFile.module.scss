@@ -1,9 +1,9 @@
 .box_file-message {
   display: flex;
-  width: 12rem;
+  min-width: 12rem;
   gap: 1rem;
 
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
 }
 
 .file-data {

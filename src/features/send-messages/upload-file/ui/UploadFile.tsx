@@ -64,7 +64,11 @@ const UploadFile: React.FC = () => {
                 }
               : {
                   id: uid(),
-                  document: downloadURL,
+                  document: {
+                    path: downloadURL,
+                    name: fileUpload.name,
+                    size: fileUpload.size,
+                  },
                   senderId: id,
                   date: Timestamp.now(),
                   text: value,
@@ -94,6 +98,7 @@ const UploadFile: React.FC = () => {
         image={fileImage}
         sendFile={handleSendFileToServer}
         handleChange={handleKeyBoard}
+        file={fileUpload as File}
       />
     </>
   );
