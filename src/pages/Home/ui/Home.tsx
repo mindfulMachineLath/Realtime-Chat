@@ -5,8 +5,8 @@ import { Typography } from '@mui/material';
 import { ROUTES } from 'pages/config';
 import { Form } from 'features/form';
 import { useAuthState } from 'shared/hook';
-import styles from './Home.module.scss';
 import { ErrorBoundary } from 'shared/hoc';
+import styles from './Home.module.scss';
 
 const Home: React.FC = () => {
   const { isAuth } = useAuthState();

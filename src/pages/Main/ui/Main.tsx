@@ -1,11 +1,12 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Box } from '@mui/material';
 import { useAppDispatch, useAuthState } from 'shared/hook';
-import { getFirestoreData } from 'shared/store/actions';
 import { AlertMessages, Loader } from 'shared/ui';
+import { ErrorBoundary } from 'shared/hoc';
+import { getFirestoreData } from 'shared/store';
 import { ChatPanel, SideBar } from './components';
 import { AccountModal } from 'features/search-users/drawer/ui/component/Menu/components';
-import { ErrorBoundary } from 'shared/hoc';
 
 const Main: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -44,12 +45,17 @@ const Main: React.FC = () => {
   }
 
   return (
-    <ErrorBoundary type="page">
-      <Box sx={{ display: 'flex' }}>
-        <SideBar mobile={mobileOpen} setMobile={handleDrawerToggle} />
-        <ChatPanel mobile={mobileOpen} setMobile={handleDrawerToggle} />
-      </Box>
-    </ErrorBoundary>
+    <>
+      <Helmet>
+        <title>MAIN</title>
+      </Helmet>
+      <ErrorBoundary type="page">
+        <Box sx={{ display: 'flex' }}>
+          <SideBar mobile={mobileOpen} setMobile={handleDrawerToggle} />
+          <ChatPanel mobile={mobileOpen} setMobile={handleDrawerToggle} />
+        </Box>
+      </ErrorBoundary>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Modal, Typography, TextField, Button } from '@mui/material';
-import s from './Modal.module.scss';
+import { Box, Modal, Typography, Button } from '@mui/material';
 import { InputText, MessageFile } from 'shared/ui';
+import s from './Modal.module.scss';
 
 interface ModalProps {
   open: boolean;
