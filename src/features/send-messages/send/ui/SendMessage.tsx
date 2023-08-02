@@ -23,6 +23,11 @@ const SendMessage: React.FC = () => {
   };
 
   const handleSendMessage = async () => {
+    // Не отправляем на сервер пустых текстовых сообщений
+    if (value.replace(/\s/g, '') === '') {
+      return;
+    }
+
     const chatReference = DOC.chats(chatID);
 
     await updateDoc(chatReference, {

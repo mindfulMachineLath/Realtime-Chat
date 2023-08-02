@@ -48,6 +48,8 @@ const UploadFile: React.FC = () => {
 
     const chatReference = DOC.chats(chatID);
 
+    // TODO: чтобы отслеживать состояние загрузки, перенести это в экшен
+
     const storageRef = ref(storage, uid());
     await uploadBytesResumable(storageRef, fileUpload).then(() => {
       getDownloadURL(storageRef).then(async (downloadURL) => {
@@ -77,6 +79,8 @@ const UploadFile: React.FC = () => {
         });
       });
     });
+
+    setClose(false);
   };
 
   const handleCancelMessage = () => {
