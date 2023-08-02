@@ -3,14 +3,9 @@ import { Box, Modal, Typography, Button } from '@mui/material';
 import { updateFirestoreData } from 'shared/store';
 import { useAppDispatch, useAuthState } from 'shared/hook';
 import { InputText } from 'shared/ui';
-import s from './NestedModal.module.scss';
+import s from './Modal.module.scss';
 
-interface AccountModalProps {
-  open: boolean;
-  handleClose: () => void;
-}
-
-const NestedModal: React.FC<AccountModalProps> = ({ open, handleClose }) => {
+const NestedModal: React.FC<AccountDataProps> = ({ open, handleClose }) => {
   const dispatch = useAppDispatch();
   const { name } = useAuthState();
   const [inputDefault, setInputName] = React.useState(name);

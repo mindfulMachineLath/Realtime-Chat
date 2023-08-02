@@ -6,7 +6,7 @@ import { AlertMessages, Loader } from 'shared/ui';
 import { ErrorBoundary } from 'shared/hoc';
 import { getFirestoreData } from 'shared/store';
 import { ChatPanel, SideBar } from './components';
-import { AccountModal } from 'features/search-users/drawer/ui/component/Menu/components';
+import { SettingsProfile } from 'features/edit-profile';
 
 const Main: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -35,7 +35,7 @@ const Main: React.FC = () => {
           severity="error"
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         />
-        <AccountModal
+        <SettingsProfile.AccountData
           open={openModal}
           handleClose={() => setOpenModal(true)}
           active={true}

@@ -9,19 +9,13 @@ import {
   Paper,
   CircularProgress,
 } from '@mui/material';
-import { useAppDispatch, useAuthState } from 'shared/hook';
 import { CameraAlt, Person, LocalPhone } from '@mui/icons-material';
-import NestedModal from './NestedModal';
-import { uploadFireStoreFile } from 'shared/store/actions';
-import s from './AccountModal.module.scss';
+import { useAppDispatch, useAuthState } from 'shared/hook';
+import { uploadFireStoreFile } from 'shared/store';
+import { SettingModal } from './components';
+import s from './AccountData.module.scss';
 
-interface IAccountModal {
-  open: boolean;
-  handleClose: () => void;
-  active?: boolean;
-}
-
-const AccountModal: React.FC<IAccountModal> = ({
+const AccountData: React.FC<AccountDataProps> = ({
   open,
   handleClose,
   active,
@@ -49,7 +43,10 @@ const AccountModal: React.FC<IAccountModal> = ({
       aria-describedby="modal-modal-description"
     >
       <Box className={s.box_modal}>
-        <NestedModal open={openModal} handleClose={() => setOpenModal(false)} />
+        <SettingModal
+          open={openModal}
+          handleClose={() => setOpenModal(false)}
+        />
 
         <Badge
           component="label"
@@ -140,4 +137,4 @@ const AccountModal: React.FC<IAccountModal> = ({
   );
 };
 
-export default AccountModal;
+export default AccountData;

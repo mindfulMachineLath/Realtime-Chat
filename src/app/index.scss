@@ -63,7 +63,7 @@ html {
 }
 
 .MuiListItemText-secondary {
-  color: #0daba0bd !important;
+  color: var(--text-second-transparent) !important;
 }
 
 .MuiInputBase-root {

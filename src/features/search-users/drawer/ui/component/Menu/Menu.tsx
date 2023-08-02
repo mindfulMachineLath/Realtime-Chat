@@ -1,5 +1,10 @@
 import React from 'react';
-import { Logout, Settings, AddAPhoto } from '@mui/icons-material';
+import {
+  Logout,
+  Settings,
+  AddAPhoto,
+  Menu as MenuIcon,
+} from '@mui/icons-material';
 import {
   Avatar,
   CircularProgress,
@@ -10,12 +15,11 @@ import {
   MenuItem,
   Tooltip,
 } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import { auth, signOut } from 'firebase.config';
+import { SettingsProfile } from 'features/edit-profile';
 import { useAppDispatch, useLogOut, useAuthState } from 'shared/hook';
 import { AlertMessages } from 'shared/ui';
-import { uploadFireStoreFile } from 'shared/store/actions';
-import { AccountModal } from './components';
+import { uploadFireStoreFile } from 'shared/store';
 
 const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -146,7 +150,10 @@ const Profile: React.FC = () => {
         </MenuItem>
       </Menu>
 
-      <AccountModal open={openModal} handleClose={() => setOpenModal(false)} />
+      <SettingsProfile.AccountData
+        open={openModal}
+        handleClose={() => setOpenModal(false)}
+      />
     </>
   );
 };
