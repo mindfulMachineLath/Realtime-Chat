@@ -2,9 +2,9 @@ import React from 'react';
 import { onSnapshot } from 'firebase/firestore';
 import { Typography } from '@mui/material';
 import { useAppDispatch, useAuthState } from 'shared/hook';
-import { changeUser } from 'shared/store/reducers/ChatsSlice';
 import { DOC } from 'shared/lib';
 import { ChatListItem } from 'shared/ui';
+import { changeUser } from 'shared/store';
 
 const Chats: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,9 +18,25 @@ const Chats: React.FC = () => {
 
   // получаем данные о чатах юзера
   React.useEffect(() => {
-    const unsub = onSnapshot(DOC.userChats(id), (doc) => {
-      setChat(Object.entries(doc.data() as ChatsData));
-    });
+    const unsub = onSnapshot(
+      DOC.userChats(id),
+      { includeMetadataChanges: true },
+      (doc) => {
+        // отслеживаем только изменения на сервере, без локальных
+        if (!doc.metadata.hasPendingWrites) {
+          // TODO:
+          const sortArray = Object.entries(doc.data() as ChatsData).sort(
+            (a: [string, Data], b: [string, Data]) => {
+              const firstDate = a[1].date?.toDate().getTime();
+              const secondDate = b[1].date?.toDate().getTime();
+              return secondDate > firstDate ? 1 : -1;
+            }
+          );
+
+          setChat(sortArray);
+        }
+      }
+    );
 
     return () => {
       unsub;
@@ -41,6 +57,8 @@ const Chats: React.FC = () => {
     <>
       {chat.map(([idChats, chatData]) => {
         const isCurrentUserChat = chatData.userInfo?.id === id;
+
+        // console.log(chatData.date.toDate());
 
         return (
           <ChatListItem
