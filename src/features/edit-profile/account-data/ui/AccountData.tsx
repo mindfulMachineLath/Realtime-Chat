@@ -35,6 +35,21 @@ const AccountData: React.FC<AccountDataProps> = ({
     dispatch(uploadFireStoreFile(file));
   };
 
+  const gridData = [
+    {
+      xs: 1,
+      icon: () => <Person className={s.icon} />,
+      title: 'Name',
+      userData: loadingName ? 'update...' : name,
+    },
+    {
+      xs: 1,
+      icon: () => <LocalPhone className={s.icon} />,
+      title: 'Phone number',
+      userData: phoneNumber,
+    },
+  ];
+
   return (
     <Modal
       open={open}
@@ -89,48 +104,30 @@ const AccountData: React.FC<AccountDataProps> = ({
         </Typography>
 
         <Box className={s.box_person}>
-          {/* name grid */}
-          <Grid
-            container
-            spacing={3}
-            className={
-              active
-                ? `${s.person__data_container} ${s.active_container}`
-                : s.person__data_container
-            }
-            onClick={() => setOpenModal(true)}
-          >
-            <Grid item xs={1} className={s.data_container}>
-              <Paper className={s.person_data}>
-                <Person className={s.icon} />
-              </Paper>
-            </Grid>
+          {gridData.map((gridParent, index) => (
+            <Grid
+              container
+              spacing={3}
+              className={
+                active
+                  ? `${s.person__data_container} ${s.active_container}`
+                  : s.person__data_container
+              }
+              onClick={index === 0 ? () => setOpenModal(true) : undefined}
+            >
+              <Grid item xs={1} className={s.data_container}>
+                <Paper className={s.person_data}>{gridParent.icon()}</Paper>
+              </Grid>
 
-            <Grid item xs={6} className={s.data_container}>
-              <Paper className={s.person_data}>Name</Paper>
-            </Grid>
+              <Grid item xs className={s.data_container}>
+                <Paper className={s.person_data}>{gridParent.title}</Paper>
+              </Grid>
 
-            <Grid item xs className={s.data_container}>
-              <Paper className={s.person_data}>
-                {loadingName ? 'update...' : name}
-              </Paper>
+              <Grid item xs className={s.data_container}>
+                <Paper className={s.person_data}>{gridParent.userData}</Paper>
+              </Grid>
             </Grid>
-          </Grid>
-
-          {/* phone number grid */}
-          <Grid container spacing={3} className={s.person__data_container}>
-            <Grid item xs={1} className={s.data_container}>
-              <Paper className={s.person_data}>
-                <LocalPhone className={s.icon} />
-              </Paper>
-            </Grid>
-            <Grid item xs={6} className={s.data_container}>
-              <Paper className={s.person_data}>Phone number</Paper>
-            </Grid>
-            <Grid item xs className={s.data_container}>
-              <Paper className={s.person_data}>{phoneNumber}</Paper>
-            </Grid>
-          </Grid>
+          ))}
         </Box>
       </Box>
     </Modal>

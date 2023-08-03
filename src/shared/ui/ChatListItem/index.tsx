@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListItem, ListItemAvatar, ListItemText } from '@mui/material';
-import AvatarUsers from '../AvatarUsers';
+import { AvatarUsers } from 'shared/ui';
 
 interface ChatListItemProps {
   onClick: () => void;

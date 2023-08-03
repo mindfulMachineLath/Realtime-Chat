@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider } from '@mui/material';
 import { useAppDispatch, useAuthState } from 'shared/hook';
-import { changeUser } from 'shared/store/reducers/ChatsSlice';
+import { changeUser } from 'shared/store';
 import { ChatListItem } from 'shared/ui';
 
 interface FoundUsersProps {
