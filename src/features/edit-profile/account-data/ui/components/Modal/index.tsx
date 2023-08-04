@@ -5,7 +5,10 @@ import { useAppDispatch, useAuthState } from 'shared/hook';
 import { InputText } from 'shared/ui';
 import s from './Modal.module.scss';
 
-const NestedModal: React.FC<AccountDataProps> = ({ open, handleClose }) => {
+const SettingAccountModal: React.FC<AccountDataProps> = ({
+  open,
+  handleClose,
+}) => {
   const dispatch = useAppDispatch();
   const { name } = useAuthState();
   const [inputDefault, setInputName] = React.useState(name);
@@ -61,4 +64,4 @@ const NestedModal: React.FC<AccountDataProps> = ({ open, handleClose }) => {
   );
 };
 
-export default NestedModal;
+export default SettingAccountModal;

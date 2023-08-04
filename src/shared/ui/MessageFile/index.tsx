@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Box, CircularProgress, Fab } from '@mui/material';
 import { InsertDriveFile, Save as SaveIcon } from '@mui/icons-material';
+import { formatBytes } from 'shared/utils';
 import s from './MessageFile.module.scss';
 
 interface MessageFileProps {
@@ -11,6 +12,8 @@ interface MessageFileProps {
 const MessageFile: React.FC<MessageFileProps> = ({ nameFile, sizeFile }) => {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
+
+  const size = formatBytes(Number(sizeFile));
 
   const handleButtonClick = () => {
     if (!loading) {
@@ -50,7 +53,7 @@ const MessageFile: React.FC<MessageFileProps> = ({ nameFile, sizeFile }) => {
 
         <div className={s['file-data']}>
           <p>{nameFile}</p>
-          <span>{sizeFile}</span>
+          <span>{size}</span>
         </div>
       </Box>
     </>
