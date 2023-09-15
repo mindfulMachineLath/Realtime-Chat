@@ -2,11 +2,11 @@ import { ROUTES } from 'pages/config';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuthState } from 'shared/hook';
 
-interface IRequireAuth {
+interface PrivateRouteProps {
   children: JSX.Element;
 }
 
-const PrivateRoute = ({ children }: IRequireAuth) => {
+const PrivateRoute = ({ children }: PrivateRouteProps) => {
   const location = useLocation();
   const { isAuth } = useAuthState();
 
