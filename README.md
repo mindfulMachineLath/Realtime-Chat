@@ -14,7 +14,7 @@
 
 ## Screenshot
 
-![image](https://github.com/Alesia-Abaeva/chat-app/assets/101274979/009205af-4a45-4b41-8871-ac4665caa776)
+![Untitled](https://github.com/undersky0827/Realtime-Chat/assets/3600972/6a32945b-09fd-46ea-a0be-98d46ba5cb80)
 
 ## Tech stack
 
